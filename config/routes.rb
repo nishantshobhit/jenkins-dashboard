@@ -6,4 +6,6 @@ JenkinsDashboard::Application.routes.draw do
   resources :users
   resources :sessions
   resources :dashboard
+  resources :builds
+  resources :jobs
 end
