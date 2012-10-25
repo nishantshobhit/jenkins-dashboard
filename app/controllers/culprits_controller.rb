@@ -3,11 +3,9 @@ class CulpritsController < ApplicationController
   
   def index
     
-    @culprits = get_culprits
+    @culprits = Culprit.find(:all)
     
-    respond_to do |format|
-      format.json { render :json=> @culprits.to_json }
-    end
+    render :json => @culprits
     
   end
   

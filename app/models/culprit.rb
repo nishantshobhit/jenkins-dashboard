@@ -17,4 +17,10 @@ class Culprit < ActiveRecord::Base
     end
   end
   
+  def as_json(options={})
+    @json = super(:only => [:name, :count])
+    colour = "%06x" % (rand * 0xffffff)
+    @json = {:value => @json["count"], :label => @json["name"], :color => colour.upcase} 
+  end
+  
 end
