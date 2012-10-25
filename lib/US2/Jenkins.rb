@@ -21,19 +21,19 @@ module US2
           @job = Job.from_api_response(job)
           if @job.save
               get_build(@job) do |build|
-                buld.save
+                build.save
               end
           end
         end
       end
     end
     
-    def get_build(job, callback)
+    def get_build(job, &block)
       build_url = latest_build_url(job)
       response = HTTParty.get("#{build_url}api/json", :basic_auth => @auth)
       @build = Build.from_api_response(response)
       @build.job = job
-      callback(@build)
+      block.call(@build)
     end
     
     private

@@ -10,8 +10,16 @@ class Build < ActiveRecord::Base
       duration = api_response["duration"]
       name = api_response["fullDisplayName"]
       number = api_response["number"]
-      culprit = api_response["culprits"].first["fullName"]
-      @build = Build.new(:duration => duration, :name => name, :number => number, :culprit => culprit)
+      
+      # check for a culprit
+      unless api_response["culprits"].length == 0
+        culprit_json = api_response["culprits"].first
+        culprit = culprit_json["fullName"]
+        @build = Build.new(:duration => duration, :name => name, :number => number, :culprit => culprit)
+      else
+        # dont write one if there is
+        @build = Build.new(:duration => duration, :name => name, :number => number)
+      end
       @build
     end
     
