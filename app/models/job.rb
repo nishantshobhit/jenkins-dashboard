@@ -20,6 +20,7 @@ class Job < ActiveRecord::Base
         @job
       end
     end
+    
   end
   
   def status_name

@@ -8,4 +8,5 @@ JenkinsDashboard::Application.routes.draw do
   resources :dashboard
   resources :builds
   resources :jobs
+  resources :culprits
 end

@@ -21,6 +21,7 @@ module US2
           get_build(@job) do |build|
             unless Build.has(build)
               build.save
+              Culprit.update(build)
             end
           end
         end
