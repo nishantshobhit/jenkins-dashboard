@@ -21,7 +21,9 @@ module US2
           @job = Job.from_api_response(job)
           if @job.save
               get_build(@job) do |build|
-                build.save
+                unless Build.has(build)
+                  build.save
+                end
               end
           end
         end
