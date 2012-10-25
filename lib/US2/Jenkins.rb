@@ -34,7 +34,7 @@ module US2
       build_url = latest_build_url(job)
       response = HTTParty.get("#{build_url}api/json", :basic_auth => @auth)
       @build = Build.from_api_response(response)
-      @build.job = job
+      @build.job ||= Job.find(job.id)
       block.call(@build)
     end
     
