@@ -20,12 +20,11 @@ class Build < ActiveRecord::Base
         # dont write one if there is
         @build = Build.new(:duration => duration, :name => name, :number => number)
       end
-      
       @build
     end
     
     def has(build)
-      @query ||= Build.find(:all, :conditions => {:number => build.number, :name => build.name})
+      @query = Build.find(:all, :conditions => {:number => build.number, :name => build.name})
       @query.any?
     end
     
