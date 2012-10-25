@@ -1,8 +1,8 @@
 <ul>
 <% @jobs.each do |job| %>
     <li>
+      <h3><%= job.name %></h3>
       <ul>
-        <h2><%= job.name %></h2>
         <% job.builds.each do |build| %>
           <li><%= build.name %></li>
         <% end %>

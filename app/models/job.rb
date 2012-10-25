@@ -8,10 +8,18 @@ class Job < ActiveRecord::Base
   class << self
     
     def from_api_response(api_response)
-      @job = Job.new(:name => api_response["name"], :status => api_response["color"], :url => api_response["url"])
-      @job
+      @query ||= Job.find(:all, :conditions => {:url => api_response["url"], :name => api_response["name"]})
+      # see if we have the job in the db already and just update it if so
+      unless @query.any?
+        @job = Job.new(:name => api_response["name"], :status => api_response["color"], :url => api_response["url"])      
+        @job.save
+        @job
+      else
+        @job = @query.first
+        @job.update_attributes(:status => api_response["color"])
+        @job
+      end
     end
-    
   end
   
   def status_name

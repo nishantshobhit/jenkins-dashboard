@@ -16,15 +16,12 @@ module US2
       url = @config["client_url"] + "/view/WallDisplay/api/json/"
       response = HTTParty.get(url, :basic_auth => @auth)
       if response["jobs"]
-        Job.delete_all
         response["jobs"].each do |job|
           @job = Job.from_api_response(job)
-          if @job.save
-              get_build(@job) do |build|
-                unless Build.has(build)
-                  build.save
-                end
-              end
+          get_build(@job) do |build|
+            unless Build.has(build)
+              build.save
+            end
           end
         end
       end
@@ -34,7 +31,7 @@ module US2
       build_url = latest_build_url(job)
       response = HTTParty.get("#{build_url}api/json", :basic_auth => @auth)
       @build = Build.from_api_response(response)
-      @build.job ||= Job.find(job.id)
+      @build.job = job
       block.call(@build)
     end
     
