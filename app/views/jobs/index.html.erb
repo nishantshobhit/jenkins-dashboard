@@ -4,7 +4,7 @@
       <h3><%= job.name %></h3>
       <ul>
         <% job.builds.each do |build| %>
-          <li><%= build.name %></li>
+        <li><%= build.name %> (<%= build.success? ? 'worked' : 'failed' %>)</li>
         <% end %>
       </ul>
     </li>

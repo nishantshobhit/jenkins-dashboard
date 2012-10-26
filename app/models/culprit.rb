@@ -3,11 +3,13 @@ class Culprit < ActiveRecord::Base
   
   class << self
     def update(build)
-      unless build.culprit.nil?
+      unless build.success || build.culprit.nil?
         @query = Culprit.find(:all, :conditions => {:name => build.culprit})
         if @query.length == 0
-          @culprit = Culprit.new(:name => build.culprit, :count => 0)
-          @culprit.save
+          @culprit = Culprit.new(:name => build.culprit, :count => 1)
+          if @culprit.name
+            @culprit.save
+          end
         else
           @culprit = @query.first
           count = @culprit.count + 1
@@ -15,12 +17,6 @@ class Culprit < ActiveRecord::Base
         end
       end
     end
-  end
-  
-  def as_json(options={})
-    @json = super(:only => [:name, :count])
-    colour = "%06x" % (rand * 0xffffff)
-    @json = {:value => @json["count"], :label => @json["name"], :color => colour.upcase} 
   end
   
 end
