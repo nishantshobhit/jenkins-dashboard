@@ -2,6 +2,7 @@ class Build < ActiveRecord::Base
   attr_accessible :duration, :name, :number, :culprit, :success
   validates_presence_of :name, :number, :duration
   
+  has_and_belongs_to_many :culprits
   belongs_to :job
   
   class << self
@@ -11,8 +12,11 @@ class Build < ActiveRecord::Base
       name = api_response["fullDisplayName"]
       number = api_response["number"]
       result = api_response["result"]
+      
+      culprits = parse_culprits(api_response["culprits"])
+      
       # check for a culprit
-      unless api_response["culprits"].length == 0
+      unless culprits.length == 0
         culprit_json = api_response["culprits"].first
         culprit = culprit_json["fullName"]
         @build = Build.new(:duration => duration, :name => name, :number => number, :culprit => culprit, :success => result)
@@ -36,6 +40,10 @@ class Build < ActiveRecord::Base
     else
       write_attribute(:success, true)
     end
+  end
+  
+  def parse_culprits(json)
+    #loop through culprits, create objects and return array
   end
 
 end

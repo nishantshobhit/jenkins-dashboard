@@ -10,7 +10,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121026141711) do
+ActiveRecord::Schema.define(:version => 20121026154704) do
 
   create_table "builds", :force => true do |t|
     t.integer  "job_id"
@@ -21,6 +21,11 @@ ActiveRecord::Schema.define(:version => 20121026141711) do
     t.datetime "created_at", :null => false
     t.datetime "updated_at", :null => false
     t.boolean  "success"
+  end
+
+  create_table "builds_culprits", :id => false, :force => true do |t|
+    t.integer "build_id"
+    t.integer "culprit_id"
   end
 
   create_table "culprits", :force => true do |t|
