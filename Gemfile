@@ -27,6 +27,7 @@ gem "bcrypt-ruby", :require => "bcrypt"
 gem 'whenever', :require => false
 gem "d3-rails", "~> 0.0.5"
 gem "haml", "~> 3.1.7"
+gem "rspec", "~> 2.11.0"
 
 # To use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.0.0'
