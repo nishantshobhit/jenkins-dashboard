@@ -1,5 +1,5 @@
 class Build < ActiveRecord::Base
-  attr_accessible :duration, :name, :number, :culprit, :success
+  attr_accessible :duration, :name, :number, :success
   validates_presence_of :name, :number, :duration
   
   has_and_belongs_to_many :culprits
@@ -7,43 +7,29 @@ class Build < ActiveRecord::Base
   
   class << self
     
-    def from_api_response(api_response)
+    def from_api_response(api_response,job)
+      #set up vars
       duration = api_response["duration"]
       name = api_response["fullDisplayName"]
       number = api_response["number"]
-      result = api_response["result"]
-      
-      culprits = parse_culprits(api_response["culprits"])
-      
-      # check for a culprit
-      unless culprits.length == 0
-        culprit_json = api_response["culprits"].first
-        culprit = culprit_json["fullName"]
-        @build = Build.new(:duration => duration, :name => name, :number => number, :culprit => culprit, :success => result)
-      else
-        # dont write one if there is
-        @build = Build.new(:duration => duration, :name => name, :number => number, :success => result)
-      end
+      result = api_response["result"] == "FAILURE" ? false : true;
+      # create new build
+      @build = Build.new(:duration => duration, :name => name, :number => number, :success => result)
+      # return nil if we've already saved this build
+      return nil if @build.is_in_database;
+      # assign job
+      @build.job = job
+      # assign culprits
+      @build.culprits = Culprit.culprits_from_api_response(api_response["culprits"], @build) unless @build.success
+      #return build
       @build
     end
     
-    def has(build)
-      @query = Build.find(:all, :conditions => {:number => build.number, :name => build.name})
-      @query.any?
-    end
-    
-  end
-  
-  def success=(value)
-    if value == "FAILURE"
-      write_attribute(:success, false)
-    else
-      write_attribute(:success, true)
-    end
-  end
-  
-  def parse_culprits(json)
-    #loop through culprits, create objects and return array
   end
 
+  def is_in_database
+    @query = Build.find(:all, :conditions => {:number => self.number, :name => self.name})
+    @query.any?
+  end
+  
 end

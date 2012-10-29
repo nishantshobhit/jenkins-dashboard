@@ -18,21 +18,17 @@ module US2
       if response["jobs"]
         response["jobs"].each do |job|
           @job = Job.from_api_response(job)
-          get_build(@job) do |build|
-            unless Build.has(build)
-              build.save
-              Culprit.update(build)
-            end
+          get_latest_build(@job) do |build|
+            build.save unless build.nil?
           end
         end
       end
     end
     
-    def get_build(job, &block)
+    def get_latest_build(job, &block)
       build_url = latest_build_url(job)
       response = HTTParty.get("#{build_url}api/json", :basic_auth => @auth)
-      @build = Build.from_api_response(response)
-      @build.job = job
+      @build = Build.from_api_response(response,job)
       block.call(@build)
     end
     
