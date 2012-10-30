@@ -95,53 +95,51 @@ describe Build, "-" do
       test_build.culprits.should be_empty
     end
     
-    it "should increment count when build has culprits" do
-      Culprit.stub(:culprits_from_api_response) {[test_culprit]}
-      build = Build.new()
-      Build.stub(:new){build}
+    describe "and incrementing culprit count" do
       
-      build.should_receive(:increment_culprits_count).exactly(1).times
+      it "should increment count when build has culprits" do
+        Culprit.stub(:culprits_from_api_response) {[test_culprit]}
+        build = Build.new()
+        Build.stub(:new){build}
       
-      # parse
-      test_build
-    end
+        build.should_receive(:increment_culprits_count).exactly(1).times
+      
+        # parse
+        test_build
+      end
     
-    it "should not increment count when build has no culprits" do
-      Culprit.stub(:culprits_from_api_response) {[]}
-      build = Build.new()
-      Build.stub(:new){build}
+      it "should not increment count when build has no culprits" do
+        Culprit.stub(:culprits_from_api_response) {[]}
+        build = Build.new()
+        Build.stub(:new){build}
       
-      build.should_receive(:increment_culprits_count).exactly(0).times
+        build.should_receive(:increment_culprits_count).exactly(0).times
       
-      # parse
-      test_build
-    end
+        # parse
+        test_build
+      end
     
-    it "should not increment culprit counts for succesful builds" do
-      Culprit.stub(:culprits_from_api_response) {[]}
-      build = Build.new()
-      build.success = true
-      Build.stub(:new){build}
+      it "should not increment culprit counts for succesful builds" do
+        Culprit.stub(:culprits_from_api_response) {[]}
+        build = Build.new(:success => true)
+        Build.stub(:new){build}
       
-      build.should_receive(:increment_culprits_count).exactly(0).times
+        build.should_receive(:increment_culprits_count).exactly(0).times
       
-      # parse
-      test_build
-    end
+        # parse
+        test_build
+      end
     
-    it "should increment culprit counts for failed builds" do
-      Culprit.stub(:culprits_from_api_response) {[test_culprit]}
-      build = Build.new()
-      build.success = false
-      Build.stub(:new){build}
+      it "should increment culprit counts for failed builds" do
+        Culprit.stub(:culprits_from_api_response) {[test_culprit]}
+        build = Build.new(:success => false)
+        Build.stub(:new){build}
       
-      build.should_receive(:increment_culprits_count).exactly(1).times
+        build.should_receive(:increment_culprits_count).exactly(1).times
       
-      # parse
-      test_build
-    end
-    
-    describe "when incrementing culprit count" do
+        # parse
+        test_build
+      end
       
       it "should add one to the existing count" do
         culprit = test_culprit      
