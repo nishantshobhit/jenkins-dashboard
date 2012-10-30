@@ -9,6 +9,7 @@ describe Build, "-" do
     json["fullDisplayName"] = "Mr Test"
     json["result"] = true
     json["number"] = 1
+    json["url"] = "http://test.com"
     json
   end
   
@@ -52,6 +53,10 @@ describe Build, "-" do
       test_build.duration.should eq(1)
     end
     
+    it "should assign a url" do
+      test_build.url.should eq("http://test.com")
+    end
+    
     it "should assign name" do
       test_build.name.should eq("Mr Test")
     end
@@ -85,7 +90,6 @@ describe Build, "-" do
       culprit = test_culprit
       Culprit.stub(:culprits_from_api_response) {[culprit]}
       Build.any_instance.stub(:success) {false}
-    
       test_build.culprits.should include(culprit)
     end
   
@@ -157,6 +161,14 @@ describe Build, "-" do
       
     end
   
+  end
+  
+  describe "Before saving" do
+    
+    it "should check for test reports" do
+    
+    end
+    
   end
   
 end

@@ -32,6 +32,14 @@ module US2
       block.call(@build)
     end
     
+    def build_response_has_test_report(response)
+      if response.is_a?(Hash)
+        response.has_key?("passCount")
+      else
+        false
+      end
+    end
+    
     private
     
     def latest_build_url(job)

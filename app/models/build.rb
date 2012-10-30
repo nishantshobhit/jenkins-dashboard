@@ -1,6 +1,7 @@
 class Build < ActiveRecord::Base
-  attr_accessible :duration, :name, :number, :success
+  attr_accessible :duration, :name, :number, :success, :url
   validates_presence_of :name, :number, :duration
+  before_save :get_test_report
   
   has_and_belongs_to_many :culprits
   belongs_to :job
@@ -13,8 +14,9 @@ class Build < ActiveRecord::Base
       name = api_response["fullDisplayName"]
       number = api_response["number"]
       result = api_response["result"] == "FAILURE" ? false : true;
+      url = api_response["url"]
       # create new build
-      @build = Build.new(:duration => duration, :name => name, :number => number, :success => result)
+      @build = Build.new(:duration => duration, :name => name, :number => number, :success => result, :url => url)
       # return nil if we've already saved this build
       return nil if @build.is_in_database;
       # assign job
@@ -39,6 +41,10 @@ class Build < ActiveRecord::Base
       count = culprit.count + 1
       culprit.update_attributes(:count => count)
     end
+  end
+  
+  def get_test_report
+    
   end
   
 end

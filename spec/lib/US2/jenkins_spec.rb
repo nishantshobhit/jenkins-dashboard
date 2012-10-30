@@ -100,4 +100,30 @@ describe US2::Jenkins, "-" do
   
   end
   
+  describe "When getting test reports" do
+    
+    def report_json
+      json = {}
+      json["passCount"] = 1
+      json  
+    end
+    
+    def garbage_response
+      "oajdfipsjgsifg"
+    end
+    
+    def test_build
+      Build.new(:id => 1, :url => "http://test.com")
+    end
+    
+    it "should return false if the build has no test report" do
+      jenkins.build_response_has_test_report(garbage_response).should eq(false)
+    end
+    
+    it "should return true if the build has a test report" do
+      jenkins.build_response_has_test_report(report_json).should eq(true)
+    end
+    
+  end
+  
 end
