@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Build, "When Parsing" do
+describe Build, "Build model" do
   
   def test_json
     # create json hash
@@ -16,22 +16,56 @@ describe Build, "When Parsing" do
     Build.any_instance.stub(:save) {true}
   end
   
-  it "should return nil if the build is already in the database" do
-    build = double("build")
-    job = double("job")
-    Build.any_instance.stub(:is_in_database) {true}
-    test_build = Build.from_api_response(test_json,job)
+  describe "When parsing" do
+  
+    it "should return nil if the build is already in the database" do
+      build = double("build")
+      job = double("job")
+      Build.any_instance.stub(:is_in_database) {true}
+      test_build = Build.from_api_response(test_json,job)
     
-    test_build.should eq(nil)
+      test_build.should eq(nil)
+    end
+  
+    it "should assign a job when parsing" do
+      job = Job.new()
+      test_build = Build.from_api_response(test_json,job)
+      test_build.job.should_not eq(nil)
+    end
+  
+  end
+
+  describe "When creating a Build object from JSON" do
+    
+    def test_job
+      Job.new()
+    end
+    
+    def test_build
+      Build.from_api_response(test_json,test_job)
+    end
+    
+    before do
+      Build.any_instance.stub(:is_in_database) {false}
+    end
+    
+    it "should assign duration" do
+      test_build.duration.should eq(1)
+    end
+    
+    it "should assign name" do
+      test_build.name.should eq("Mr Test")
+    end
+    
+    it "should assign success" do
+      test_build.success.should eq(true)
+    end
+    
+    it "should assign number" do
+      test_build.number.should eq(1)
+    end
   end
   
-  it "should assign a job when parsing" do
-    job = Job.new()
-    test_build = Build.from_api_response(test_json,job)
-    test_build.job.should_not eq(nil)
-  end
-  
-  #
   describe "When parsing culprits" do
     
     before do
