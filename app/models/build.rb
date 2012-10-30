@@ -1,7 +1,7 @@
 class Build < ActiveRecord::Base
   attr_accessible :duration, :name, :number, :success, :url
   validates_presence_of :name, :number, :duration
-  before_save :update_culprits, :get_test_report
+  before_save :update_culprits
   
   has_and_belongs_to_many :culprits
   belongs_to :job
@@ -44,10 +44,6 @@ class Build < ActiveRecord::Base
       count = culprit.count + 1
       culprit.update_attributes(:count => count)
     end
-  end
-  
-  def get_test_report
-    
   end
   
 end
