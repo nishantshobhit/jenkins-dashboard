@@ -116,6 +116,48 @@ describe Build, "-" do
       # parse
       test_build
     end
+    
+    it "should not increment culprit counts for succesful builds" do
+      Culprit.stub(:culprits_from_api_response) {[]}
+      build = Build.new()
+      build.success = true
+      Build.stub(:new){build}
+      
+      build.should_receive(:increment_culprits_count).exactly(0).times
+      
+      # parse
+      test_build
+    end
+    
+    it "should increment culprit counts for failed builds" do
+      Culprit.stub(:culprits_from_api_response) {[test_culprit]}
+      build = Build.new()
+      build.success = false
+      Build.stub(:new){build}
+      
+      build.should_receive(:increment_culprits_count).exactly(1).times
+      
+      # parse
+      test_build
+    end
+    
+    describe "when incrementing culprit count" do
+      
+      it "should add one to the existing count" do
+        culprit = test_culprit      
+        culprit.count = 1
+        
+        culprit.should_receive(:update_attributes).with(:count => 2)
+        
+        Culprit.stub(:culprits_from_api_response) {[culprit]}
+        build = Build.new(:success => false)
+        Build.stub(:new){build}
+        
+        # parse
+        test_build
+      end
+      
+    end
   
   end
   

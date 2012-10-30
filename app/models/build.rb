@@ -22,7 +22,7 @@ class Build < ActiveRecord::Base
       # assign culprits
       @build.culprits = Culprit.culprits_from_api_response(api_response["culprits"], @build) unless @build.success
       # increment the culprits count
-      @build.increment_culprits_count unless @build.culprits.length == 0
+      @build.increment_culprits_count unless @build.culprits.length == 0 or @build.success
       #return build
       @build
     end
@@ -35,11 +35,9 @@ class Build < ActiveRecord::Base
   end
   
   def increment_culprits_count
-    unless self.success
-      self.culprits.each do |culprit|
-        count = culprit.count + 1
-        culprit.update_attributes(:count => count)
-      end
+    self.culprits.each do |culprit|
+      count = culprit.count + 1
+      culprit.update_attributes(:count => count)
     end
   end
   
