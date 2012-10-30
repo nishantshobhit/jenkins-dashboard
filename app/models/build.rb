@@ -1,7 +1,7 @@
 class Build < ActiveRecord::Base
   attr_accessible :duration, :name, :number, :success, :url
   validates_presence_of :name, :number, :duration
-  before_save :get_test_report
+  before_save :update_culprits, :get_test_report
   
   has_and_belongs_to_many :culprits
   belongs_to :job
@@ -23,8 +23,6 @@ class Build < ActiveRecord::Base
       @build.job = job
       # assign culprits
       @build.culprits = Culprit.culprits_from_api_response(api_response["culprits"], @build) unless @build.success
-      # increment the culprits count
-      @build.increment_culprits_count unless @build.culprits.length == 0 or @build.success
       #return build
       @build
     end
@@ -34,6 +32,11 @@ class Build < ActiveRecord::Base
   def is_in_database
     @query = Build.find(:all, :conditions => {:number => self.number, :name => self.name})
     @query.any?
+  end
+  
+  def update_culprits
+    # increment the culprits count
+    self.increment_culprits_count unless self.culprits.length == 0 or self.success
   end
   
   def increment_culprits_count

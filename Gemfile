@@ -27,12 +27,13 @@ gem "bcrypt-ruby", :require => "bcrypt"
 gem 'whenever', :require => false
 gem "d3-rails", "~> 0.0.5"
 gem "haml", "~> 3.1.7"
-gem 'rb-fsevent', '~> 0.9.1'
 
 group :development, :test do
+  gem "guard", "~> 1.5.2"
   gem "rspec-rails"
   gem "guard-rspec"
   gem "spork", "~> 0.9.2"
+  gem 'rb-fsevent', '~> 0.9.1'
 end
 
 # To use ActiveModel has_secure_password

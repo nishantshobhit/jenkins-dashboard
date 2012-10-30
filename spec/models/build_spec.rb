@@ -81,6 +81,10 @@ describe Build, "-" do
       Build.from_api_response(test_json,job)
     end
     
+    def mock_build(success)
+      Build.new(:success => success, :name => "test", :number => 1, :duration => 0)
+    end
+    
     before do
       Build.any_instance.stub(:is_in_database) {false}
       Culprit.stub(:update_attributes) {true}
@@ -99,64 +103,64 @@ describe Build, "-" do
       test_build.culprits.should be_empty
     end
     
-    describe "and incrementing culprit count" do
+    describe "Before saving" do
       
-      it "should increment count when build has culprits" do
+      it "should increment culprit counts when build has culprits" do
         Culprit.stub(:culprits_from_api_response) {[test_culprit]}
-        build = Build.new()
+        build = mock_build(false)
         Build.stub(:new){build}
       
         build.should_receive(:increment_culprits_count).exactly(1).times
       
         # parse
-        test_build
+        test_build.save!
       end
     
-      it "should not increment count when build has no culprits" do
+      it "should not increment culprit counts when build has no culprits" do
         Culprit.stub(:culprits_from_api_response) {[]}
-        build = Build.new()
+        build = mock_build(false)
         Build.stub(:new){build}
       
         build.should_receive(:increment_culprits_count).exactly(0).times
       
         # parse
-        test_build
+        test_build.save!
       end
     
-      it "should not increment culprit counts for succesful builds" do
+      it "should not increment culprit counts for succesful builds before save" do
         Culprit.stub(:culprits_from_api_response) {[]}
-        build = Build.new(:success => true)
+        build = mock_build(true)
         Build.stub(:new){build}
       
         build.should_receive(:increment_culprits_count).exactly(0).times
       
         # parse
-        test_build
+        test_build.save!
       end
     
-      it "should increment culprit counts for failed builds" do
+      it "should increment culprit counts for failed builds before save" do
         Culprit.stub(:culprits_from_api_response) {[test_culprit]}
-        build = Build.new(:success => false)
+        build = mock_build(false)
         Build.stub(:new){build}
       
         build.should_receive(:increment_culprits_count).exactly(1).times
-      
+        
         # parse
-        test_build
+        test_build.save!
       end
       
-      it "should add one to the existing count" do
+      it "should add one to the existing culprit count" do
         culprit = test_culprit      
         culprit.count = 1
         
         culprit.should_receive(:update_attributes).with(:count => 2)
         
         Culprit.stub(:culprits_from_api_response) {[culprit]}
-        build = Build.new(:success => false)
+        build = mock_build(false)
         Build.stub(:new){build}
         
         # parse
-        test_build
+        test_build.save!
       end
       
     end
