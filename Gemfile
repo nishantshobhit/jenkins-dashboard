@@ -30,12 +30,9 @@ gem "haml", "~> 3.1.7"
 gem 'rb-fsevent', '~> 0.9.1'
 
 group :development, :test do
-  gem "rspec-rails",        :git => "git://github.com/rspec/rspec-rails.git"
-  gem "rspec",              :git => "git://github.com/rspec/rspec.git"
-  gem "rspec-core",         :git => "git://github.com/rspec/rspec-core.git"
-  gem "rspec-expectations", :git => "git://github.com/rspec/rspec-expectations.git"
-  gem "rspec-mocks",        :git => "git://github.com/rspec/rspec-mocks.git"
+  gem "rspec-rails"
   gem "guard-rspec"
+  gem "spork", "~> 0.9.2"
 end
 
 # To use ActiveModel has_secure_password
