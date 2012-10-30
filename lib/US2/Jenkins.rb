@@ -38,8 +38,7 @@ module US2
       response = HTTParty.get("#{job.url}api/json", :basic_auth => @auth)
       builds = response["builds"]
       if builds
-        first_build = builds.first
-        first_build["url"]
+        builds.first["url"]
       end
     end
     
