@@ -105,7 +105,7 @@ describe Build, "-" do
   
   end
   
-  describe "Before saving" do
+  describe "After saving" do
       
     def report_json
       json = {}

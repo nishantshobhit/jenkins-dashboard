@@ -1,7 +1,7 @@
 class Build < ActiveRecord::Base
   attr_accessible :duration, :name, :number, :success, :url
   validates_presence_of :name, :number, :duration
-  before_save :update_culprits
+  after_save :update_culprits
   
   has_and_belongs_to_many :culprits
   belongs_to :job
