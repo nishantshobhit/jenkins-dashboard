@@ -21,6 +21,8 @@ class Build < ActiveRecord::Base
       @build.job = job
       # assign culprits
       @build.culprits = Culprit.culprits_from_api_response(api_response["culprits"], @build) unless @build.success
+      # increment the culprits count
+      @build.increment_culprits_count unless @build.culprits.length == 0
       #return build
       @build
     end
@@ -30,6 +32,15 @@ class Build < ActiveRecord::Base
   def is_in_database
     @query = Build.find(:all, :conditions => {:number => self.number, :name => self.name})
     @query.any?
+  end
+  
+  def increment_culprits_count
+    unless self.success
+      self.culprits.each do |culprit|
+        count = culprit.count + 1
+        culprit.update_attributes(:count => count)
+      end
+    end
   end
   
 end

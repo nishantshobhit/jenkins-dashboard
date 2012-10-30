@@ -15,8 +15,6 @@ class Culprit < ActiveRecord::Base
         culprit.save
         # push to array
         culprits.push(culprit);
-        # increment count
-        culprit.increment_count(build)
       end
       culprits
     end
@@ -32,16 +30,6 @@ class Culprit < ActiveRecord::Base
       @culprit
     end
     
-  end
-  
-  def increment_count(build)
-    unless build.success
-      build.culprits.each do |culprit|
-        puts "Incrementing #{build.name} broken by #{culprit.name}"
-        count = culprit.count + 1
-        culprit.update_attributes(:count => count)
-      end
-    end
   end
 
 end

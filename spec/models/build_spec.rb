@@ -1,6 +1,6 @@
 require "spec_helper"
 
-describe Build, "Build model" do
+describe Build, "-" do
   
   def test_json
     # create json hash
@@ -17,7 +17,7 @@ describe Build, "Build model" do
   end
   
   describe "When parsing" do
-  
+    
     it "should return nil if the build is already in the database" do
       build = double("build")
       job = double("job")
@@ -32,7 +32,6 @@ describe Build, "Build model" do
       test_build = Build.from_api_response(test_json,job)
       test_build.job.should_not eq(nil)
     end
-  
   end
 
   describe "When creating a Build object from JSON" do
@@ -68,29 +67,56 @@ describe Build, "Build model" do
   
   describe "When parsing culprits" do
     
+    def test_culprit
+      Culprit.new(:count => 0, :name => "Test")
+    end
+    
+    def test_build
+      job = Job.new()
+      Build.from_api_response(test_json,job)
+    end
+    
     before do
       Build.any_instance.stub(:is_in_database) {false}
+      Culprit.stub(:update_attributes) {true}
     end
       
-    it "should assign culprits when build success is false" do
-      culprit = Culprit.new()      
+    it "should assign culprits when build fails" do
+      culprit = test_culprit
       Culprit.stub(:culprits_from_api_response) {[culprit]}
-      
       Build.any_instance.stub(:success) {false}
     
-      job = Job.new()
-      test_build = Build.from_api_response(test_json,job)
       test_build.culprits.should include(culprit)
     end
   
-    it "should not assign culprits when build success is true" do
+    it "should not assign culprits when build succeeds" do
       Build.any_instance.stub(:success) {true}
-    
-      job = Job.new()
-      test_build = Build.from_api_response(test_json,job)
+      
       test_build.culprits.should be_empty
     end
     
+    it "should increment count when build has culprits" do
+      Culprit.stub(:culprits_from_api_response) {[test_culprit]}
+      build = Build.new()
+      Build.stub(:new){build}
+      
+      build.should_receive(:increment_culprits_count).exactly(1).times
+      
+      # parse
+      test_build
+    end
+    
+    it "should not increment count when build has no culprits" do
+      Culprit.stub(:culprits_from_api_response) {[]}
+      build = Build.new()
+      Build.stub(:new){build}
+      
+      build.should_receive(:increment_culprits_count).exactly(0).times
+      
+      # parse
+      test_build
+    end
+  
   end
   
 end
