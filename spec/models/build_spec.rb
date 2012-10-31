@@ -23,7 +23,7 @@ describe Build, "-" do
   end
     
   def mock_build(success)
-    Build.new(:success => success, :name => "test", :number => 1, :duration => 0)
+    Build.new(:success => success, :name => "test", :number => 1, :duration => 0, :url => "http://google.com")
   end
   
   before do
@@ -116,6 +116,10 @@ describe Build, "-" do
     def garbage_response
       "oajdfipsjgsifg"
     end
+    
+    before do
+      HTTParty.stub(:get)
+    end
       
     it "should increment culprit counts when build has culprits" do
       Culprit.stub(:culprits_from_api_response) {[test_culprit]}
@@ -173,6 +177,13 @@ describe Build, "-" do
         
       # parse
       test_build.save!
+    end
+    
+    it "should request the builds test report" do
+      HTTParty.stub(:get){report_json}
+      US2::Jenkins.instance.should_receive(:get_test_report)
+      build = mock_build(true)
+      build.save!
     end
       
   end
