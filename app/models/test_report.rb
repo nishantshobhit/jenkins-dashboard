@@ -4,6 +4,7 @@ class TestReport < ActiveRecord::Base
   
   class << self
     def from_api_response(response)
+      
       #set up vars
       failed = response["failCount"]
       passed = response["passCount"]
