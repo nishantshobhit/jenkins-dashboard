@@ -1,7 +1,7 @@
 class Build < ActiveRecord::Base
   attr_accessible :duration, :name, :number, :success, :url
   validates_presence_of :name, :number, :duration
-  after_save :update_culprits
+  after_save :update_culprits, :get_test_report
   
   has_and_belongs_to_many :culprits
   belongs_to :job
@@ -43,6 +43,13 @@ class Build < ActiveRecord::Base
     self.culprits.each do |culprit|
       count = culprit.count + 1
       culprit.update_attributes(:count => count)
+    end
+  end
+  
+  def get_test_report
+    US2::Jenkins.instance.get_test_report(self) do |report|
+      report.build = self
+      report.save!
     end
   end
   

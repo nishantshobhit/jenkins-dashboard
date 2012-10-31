@@ -128,7 +128,7 @@ describe Build, "-" do
       
       build.should_receive(:increment_culprits_count).exactly(1).times
       
-      # parse
+      test_build.stub(:get_test_report)
       test_build.save!
     end
     
@@ -139,7 +139,7 @@ describe Build, "-" do
       
       build.should_receive(:increment_culprits_count).exactly(0).times
       
-      # parse
+      test_build.stub(:get_test_report)
       test_build.save!
     end
     
@@ -150,7 +150,7 @@ describe Build, "-" do
       
       build.should_receive(:increment_culprits_count).exactly(0).times
       
-      # parse
+      test_build.stub(:get_test_report)
       test_build.save!
     end
     
@@ -162,6 +162,7 @@ describe Build, "-" do
       build.should_receive(:increment_culprits_count).exactly(1).times
         
       # parse
+      test_build.stub(:get_test_report)
       test_build.save!
     end
       
@@ -176,6 +177,7 @@ describe Build, "-" do
       Build.stub(:new){build}
         
       # parse
+      test_build.stub(:get_test_report)
       test_build.save!
     end
     
@@ -183,7 +185,34 @@ describe Build, "-" do
       HTTParty.stub(:get){report_json}
       US2::Jenkins.instance.should_receive(:get_test_report)
       build = mock_build(true)
+      build.stub(:update_culprits)
       build.save!
+    end
+    
+    describe "When a test report is found" do
+    
+      it "should assign itself to the test report" do
+        report = TestReport.new()
+        US2::Jenkins.instance.stub(:get_test_report).and_yield(report)
+        
+        build = mock_build(true)
+        
+        report.should_receive(:build=).with(build)
+        build.stub(:update_culprits)
+        build.save!
+      end
+      
+      it "should save the report" do
+        report = TestReport.new()
+        US2::Jenkins.instance.stub(:get_test_report).and_yield(report)
+        
+        report.should_receive(:save!)
+        
+        build = mock_build(true)
+        build.stub(:update_culprits)
+        build.save!
+      end
+    
     end
       
   end
