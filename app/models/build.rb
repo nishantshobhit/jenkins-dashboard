@@ -48,8 +48,8 @@ class Build < ActiveRecord::Base
   
   def get_test_report
     US2::Jenkins.instance.get_test_report(self) do |report|
-      report.build = self
-      report.save!
+      report.build = self unless report.nil?
+      report.save! unless report.nil?
     end
   end
   

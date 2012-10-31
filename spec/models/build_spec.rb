@@ -191,6 +191,19 @@ describe Build, "-" do
     
     describe "When a test report is found" do
     
+      it "should not do anything with a nil report" do
+        report = TestReport.new()
+        US2::Jenkins.instance.stub(:get_test_report).and_yield(nil)
+        
+        build = mock_build(true)
+        
+        report.should_not_receive(:build=)
+        report.should_not_receive(:save!)
+        
+        build.stub(:update_culprits)
+        build.save!
+      end
+      
       it "should assign itself to the test report" do
         report = TestReport.new()
         US2::Jenkins.instance.stub(:get_test_report).and_yield(report)
