@@ -183,17 +183,17 @@ describe Build, "-" do
     
     it "should request the builds test report" do
       HTTParty.stub(:get){report_json}
-      US2::Jenkins.instance.should_receive(:get_test_report)
+      US2::Jenkins.any_instance.should_receive(:get_test_report)
       build = mock_build(true)
       build.stub(:update_culprits)
       build.save!
     end
     
     describe "When a test report is found" do
-    
+      
       it "should not do anything with a nil report" do
         report = TestReport.new()
-        US2::Jenkins.instance.stub(:get_test_report).and_yield(nil)
+        US2::Jenkins.any_instance.stub(:get_test_report).and_yield(nil)
         
         build = mock_build(true)
         
@@ -206,7 +206,7 @@ describe Build, "-" do
       
       it "should assign itself to the test report" do
         report = TestReport.new()
-        US2::Jenkins.instance.stub(:get_test_report).and_yield(report)
+        US2::Jenkins.any_instance.stub(:get_test_report).and_yield(report)
         
         build = mock_build(true)
         
@@ -217,7 +217,7 @@ describe Build, "-" do
       
       it "should save the report" do
         report = TestReport.new()
-        US2::Jenkins.instance.stub(:get_test_report).and_yield(report)
+        US2::Jenkins.any_instance.stub(:get_test_report).and_yield(report)
         
         report.should_receive(:save!)
         

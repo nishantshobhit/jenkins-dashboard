@@ -4,7 +4,14 @@
       <h3><%= job.name %> (<%= job.status.to_s%>)</h3>
       <ul>
         <% job.builds.each do |build| %>
-        <li><%= build.name %> (<%= build.success? ? 'worked' : 'failed' %>)</li>
+        <li>
+          <a href="<%= build.url %>"><%= build.name %></a> (<%= build.success? ? 'worked' : 'failed' %>)
+          <% unless build.test_report.nil? %>
+          <p>Passed: <%= build.test_report.passed %></p>
+          <p>Failed: <%= build.test_report.failed %></p>
+          <p>Skipped: <%= build.test_report.skipped %></p>
+          <% end %>
+        </li>
         <% end %>
       </ul>
     </li>

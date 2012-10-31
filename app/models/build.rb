@@ -5,6 +5,7 @@ class Build < ActiveRecord::Base
   
   has_and_belongs_to_many :culprits
   belongs_to :job
+  has_one :test_report
   
   class << self
     
@@ -47,7 +48,9 @@ class Build < ActiveRecord::Base
   end
   
   def get_test_report
-    US2::Jenkins.instance.get_test_report(self) do |report|
+    jenkins = US2::Jenkins.new()
+    jenkins.get_test_report(self) do |report|
+      puts "Saving report: #{report.id} for build #{self.name}" unless report.nil?
       report.build = self unless report.nil?
       report.save! unless report.nil?
     end
