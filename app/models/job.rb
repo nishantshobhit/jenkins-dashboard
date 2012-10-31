@@ -2,6 +2,7 @@ class Job < ActiveRecord::Base
   attr_accessible :name, :status, :url
   has_many :builds
   validates_presence_of :name, :status, :url
+  after_save :get_latest_build
   
   @@status_types = [:fixed, :broken, :building, :disabled, :aborted]
 
@@ -12,14 +13,13 @@ class Job < ActiveRecord::Base
       # see if we have the job in the db already and just update it if so
       if @query.length == 0
         @job = Job.new(:name => api_response["name"], :status => api_response["color"], :url => api_response["url"])      
-        @job.save
-        @job
       else
         @job = @query.first
-        @job.update_attributes(:status => api_response["color"])
-        @job
+        @job.status = api_response["color"];
       end
+      @job
     end
+    
   end
   
   def status_name
@@ -39,6 +39,13 @@ class Job < ActiveRecord::Base
     @status = @@status_types.index(value.to_sym)
     if @status
       write_attribute(:status, @status)
+    end
+  end
+  
+  def get_latest_build
+    # go get builds
+    US2::Jenkins.instance.get_latest_build(self) do |build|
+      build.save unless build.nil?
     end
   end
   

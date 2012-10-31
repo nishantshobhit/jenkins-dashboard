@@ -1,7 +1,7 @@
 <ul>
 <% @jobs.each do |job| %>
     <li>
-      <h3><%= job.name %></h3>
+      <h3><%= job.name %> (<%= job.status.to_s%>)</h3>
       <ul>
         <% job.builds.each do |build| %>
         <li><%= build.name %> (<%= build.success? ? 'worked' : 'failed' %>)</li>

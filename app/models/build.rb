@@ -18,7 +18,7 @@ class Build < ActiveRecord::Base
       # create new build
       @build = Build.new(:duration => duration, :name => name, :number => number, :success => result, :url => url)
       # return nil if we've already saved this build
-      return nil if @build.is_in_database;
+      return nil if @build.is_in_database
       # assign job
       @build.job = job
       # assign culprits

@@ -12,15 +12,17 @@ module US2
       return @@instance
     end
     
+    def sync
+      get_jobs
+    end
+    
     def get_jobs
       url = @config["client_url"] + "/view/WallDisplay/api/json/"
       response = HTTParty.get(url, :basic_auth => @auth)
       if response["jobs"]
         response["jobs"].each do |job|
           @job = Job.from_api_response(job)
-          get_latest_build(@job) do |build|
-            build.save unless build.nil?
-          end
+          @job.save!
         end
       end
     end
@@ -32,12 +34,12 @@ module US2
       block.call(@build)
     end
     
-    def build_response_has_test_report(response)
-      if response.is_a?(Hash)
-        response.has_key?("passCount")
-      else
-        false
+    def get_test_report(build, &block)
+      response = HTTParty.get("#{build.url}testReport/api/json", :basic_auth => @auth)
+      if build_response_has_test_report(response)
+        @test_report = TestReport.from_api_response(response)
       end
+      block.call(@test_report)
     end
     
     private
@@ -47,6 +49,14 @@ module US2
       builds = response["builds"]
       if builds
         builds.first["url"]
+      end
+    end
+    
+    def build_response_has_test_report(response)
+      if response.is_a?(Hash)
+        response.has_key?("passCount")
+      else
+        false
       end
     end
     

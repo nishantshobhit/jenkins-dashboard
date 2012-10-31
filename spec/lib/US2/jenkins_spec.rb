@@ -39,6 +39,10 @@ describe US2::Jenkins, "-" do
   
   describe "When getting jobs" do
     
+    def test_job
+      Job.new(:name => "test", "status" => "red", "url" => "test4")
+    end
+    
     before do
       HTTParty.stub(:get){jobs_json}
       jenkins.stub(:get_latest_build)
@@ -46,14 +50,15 @@ describe US2::Jenkins, "-" do
     end
     
     it "should create a job from the response" do
+      Job.stub(:from_api_response){test_job}
       Job.should_receive(:from_api_response)
       jenkins.get_jobs
     end
     
     it "should get the latest build for each job" do
-      test_job = Job.new()
-      Job.stub(:from_api_response){test_job}
-      jenkins.should_receive(:get_latest_build).with(test_job)
+      job = test_job
+      Job.stub(:from_api_response){job}
+      jenkins.should_receive(:get_latest_build).with(job)
       jenkins.get_jobs
     end
     
@@ -116,12 +121,34 @@ describe US2::Jenkins, "-" do
       Build.new(:id => 1, :url => "http://test.com")
     end
     
+    it "should create a test report from the response" do
+      HTTParty.stub(:get){report_json}
+      test_report = TestReport.new()
+      TestReport.stub(:from_api_response){test_report}
+      TestReport.should_receive(:from_api_response)
+      
+      test_build = Build.new()
+      jenkins.get_test_report(test_build) do |report|
+      end
+    end
+    
+    it "should not attempt to parse a garbage test report response" do
+      HTTParty.stub(:get){garbage_response}
+      TestReport.should_receive(:from_api_response).exactly(0).times
+      
+      test_build = Build.new()
+      jenkins.get_test_report(test_build) do |report|
+      end
+    end
+    
     it "should return false if the build has no test report" do
-      jenkins.build_response_has_test_report(garbage_response).should eq(false)
+      garbage = garbage_response
+      jenkins.instance_eval{build_response_has_test_report(garbage)}.should eq(false)
     end
     
     it "should return true if the build has a test report" do
-      jenkins.build_response_has_test_report(report_json).should eq(true)
+      report = report_json
+      jenkins.instance_eval{build_response_has_test_report(report)}.should eq(true)
     end
     
   end

@@ -10,6 +10,10 @@ describe Job, "-" do
     json
   end 
   
+  def test_job
+    Job.new(:name => "test", "status" => "red", "url" => "test4")
+  end
+  
   before do
     Job.any_instance.stub(:update_attributes){true}
     Job.any_instance.stub(:save){true}
@@ -36,11 +40,8 @@ describe Job, "-" do
       test_job = Job.new()
       Job.stub(:new){test_job}
       Job.stub(:find){[]}
-            
-      # test
-      test_job.should_receive(:save)
       # parse
-      Job.from_api_response(test_json)
+      Job.from_api_response(test_json).should eq(test_job)
     end
     
     it "should update the existing jobs color if it is in the database" do
@@ -48,9 +49,19 @@ describe Job, "-" do
       Job.stub(:find){[test_job]}
       
       # test
-      test_job.should_receive(:update_attributes).with(:status => "red")
+      test_job.should_receive(:status=).with("red")
       # parse
       Job.from_api_response(test_json)
+    end
+    
+  end
+  
+  describe "After saving" do
+    
+    it "should update its latest build" do
+      job = test_job
+      job.should_receive(:get_latest_build)
+      job.save!
     end
     
   end
