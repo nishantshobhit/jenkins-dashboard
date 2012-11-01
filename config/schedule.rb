@@ -21,6 +21,6 @@
 
 set :output, {:error => '~/error.log', :standard => '~/cron.log'}
 
-every 1.minutes do
-  runner "US2::Jenkins.instance.sync"
+every 2.minutes do
+  runner "US2::Jenkins.instance.sync", :environment => :development
 end

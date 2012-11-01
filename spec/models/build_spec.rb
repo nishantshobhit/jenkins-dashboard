@@ -148,7 +148,7 @@ describe Build, "-" do
       build = mock_build(true)
       Build.stub(:new){build}
       
-      build.should_receive(:increment_culprits_count).exactly(0).times
+      build.should_receive(:increment_culprits_count).          exactly(0).times
       
       test_build.stub(:get_test_report)
       test_build.save!
