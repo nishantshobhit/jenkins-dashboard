@@ -14,14 +14,11 @@ class BuildsController < ApplicationController
 
 	def health
 		@job = Job.find_by_id(params[:id])
+		@failed_builds = @job.builds.where(:success => false)
+		@success_builds = @job.builds.where(:success => true)
 		@builds = @job.builds.all(:order => "created_at ASC")
-
-		builds_response = []
-
-		@builds.each do |build|
-			builds_response.push(build.health_response)
-		end
-
-		respond_with(builds_response)
+		
+		data = [{:count => @success_builds.length, :key => "built"}, {:count => @failed_builds.length, :key => "failed"}]
+		respond_with(data)
 	end
 end

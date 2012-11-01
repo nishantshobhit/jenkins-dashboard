@@ -1,3 +1,14 @@
 // Place all the styles related to the builds controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.arc { 
+ path {
+  stroke: #333;
+ }
+ text {
+  	font-weight: bold;
+  	text-transform: uppercase;
+  	color:#fff;
+ }
+}
