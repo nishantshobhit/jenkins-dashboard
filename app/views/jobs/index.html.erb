@@ -1,11 +1,11 @@
 <ul>
 <% @jobs.each do |job| %>
     <li>
-      <h3><%= job.name %> (<%= job.status.to_s%>)</h3>
+      <h3><a href="<%= job_builds_path(job) %>.json"><%= job.name %> (<%= job.status.to_s%>)</a></h3>
       <ul>
         <% job.builds.each do |build| %>
         <li>
-          <a href="<%= build.url %>"><%= build.name %></a> (<%= build.success? ? 'worked' : 'failed' %>)
+          <a href="<%= job_build_path(job,build) %>.json"><%= build.name %></a> (<%= build.success? ? 'worked' : 'failed' %>)
           <% unless build.test_report.nil? %>
           <p>Passed: <%= build.test_report.passed %></p>
           <p>Failed: <%= build.test_report.failed %></p>

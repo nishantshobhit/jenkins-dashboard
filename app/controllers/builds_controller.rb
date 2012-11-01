@@ -8,8 +8,8 @@ class BuildsController < ApplicationController
 	end
 	  
 	def show
-		#@build = Build.find(params[:id])
-	  	#respond_with(@build)
+		@build = Build.find(params[:id])
+	  	respond_with(@build)
 	end
 
 	def health

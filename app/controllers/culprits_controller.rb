@@ -1,12 +1,9 @@
 class CulpritsController < ApplicationController
-  before_filter :require_user
+  respond_to :html, :json
   
   def index
-    
     @culprits = Culprit.find(:all)
-    
-    render :json => @culprits
-    
+    respond_with(@culprits)
   end
   
 end
