@@ -58,7 +58,7 @@ describe US2::Jenkins, "-" do
     it "should get the latest build for each job" do
       job = test_job
       Job.stub(:from_api_response){job}
-      jenkins.should_receive(:get_latest_build).with(job)
+      US2::Jenkins.any_instance.should_receive(:get_latest_build).with(job)
       jenkins.get_jobs
     end
     

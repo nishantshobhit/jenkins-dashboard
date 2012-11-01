@@ -28,10 +28,10 @@ module US2
     end
     
     def get_latest_build(job, &block)
-      build_url = latest_build_url(job)
-      response = HTTParty.get("#{build_url}api/json", :basic_auth => @auth)
-      @build = Build.from_api_response(response,job)
-      block.call(@build)
+        build_url = latest_build_url(job)
+        response = HTTParty.get("#{build_url}api/json", :basic_auth => @auth)
+        @build = Build.from_api_response(response,job)
+        block.call(@build)
     end
     
     def get_test_report(build, &block)

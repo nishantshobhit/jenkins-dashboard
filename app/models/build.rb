@@ -53,7 +53,7 @@ class Build < ActiveRecord::Base
       puts "Saving report: #{report.id} for build #{self.name}" unless report.nil?
       report.build = self unless report.nil?
       report.save! unless report.nil?
-    end
+     end
   end
   
   def health_response

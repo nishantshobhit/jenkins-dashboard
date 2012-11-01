@@ -43,8 +43,9 @@ class Job < ActiveRecord::Base
   end
   
   def get_latest_build
-    # go get builds
-    US2::Jenkins.instance.get_latest_build(self) do |build|
+  # go get builds
+    jenkins = US2::Jenkins.new()
+    jenkins.get_latest_build(self) do |build|
       build.save unless build.nil?
     end
   end
