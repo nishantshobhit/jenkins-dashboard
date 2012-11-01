@@ -229,5 +229,14 @@ describe Build, "-" do
     end
       
   end
+
+  describe "When returning responses" do
+
+    it "should return a health response" do
+      build = mock_build(true)
+      build.health_response.should_not eq(nil)
+    end
+
+  end
   
 end

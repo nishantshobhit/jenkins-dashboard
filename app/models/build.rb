@@ -56,4 +56,8 @@ class Build < ActiveRecord::Base
     end
   end
   
+  def health_response
+    {:created_at => self.created_at, :success => self.success}
+  end
+
 end

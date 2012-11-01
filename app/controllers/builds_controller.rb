@@ -15,6 +15,13 @@ class BuildsController < ApplicationController
 	def health
 		@job = Job.find_by_id(params[:id])
 		@builds = @job.builds.all(:order => "created_at ASC")
-		respond_with(@builds)
+
+		builds_response = []
+
+		@builds.each do |build|
+			builds_response.push(build.health_response)
+		end
+
+		respond_with(builds_response)
 	end
 end
