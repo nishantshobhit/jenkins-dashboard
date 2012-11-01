@@ -16,7 +16,7 @@ $(document).ready(->
     d.count
   )
 
-  svg = d3.select("#container").append("svg").attr("width", width).attr("height", height).append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
+  svg = d3.select("#build-health-container").append("svg").attr("width", width).attr("height", height).append("g").attr("transform", "translate(" + width / 2 + "," + height / 2 + ")")
 
   $.get "#{document.URL}.json", (data) ->
     data.forEach (d) ->
