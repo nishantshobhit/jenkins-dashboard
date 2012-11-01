@@ -1,5 +1,5 @@
 JenkinsDashboard::Application.routes.draw do
-  get "test_reports/show"
+ 	get "test_reports/show"
 
 	get "log_in" => "sessions#new", :as => "log_in"
 	get "log_out" => "sessions#destroy", :as => "log_out"
@@ -11,6 +11,8 @@ JenkinsDashboard::Application.routes.draw do
 	resources :dashboard
 	resources :jobs
 	resources :culprits
+
+	match 'jobs/:id/builds/health' => 'builds#health'
 
 	resources :jobs do
 		resources :builds do
