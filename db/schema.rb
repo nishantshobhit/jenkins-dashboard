@@ -38,7 +38,7 @@ ActiveRecord::Schema.define(:version => 20121030180850) do
 
   create_table "jobs", :force => true do |t|
     t.string   "name"
-    t.integer  "status",     :limit => 255
+    t.string   "status",     :limit => nil
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
     t.string   "url"
