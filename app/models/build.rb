@@ -16,9 +16,6 @@ class Build < ActiveRecord::Base
       number = api_response["number"]
       result = api_response["result"] == "FAILURE" ? false : true;
       url = api_response["url"]
-
-      puts "Building #{api_response["building"]}"
-
       # return nil if the build is still building..
       return nil if api_response["building"] == "true" || api_response["building"] == true
       # create new build
@@ -54,7 +51,6 @@ class Build < ActiveRecord::Base
   
   def get_test_report
     US2::Jenkins.instance.get_test_report(self) do |report|
-      puts "Saving report: #{report.id} for build #{self.name}" unless report.nil?
       report.build = self unless report.nil?
       report.save! unless report.nil?
      end

@@ -6,7 +6,6 @@ class ChartsController
     width = 500
     height = 500
     radius = Math.min(width, height) / 2
-
     color = d3.scale.ordinal().range(["#54cd42", "#db5151"])
 
     arc = d3.svg.arc().outerRadius(radius - 10).innerRadius(radius - 120)
