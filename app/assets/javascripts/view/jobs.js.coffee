@@ -3,5 +3,5 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $(document).ready(->
-	window.ChartsController.generate_donut("#{document.URL}.json","#jobs-health-container")
+	window.ChartsController.generate_donut("/jobs/health.json","#jobs-health-container")
 );
