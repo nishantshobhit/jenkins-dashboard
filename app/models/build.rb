@@ -16,6 +16,11 @@ class Build < ActiveRecord::Base
       number = api_response["number"]
       result = api_response["result"] == "FAILURE" ? false : true;
       url = api_response["url"]
+
+      puts "Building #{api_response["building"]}"
+
+      # return nil if the build is still building..
+      return nil if api_response["building"] == "true" || api_response["building"] == true
       # create new build
       @build = Build.new(:duration => duration, :name => name, :number => number, :success => result, :url => url)
       # return nil if we've already saved this build
@@ -48,8 +53,7 @@ class Build < ActiveRecord::Base
   end
   
   def get_test_report
-    jenkins = US2::Jenkins.new()
-    jenkins.get_test_report(self) do |report|
+    US2::Jenkins.instance.get_test_report(self) do |report|
       puts "Saving report: #{report.id} for build #{self.name}" unless report.nil?
       report.build = self unless report.nil?
       report.save! unless report.nil?
@@ -58,6 +62,10 @@ class Build < ActiveRecord::Base
   
   def health_response
     {:created_at => self.created_at, :success => self.success}
+  end
+
+  def group_by_day
+    created_at.to_date.to_s(:db)
   end
 
 end

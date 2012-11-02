@@ -27,7 +27,6 @@ class JobsController < ApplicationController
     
     data = [{:count => built, :key => "built"}, {:count => failed, :key => "failed"}]
     respond_with(data)
-
   end
 
 end                     

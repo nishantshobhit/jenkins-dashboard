@@ -38,6 +38,7 @@ module US2
       response = HTTParty.get("#{build.url}testReport/api/json", :basic_auth => @auth)
       if build_response_has_test_report(response)
         @test_report = TestReport.from_api_response(response)
+        puts "Test report created #{@test_report}"
       end
       block.call(@test_report)
     end
@@ -54,8 +55,10 @@ module US2
     
     def build_response_has_test_report(response)
       if response.is_a?(Hash)
+        puts "Has report"
         response.has_key?("passCount")
       else
+        puts "No report.."
         false
       end
     end

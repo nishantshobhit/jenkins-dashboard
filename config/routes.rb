@@ -9,6 +9,7 @@ JenkinsDashboard::Application.routes.draw do
 	# health reports
 	match 'jobs/:id/builds/health' => 'builds#health'
 	match 'jobs/health' => 'jobs#health'
+	match 'jobs/test_report' => 'test_reports#global_report'
 
 	resources :users
 	resources :sessions

@@ -32,8 +32,17 @@ describe Build, "-" do
   
   describe "When parsing" do
     
+    it "should return nil if the build is building" do
+      job = double("job")
+      Build.any_instance.stub(:is_in_database) {false}
+      json = test_json
+      json["building"] = true
+      test_build = Build.from_api_response(json,job)
+    
+      test_build.should eq(nil)
+    end
+
     it "should return nil if the build is already in the database" do
-      build = double("build")
       job = double("job")
       Build.any_instance.stub(:is_in_database) {true}
       test_build = Build.from_api_response(test_json,job)
@@ -237,6 +246,13 @@ describe Build, "-" do
       build.health_response.should_not eq(nil)
     end
 
+  end
+
+  describe "When grouping" do
+    it "should group by day" do
+      build = mock_build(true)
+      build.should respond_to(:group_by_day)
+    end
   end
   
 end
