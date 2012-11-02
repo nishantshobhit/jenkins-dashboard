@@ -52,16 +52,14 @@ module US2
         builds.first["url"]
       end
     end
-    
+
     def build_response_has_test_report(response)
       if response.is_a?(Hash)
-        puts "Has report"
         response.has_key?("passCount")
       else
-        puts "No report.."
         false
       end
     end
-    
+
   end
 end
