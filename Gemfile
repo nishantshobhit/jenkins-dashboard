@@ -34,6 +34,8 @@ group :development, :test do
   gem "guard-rspec"
   gem "spork", "~> 0.9.2"
   gem 'rb-fsevent', '~> 0.9.1'
+  gem "pry"
+  gem "foreman"
 end
 
 # To use ActiveModel has_secure_password
