@@ -4,25 +4,22 @@
 #   Ensure the SQLite 3 gem is defined in your Gemfile
 #   gem 'sqlite3'
 development:
-  adapter: postgresql
+  adapter: sqlite3
   encoding: unicode
-  database: jenkinsdashboard_development
+  database: db.development.sqlite3
   pool: 5
-  username:
-  password:
+  timeout: 5000
 
 test:
-  adapter: postgresql
+  adapter: sqlite3
   encoding: unicode
-  database: jenkinsdashboard_test
+  database: db.test.sqlite3
   pool: 5
-  username:
-  password:
+  timeout: 5000
 
 production:
-  adapter: postgresql
+  adapter: sqlite3
   encoding: unicode
-  database: jenkinsdashboard_production
+  database: db.production.sqlite3
   pool: 5
-  username:
-  password:
+  timeout: 5000

@@ -1,6 +1,6 @@
 class ChangeJobStatusType < ActiveRecord::Migration
   def up
-    change_column :jobs, :status, :varchar
+    change_column :jobs, :status, :integer
   end
 
   def down
