@@ -1,12 +1,12 @@
 class ChartsController
-  
+
   constructor: ->
 
   generate_donut: (url,div) ->
     width = 500
     height = 500
     radius = Math.min(width, height) / 2
-    color = d3.scale.ordinal().range(["#54cd42", "#db5151"])
+    color = d3.scale.ordinal().domain(["built","failed"]).range(["#54cd42", "#db5151"])
 
     arc = d3.svg.arc().outerRadius(radius - 10).innerRadius(radius - 120)
 
@@ -22,7 +22,7 @@ class ChartsController
 
       g = svg.selectAll(".arc").data(pie(data)).enter().append("g").attr("class", "arc")
       g.append("path").attr("d", arc).style "fill", (d) ->
-        color d.data.count
+        color d.data.key
 
       g.append("text").attr("transform", (d) ->
         "translate(" + arc.centroid(d) + ")"
