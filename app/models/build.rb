@@ -30,6 +30,37 @@ class Build < ActiveRecord::Base
       @build
     end
 
+    def duration_response_for_builds(builds)
+
+      response = []
+
+        build_groups = builds.group_by(&:group_by_day)
+
+        build_groups.each do |date, build_group|
+
+          job_groups = build_group.group_by(&:job)
+
+          job_groups.each do |job, job_group|
+
+            average = 0
+
+            job_group.each do |build|
+              average = average + build.duration
+            end
+
+            average = average / job_group.length
+
+            data = {:date => date, :job => job.name, :duration => average}
+
+            response.push(data)
+
+          end
+
+        end
+
+        response
+    end
+
   end
 
   def is_in_database
@@ -64,5 +95,6 @@ class Build < ActiveRecord::Base
   def group_by_day
     created_at.to_date.to_s(:db)
   end
+
 
 end

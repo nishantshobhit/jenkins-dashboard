@@ -13,7 +13,7 @@ JenkinsDashboard::Application.routes.draw do
 	match 'jobs/test_report' => 'test_reports#global_report'
 	match 'jobs/:id/test_report' => 'test_reports#show'
 	# build times
-	match 'jobs/build_times' => 'jobs#build_times'
+	match 'jobs/duration' => 'builds#global_durations'
 
 	resources :users
 	resources :sessions

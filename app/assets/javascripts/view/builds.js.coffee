@@ -3,5 +3,6 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $(document).ready(->
-	window.ChartsController.generate_donut("#{document.URL}.json","#build-health-container")
+  window.ChartsController.generate_donut("#{document.URL}.json","#build-health-container")
+  window.ChartsController.generate_multiline("duration.json","jobs-build-time-container")
 );

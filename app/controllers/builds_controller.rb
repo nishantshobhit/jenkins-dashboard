@@ -6,7 +6,7 @@ class BuildsController < ApplicationController
 		@builds = @job.builds.all(:order => "created_at ASC")
 		respond_with(@builds)
 	end
-	  
+
 	def show
 		@build = Build.find(params[:id])
 	  	respond_with(@build)
@@ -17,8 +17,14 @@ class BuildsController < ApplicationController
 		@failed_builds = @job.builds.where(:success => false)
 		@success_builds = @job.builds.where(:success => true)
 		@builds = @job.builds.all(:order => "created_at ASC")
-		
+
 		data = [{:count => @success_builds.length, :key => "built"}, {:count => @failed_builds.length, :key => "failed"}]
 		respond_with(data)
 	end
+
+	def global_durations
+		builds = Build.find(:all)
+		respond_with(Build.duration_response_for_builds(builds))
+	end
+
 end

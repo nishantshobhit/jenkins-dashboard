@@ -29,9 +29,4 @@ class JobsController < ApplicationController
     respond_with(data)
   end
 
-  def build_times
-
-
-  end
-
 end
