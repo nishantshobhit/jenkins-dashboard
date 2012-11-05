@@ -6,7 +6,7 @@ class JobsController < ApplicationController
   	@jobs = Job.find(:all)
     respond_with(@jobs)
   end
-  
+
   def show
   	@job = Job.find(params[:id])
     respond_with(@job)
@@ -24,9 +24,14 @@ class JobsController < ApplicationController
         failed = failed +1 unless build.success
       end
     end
-    
+
     data = [{:count => built, :key => "built"}, {:count => failed, :key => "failed"}]
     respond_with(data)
   end
 
-end                     
+  def build_times
+
+
+  end
+
+end

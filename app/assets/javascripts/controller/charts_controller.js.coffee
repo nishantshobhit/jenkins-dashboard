@@ -3,6 +3,9 @@ class ChartsController
   constructor: ->
 
   generate_donut: (url,div) ->
+
+    false unless div
+
     width = 500
     height = 500
     radius = Math.min(width, height) / 2
@@ -31,6 +34,8 @@ class ChartsController
 
   generate_stack: (url,div) ->
 
+    false unless div
+
     margin =
       top: 20
       right: 20
@@ -45,7 +50,7 @@ class ChartsController
     xAxis = d3.svg.axis().scale(x).orient("bottom")
     yAxis = d3.svg.axis().scale(y).orient("left").tickFormat(d3.format(".2s"))
     svg = d3.select(div).append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
-    
+
     $.get url, (data) ->
       color.domain d3.keys(data[0]).filter((key) ->
         key isnt "day"
