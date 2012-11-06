@@ -45,7 +45,7 @@ class Build < ActiveRecord::Base
             average = 0
 
             job_group.each do |build|
-              average = average + build.duration
+              average = average + (build.duration / 1000)
             end
 
             average = average / job_group.length

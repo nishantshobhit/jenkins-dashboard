@@ -258,11 +258,11 @@ describe Build, "-" do
       build.job = Job.new(:name => "test")
       time = DateTime.now
       build.stub(:created_at){time}
-      build.stub(:duration){100}
+      build.stub(:duration){1000}
       response = Build.duration_response_for_builds([build])
 
       response.first[:date].should eq(time.to_date.to_s)
-      response.first["test"].should eq(100)
+      response.first["test"].should eq(1)
     end
 
   end
