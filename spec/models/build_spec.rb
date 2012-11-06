@@ -262,8 +262,7 @@ describe Build, "-" do
       response = Build.duration_response_for_builds([build])
 
       response.first[:date].should eq(time.to_date.to_s)
-      response.first[:job].should eq("test")
-      response.first[:duration].should eq(100)
+      response.first["test"].should eq(100)
     end
 
   end

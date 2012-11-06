@@ -96,66 +96,93 @@ class ChartsController
 
   generate_multiline: (url,div) ->
 
-   #false unless div
+    return false unless div
 
-   #margin =
-   #  top: 20
-   #  right: 80
-   #  bottom: 30
-   #  left: 50
+    margin =
+      top: 20
+      right: 80
+      bottom: 30
+      left: 50
 
-   #width = 960 - margin.left - margin.right
-   #height = 500 - margin.top - margin.bottom
-   #x = d3.time.scale().range([0, width])
-   #y = d3.scale.linear().range([height, 0])
-   #color = d3.scale.category10()
-   #xAxis = d3.svg.axis().scale(x).orient("bottom")
-   #yAxis = d3.svg.axis().scale(y).orient("left")
-   #line = d3.svg.line().interpolate("basis").x((d) ->
-   #  x d.date
-   #).y((d) ->
-   #  y d.duration
-   #)
-   #svg = d3.select("body").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    width = 960 - margin.left - margin.right
+    height = 500 - margin.top - margin.bottom
+    parseDate = d3.time.format("%Y-%m-%d").parse
+    x = d3.time.scale().range([0, width])
+    y = d3.scale.linear().range([height, 0])
+    color = d3.scale.category10()
+    xAxis = d3.svg.axis().scale(x).orient("bottom")
+    yAxis = d3.svg.axis().scale(y).orient("left")
 
-   #$.get url, (data) ->
-   #  color.domain d3.keys(data)
+    line = d3.svg.line().interpolate("basis").x((d) ->
+      console.log(d.date)
+      x d.date
+    ).y((d) ->
+      y d.duration
+    )
 
-   #  cities = color.domain().map((job) ->
-   #    job: job
-   #    values: data.map((d) ->
-   #      date: d.date
-   #      duration: +d[job]
-   #    )
-   #  )
-   #  x.domain d3.extent(data, (d) ->
-   #    d.date
-   #  )
-   #  y.domain [d3.min(cities, (c) ->
-   #    d3.min c.values, (v) ->
-   #      v.duration
+    svg = d3.select("body").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
-   #  ), d3.max(cities, (c) ->
-   #    d3.max c.values, (v) ->
-   #      v.duration
+    $.get url, (data) ->
 
-   #  )]
-   #  svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call xAxis
-   #  svg.append("g").attr("class", "y axis").call(yAxis).append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", ".71em").style("text-anchor", "end").text "Temperature (ºF)"
-   #  city = svg.selectAll(".city").data(cities).enter().append("g").attr("class", "city")
-   #  city.append("path").attr("class", "line").attr("d", (d) ->
-   #    line d.values
-   #  ).style "stroke", (d) ->
-   #    color d.job
+      color.domain data.map((object) ->
+        d3.keys(object).filter((key) ->
+          key isnt "date"
+          )
+      )
 
-   #  city.append("text").datum((d) ->
-   #    job: d.job
-   #    value: d.values[d.values.length - 1]
-   #  ).attr("transform", (d) ->
-   #    "translate(" + x(d.value.date) + "," + y(d.value.duration) + ")"
-   #  ).attr("x", 3).attr("dy", ".35em").text (d) ->
-   #    d.job
+      data.forEach((d) ->
+        d.date = parseDate(d.date);
+      )
 
+      jobs = color.domain().map((name) ->
+        name: name
+        values: data.map((d) ->
+          if d.date and d[name]
+            date: d.date
+            duration: +d[name]
+          else
+            false
+        )
+      )
+
+      jobs.forEach((job) ->
+        values = job.values.filter((value) ->
+          value isnt false
+        )
+        job.values = values.map((job) ->
+          date: job.date
+          duration: job.duration
+        )
+      )
+
+      x.domain d3.extent(data, (d) ->
+        d.date
+      )
+      y.domain [d3.min(jobs, (c) ->
+        d3.min c.values, (v) ->
+          v.duration
+
+      ), d3.max(jobs, (c) ->
+        d3.max c.values, (v) ->
+          v.duration
+      )]
+
+      svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call xAxis
+      svg.append("g").attr("class", "y axis").call(yAxis).append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", ".71em").style("text-anchor", "end").text "duration"
+      job = svg.selectAll(".job").data(jobs).enter().append("g").attr("class", "job")
+      job.append("path").attr("class", "line").attr("d", (d) ->
+        line d.values
+      ).style("stroke", (d) ->
+        color d.name
+      ).style("fill", "none")
+
+      job.append("text").datum((d) ->
+        name: d.name
+        value: d.values[d.values.length - 1]
+      ).attr("transform", (d) ->
+        "translate(" + x(d.value.date) + "," + y(d.value.duration) + ")"
+      ).attr("x", 3).attr("dy", ".35em").text (d) ->
+        d.name
 
 
   window.ChartsController = new ChartsController()

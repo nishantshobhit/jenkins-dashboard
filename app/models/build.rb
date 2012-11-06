@@ -50,7 +50,7 @@ class Build < ActiveRecord::Base
 
             average = average / job_group.length
 
-            data = {:date => date, :job => job.name, :duration => average}
+            data = {:date => date, job.name => average}
 
             response.push(data)
 

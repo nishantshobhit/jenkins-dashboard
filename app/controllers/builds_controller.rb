@@ -23,7 +23,7 @@ class BuildsController < ApplicationController
 	end
 
 	def global_durations
-		builds = Build.find(:all)
+		builds = Build.find(:all, :conditions => ["duration > 0 AND duration < 1000000"])
 		respond_with(Build.duration_response_for_builds(builds))
 	end
 

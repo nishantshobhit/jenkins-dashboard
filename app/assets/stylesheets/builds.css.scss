@@ -2,7 +2,7 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.arc { 
+.arc {
  path {
   stroke: #333;
  }
@@ -11,4 +11,11 @@
   	text-transform: uppercase;
   	color:#fff;
  }
+}
+
+.job {
+  text {
+    font-size:10px;
+    font-weight: bold;
+  }
 }
