@@ -4,5 +4,5 @@
 
 $(document).ready(->
   window.ChartsController.generate_donut("#{document.URL}.json","#build-health-container")
-  window.ChartsController.generate_multiline("duration.json","jobs-build-time-container")
+  window.ChartsController.generate_multiline("duration.json","#jobs-build-time-container")
 );

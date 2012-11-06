@@ -1,5 +1,4 @@
 class JobsController < ApplicationController
-  before_filter :require_user
   respond_to :html, :json
 
   def index

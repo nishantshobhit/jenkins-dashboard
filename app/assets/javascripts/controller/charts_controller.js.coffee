@@ -100,11 +100,11 @@ class ChartsController
 
     margin =
       top: 20
-      right: 80
+      right: 250
       bottom: 30
       left: 50
 
-    width = 960 - margin.left - margin.right
+    width = 1500 - margin.left - margin.right
     height = 500 - margin.top - margin.bottom
     parseDate = d3.time.format("%Y-%m-%d").parse
     x = d3.time.scale().range([0, width])
@@ -120,7 +120,7 @@ class ChartsController
       y d.duration
     )
 
-    svg = d3.select("body").append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
+    svg = d3.select(div).append("svg").attr("width", width + margin.left + margin.right).attr("height", height + margin.top + margin.bottom).append("g").attr("transform", "translate(" + margin.left + "," + margin.top + ")")
 
     $.get url, (data) ->
 
