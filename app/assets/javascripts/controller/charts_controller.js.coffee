@@ -168,7 +168,7 @@ class ChartsController
       )]
 
       svg.append("g").attr("class", "x axis").attr("transform", "translate(0," + height + ")").call xAxis
-      svg.append("g").attr("class", "y axis").call(yAxis).append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", ".71em").style("text-anchor", "end").text "duration"
+      svg.append("g").attr("class", "y axis").call(yAxis).append("text").attr("transform", "rotate(-90)").attr("y", 6).attr("dy", ".71em").style("text-anchor", "end").text "duration (seconds)"
       job = svg.selectAll(".job").data(jobs).enter().append("g").attr("class", "job")
       job.append("path").attr("class", "line").attr("d", (d) ->
         line d.values
