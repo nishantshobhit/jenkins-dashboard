@@ -19,12 +19,15 @@ describe Build, "-" do
   end
 
   def test_build
-    job = Job.new()
-    Build.from_api_response(test_json,job)
+    build = Build.from_api_response(test_json)
+    build.job_id = 1
+    build
   end
 
   def mock_build(success)
-    Build.new(:success => success, :name => "test", :number => 1, :duration => 0, :url => "http://google.com")
+    build = Build.new(:success => success, :name => "test", :number => 1, :duration => 0, :url => "http://google.com")
+    build.job_id = 1
+    build
   end
 
   before do
@@ -37,16 +40,11 @@ describe Build, "-" do
       job = double("job")
       json = test_json
       json["building"] = true
-      test_build = Build.from_api_response(json,job)
+      test_build = Build.from_api_response(json)
 
       test_build.should eq(nil)
     end
 
-    it "should assign a job when parsing" do
-      job = Job.new()
-      test_build = Build.from_api_response(test_json,job)
-      test_build.job.should_not eq(nil)
-    end
   end
 
   describe "When creating a Build object from JSON" do
@@ -56,7 +54,7 @@ describe Build, "-" do
     end
 
     def test_build
-      Build.from_api_response(test_json,test_job)
+      Build.from_api_response(test_json)
     end
 
     it "should assign duration" do
@@ -129,8 +127,6 @@ describe Build, "-" do
       Build.stub(:new){build}
 
       build.should_receive(:increment_culprits_count).exactly(1).times
-
-      test_build.stub(:get_test_report)
       test_build.save!
     end
 
@@ -141,7 +137,6 @@ describe Build, "-" do
 
       build.should_receive(:increment_culprits_count).exactly(0).times
 
-      test_build.stub(:get_test_report)
       test_build.save!
     end
 
@@ -150,9 +145,7 @@ describe Build, "-" do
       build = mock_build(true)
       Build.stub(:new){build}
 
-      build.should_receive(:increment_culprits_count).          exactly(0).times
-
-      test_build.stub(:get_test_report)
+      build.should_receive(:increment_culprits_count).exactly(0).times
       test_build.save!
     end
 

@@ -56,24 +56,4 @@ describe Job, "-" do
 
   end
 
-  describe "When getting builds" do
-
-    it "should get the latest build and save it" do
-      job = test_job
-      build = Build.new()
-      US2::Jenkins.any_instance.stub(:get_latest_build).and_yield(build)
-      build.should_receive(:save)
-      job.get_latest_build
-    end
-
-    it "should get every build and save it" do
-      job = test_job
-      build = Build.new()
-      US2::Jenkins.any_instance.stub(:get_all_builds).and_yield([build])
-      build.should_receive(:save)
-      job.get_all_builds
-    end
-
-  end
-
 end

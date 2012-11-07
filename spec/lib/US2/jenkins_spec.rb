@@ -57,22 +57,22 @@ describe US2::Jenkins, "-" do
 
     it "should get the latest build for each job" do
       job = test_job
-      Job.stub(:from_api_response){job}
-      US2::Jenkins.any_instance.should_receive(:get_latest_build).with(job)
-      jenkins.sync
+      test_jenkins = US2::Jenkins.new()
+      test_jenkins.stub(:jobs){[job]}
+      test_jenkins.should_receive(:get_latest_build).with(job)
+      test_jenkins.sync
     end
 
   end
 
   describe "When populating" do
 
-
     it "should get all of each jobs builds" do
       job = test_job
       job.stub(:get_all_builds)
 
       jenkins.stub(:jobs){[job]}
-      job.should_receive(:get_all_builds)
+      jenkins.should_receive(:get_all_builds)
       jenkins.populate
     end
 
@@ -93,7 +93,7 @@ describe US2::Jenkins, "-" do
 
     it "should create a Build object and return it in a block" do
       test_job = Job.new()
-      Build.should_receive(:from_api_response).with(build_json,test_job)
+      Build.should_receive(:from_api_response).with(build_json)
       jenkins.get_latest_build(test_job) do |build|
         build.should_not eq(nil)
       end

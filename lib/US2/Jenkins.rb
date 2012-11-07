@@ -16,7 +16,11 @@ module US2
       jobs.each do |job|
         puts "Fetched the job: #{job.name}" unless job.nil?
         job.save
-        job.get_latest_build
+
+        #get the latest build for the job and save it
+        get_latest_build(job) do |build|
+          build.save
+        end
       end
     end
 
@@ -24,7 +28,13 @@ module US2
       jobs.each do |job|
         puts "Fetched the job: #{job.name}" unless job.nil?
         job.save
-        job.get_all_builds
+
+        # get every build for the job and save it
+        get_all_builds(job) do |builds|
+          builds.each do |build|
+            build.save
+          end
+        end
       end
     end
 
@@ -44,25 +54,39 @@ module US2
     end
 
     def get_latest_build(job, &block)
+      # get the builds url
       build_url = latest_build_url(job)
+      # request from jenkins
       response = HTTParty.get("#{build_url}api/json", :basic_auth => @auth)
-      @build = Build.from_api_response(response,job)
+      # create a new buld object
+      @build = Build.from_api_response(response)
+      # assign the job
+      @build.job_id = job.id unless job.nil? or @build.nil?
+      # feedback
       puts "Fetched the build: #{@build.name}" unless @build.nil?
+      # return it
       block.call(@build)
     end
 
     def get_all_builds(job, &block)
+      # get every build url for the job
       build_urls = build_urls(job)
 
       builds = []
-
+      # loop through the urls and go get em
       build_urls.each do |url|
+        # get the build json from jenkins
         response = HTTParty.get("#{url}api/json", :basic_auth => @auth)
-        @build = Build.from_api_response(response,job)
+        # create a build object
+        @build = Build.from_api_response(response)
+        # assign the job
+        @build.job_id = job.id unless job.nil? or @build.nil?
+        # feedback
         puts "Fetched the build: #{@build.name}" unless @build.nil?
+        # add it to the builds array
         builds.push(@build)
       end
-
+      # return the build objects
       block.call(builds)
     end
 

@@ -41,7 +41,8 @@ class TestReport < ActiveRecord::Base
         end
 
         data = {:passed => passed, :failed => failed, :skipped => skipped, :day => key}
-        response.push(data)
+        # we dont care about empty reports
+        response.push(data) unless passed == 0 and failed == 0 and skipped == 0
       end
 
       response
