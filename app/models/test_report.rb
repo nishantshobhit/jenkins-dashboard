@@ -21,6 +21,8 @@ class TestReport < ActiveRecord::Base
 
       response = []
 
+      builds = builds.sort_by &:date
+
       @grouped = builds.group_by(&:group_by_day)
 
       @grouped.each do |key, builds_group|

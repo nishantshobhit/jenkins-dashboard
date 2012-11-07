@@ -58,4 +58,9 @@ class Job < ActiveRecord::Base
     end
   end
 
+  def is_in_database
+    @query = Job.find(:all, :conditions => {:name => self.name})
+    @query.any?
+  end
+
 end

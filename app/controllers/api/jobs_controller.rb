@@ -3,7 +3,7 @@ module Jobs
   class JobsController < BaseController
 
     def index
-    	@jobs = Job.find(:all)
+    	@jobs ||= Job.find(:all)
       respond_with(@jobs)
     end
 

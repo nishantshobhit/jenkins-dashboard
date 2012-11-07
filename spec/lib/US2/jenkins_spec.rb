@@ -66,11 +66,25 @@ describe US2::Jenkins, "-" do
 
   describe "When populating" do
 
+
     it "should get all of each jobs builds" do
       job = test_job
-      jenkins.stub(:jobs){[job]}
       job.stub(:get_all_builds)
+
+      jenkins.stub(:jobs){[job]}
       job.should_receive(:get_all_builds)
+      jenkins.populate
+    end
+
+    it "should not save a job that is already in the database" do
+      job = test_job
+      job.stub(:get_all_builds)
+
+      jenkins.stub(:jobs){[job]}
+      job.stub(:is_in_database){true}
+
+      job.should_receive(:save).exactly(0).times
+
       jenkins.populate
     end
 

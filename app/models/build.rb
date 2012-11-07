@@ -20,15 +20,13 @@ class Build < ActiveRecord::Base
 
       # return nil if the build is still building..
       return nil if api_response["building"] == "true" || api_response["building"] == true
+      # create new build
+      @build = Build.new(:duration => duration, :name => name, :number => number, :success => result, :url => url)
 
       if date
-        date = DateTime.strptime(date,"%Y-%m-%d_%H-%M-%S")
-      else
-        date = DateTime.now
+        @build.date = DateTime.strptime(date,"%Y-%m-%d_%H-%M-%S")
       end
 
-      # create new build
-      @build = Build.new(:duration => duration, :name => name, :number => number, :success => result, :url => url, :date => date)
       # return nil if we've already saved this build
       return nil if @build.is_in_database
       # assign job
@@ -40,34 +38,35 @@ class Build < ActiveRecord::Base
     end
 
     def duration_response_for_builds(builds)
-
       response = []
 
-        build_groups = builds.group_by(&:group_by_day)
+      builds = builds.sort_by &:date
 
-        build_groups.each do |date, build_group|
+      build_groups = builds.group_by(&:group_by_day)
 
-          job_groups = build_group.group_by(&:job)
+      build_groups.each do |date, build_group|
 
-          job_groups.each do |job, job_group|
+        job_groups = build_group.group_by(&:job)
 
-            average = 0
+        job_groups.each do |job, job_group|
 
-            job_group.each do |build|
-              average = average + (build.duration / 1000)
-            end
+          average = 0
 
-            average = average / job_group.length
-
-            data = {:date => date, job.name => average}
-
-            response.push(data)
-
+          job_group.each do |build|
+            average = average + (build.duration / 1000)
           end
+
+          average = average / job_group.length
+
+          data = {:date => date, job.name => average}
+
+          response.push(data)
 
         end
 
-        response
+      end
+
+      response
     end
 
   end

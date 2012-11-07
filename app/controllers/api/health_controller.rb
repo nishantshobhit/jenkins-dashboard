@@ -3,7 +3,7 @@ module Api
   class HealthController < BaseController
 
     def index
-      @jobs = Job.find(:all)
+      @jobs ||= Job.find(:all)
 
       failed = 0
       built = 0
