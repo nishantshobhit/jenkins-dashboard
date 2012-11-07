@@ -15,7 +15,7 @@ module US2
     def sync
       jobs.each do |job|
         puts "Fetched the job: #{job.name}" unless job.nil?
-        job.save unless job.is_in_database
+        job.save
         job.get_latest_build
       end
     end
@@ -23,7 +23,7 @@ module US2
     def populate
       jobs.each do |job|
         puts "Fetched the job: #{job.name}" unless job.nil?
-        job.save unless job.is_in_database
+        job.save
         job.get_all_builds
       end
     end

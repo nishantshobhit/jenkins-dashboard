@@ -76,18 +76,6 @@ describe US2::Jenkins, "-" do
       jenkins.populate
     end
 
-    it "should not save a job that is already in the database" do
-      job = test_job
-      job.stub(:get_all_builds)
-
-      jenkins.stub(:jobs){[job]}
-      job.stub(:is_in_database){true}
-
-      job.should_receive(:save).exactly(0).times
-
-      jenkins.populate
-    end
-
   end
 
   describe "When getting builds" do

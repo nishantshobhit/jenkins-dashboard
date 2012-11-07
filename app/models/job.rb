@@ -2,6 +2,7 @@ class Job < ActiveRecord::Base
   attr_accessible :name, :status, :url
   has_many :builds
   validates_presence_of :name, :status, :url
+  validates_uniqueness_of :name, :url
 
   @@status_types = [:fixed, :broken, :building, :disabled, :aborted]
 
@@ -50,17 +51,11 @@ class Job < ActiveRecord::Base
   end
 
   def get_all_builds
-    jenkins = US2::Jenkins.new()
-    jenkins.get_all_builds(self) do |builds|
+    US2::Jenkins.instance.get_all_builds(self) do |builds|
       builds.each do |build|
         build.save unless build.nil?
       end
     end
-  end
-
-  def is_in_database
-    @query = Job.find(:all, :conditions => {:name => self.name})
-    @query.any?
   end
 
 end

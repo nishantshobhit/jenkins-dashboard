@@ -54,12 +54,6 @@ describe Job, "-" do
       Job.from_api_response(test_json)
     end
 
-    it "should return true if already in the database" do
-      job = Job.new()
-      Job.stub(:find) {[job]}
-      job.is_in_database.should eq(true)
-    end
-
   end
 
   describe "When getting builds" do

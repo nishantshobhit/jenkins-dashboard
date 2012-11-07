@@ -2,6 +2,7 @@ class Build < ActiveRecord::Base
   attr_accessible :duration, :name, :number, :success, :url, :date
   validates_presence_of :name, :number, :duration
   after_save :update_culprits, :get_test_report
+  validates_uniqueness_of :name, :url
 
   has_and_belongs_to_many :culprits
   belongs_to :job
@@ -27,8 +28,6 @@ class Build < ActiveRecord::Base
         @build.date = DateTime.strptime(date,"%Y-%m-%d_%H-%M-%S")
       end
 
-      # return nil if we've already saved this build
-      return nil if @build.is_in_database
       # assign job
       @build.job = job
       # assign culprits
@@ -69,11 +68,6 @@ class Build < ActiveRecord::Base
       response
     end
 
-  end
-
-  def is_in_database
-    @query = Build.find(:all, :conditions => {:number => self.number, :name => self.name})
-    @query.any?
   end
 
   def update_culprits

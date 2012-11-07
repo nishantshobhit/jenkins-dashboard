@@ -35,18 +35,9 @@ describe Build, "-" do
 
     it "should return nil if the build is building" do
       job = double("job")
-      Build.any_instance.stub(:is_in_database) {false}
       json = test_json
       json["building"] = true
       test_build = Build.from_api_response(json,job)
-
-      test_build.should eq(nil)
-    end
-
-    it "should return nil if the build is already in the database" do
-      job = double("job")
-      Build.any_instance.stub(:is_in_database) {true}
-      test_build = Build.from_api_response(test_json,job)
 
       test_build.should eq(nil)
     end
@@ -66,10 +57,6 @@ describe Build, "-" do
 
     def test_build
       Build.from_api_response(test_json,test_job)
-    end
-
-    before do
-      Build.any_instance.stub(:is_in_database) {false}
     end
 
     it "should assign duration" do
@@ -102,7 +89,6 @@ describe Build, "-" do
   describe "When parsing culprits" do
 
     before do
-      Build.any_instance.stub(:is_in_database) {false}
       Culprit.stub(:update_attributes) {true}
     end
 
