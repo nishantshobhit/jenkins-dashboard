@@ -64,9 +64,6 @@ class ChartsController
         )
         d.total = d.tests[d.tests.length - 1].y1
 
-      data.sort (a, b) ->
-        b.total - a.total
-
       x.domain data.map((d) ->
         d.day
       )
