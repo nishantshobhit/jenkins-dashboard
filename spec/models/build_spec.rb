@@ -10,6 +10,7 @@ describe Build, "-" do
     json["result"] = true
     json["number"] = 1
     json["url"] = "http://test.com"
+    json["id"] = "2012-11-06_01-00-32"
     json
   end
 
@@ -89,6 +90,12 @@ describe Build, "-" do
 
     it "should assign number" do
       test_build.number.should eq(1)
+    end
+
+    it "should assing a date" do
+      test_build.date.day.should eq(6)
+      test_build.date.year.should eq(2012)
+      test_build.date.month.should eq(11)
     end
   end
 
@@ -249,7 +256,7 @@ describe Build, "-" do
     it "should return average duration" do
       build = mock_build(true)
       build.job = Job.new(:name => "test")
-      build.stub(:created_at){DateTime.now}
+      build.stub(:date){DateTime.now}
       Build.duration_response_for_builds([build]).should_not eq(nil)
     end
 
@@ -257,7 +264,7 @@ describe Build, "-" do
       build = mock_build(true)
       build.job = Job.new(:name => "test")
       time = DateTime.now
-      build.stub(:created_at){time}
+      build.stub(:date){time}
       build.stub(:duration){1000}
       response = Build.duration_response_for_builds([build])
 

@@ -14,7 +14,7 @@ module US2
 
     def sync
       jobs.each do |job|
-        puts "Fetched the job: #{job.name}"
+        puts "Fetched the job: #{job.name}" unless job.nil?
         job.save!
         job.get_latest_build
       end
@@ -22,7 +22,7 @@ module US2
 
     def populate
       jobs.each do |job|
-        puts "Fetched the job: #{job.name}"
+        puts "Fetched the job: #{job.name}" unless job.nil?
         job.save!
         job.get_all_builds
       end
@@ -47,7 +47,7 @@ module US2
       build_url = latest_build_url(job)
       response = HTTParty.get("#{build_url}api/json", :basic_auth => @auth)
       @build = Build.from_api_response(response,job)
-      puts "Fetched the build: #{@build.name}"
+      puts "Fetched the build: #{@build.name}" unless @build.nil?
       block.call(@build)
     end
 
@@ -59,7 +59,7 @@ module US2
       build_urls.each do |url|
         response = HTTParty.get("#{url}api/json", :basic_auth => @auth)
         @build = Build.from_api_response(response,job)
-        puts "Fetched the build: #{@build.name}"
+        puts "Fetched the build: #{@build.name}" unless @build.nil?
         builds.push(@build)
       end
 
@@ -70,7 +70,7 @@ module US2
       response = HTTParty.get("#{build.url}testReport/api/json", :basic_auth => @auth)
       if build_response_has_test_report(response)
         @test_report = TestReport.from_api_response(response)
-        puts "Test report created for #{build.name}"
+        puts "Test report created for #{build.name}" unless build.nil?
       end
       block.call(@test_report)
     end

@@ -1,5 +1,5 @@
 class Build < ActiveRecord::Base
-  attr_accessible :duration, :name, :number, :success, :url
+  attr_accessible :duration, :name, :number, :success, :url, :date
   validates_presence_of :name, :number, :duration
   after_save :update_culprits, :get_test_report
 
@@ -16,10 +16,19 @@ class Build < ActiveRecord::Base
       number = api_response["number"]
       result = api_response["result"] == "FAILURE" ? false : true;
       url = api_response["url"]
+      date = api_response["id"]
+
       # return nil if the build is still building..
       return nil if api_response["building"] == "true" || api_response["building"] == true
+
+      if date
+        date = DateTime.strptime(date,"%Y-%m-%d_%H-%M-%S")
+      else
+        date = DateTime.now
+      end
+
       # create new build
-      @build = Build.new(:duration => duration, :name => name, :number => number, :success => result, :url => url)
+      @build = Build.new(:duration => duration, :name => name, :number => number, :success => result, :url => url, :date => date)
       # return nil if we've already saved this build
       return nil if @build.is_in_database
       # assign job
@@ -93,7 +102,7 @@ class Build < ActiveRecord::Base
   end
 
   def group_by_day
-    created_at.to_date.to_s(:db)
+    date.to_date.to_s(:db)
   end
 
 

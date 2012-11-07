@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121030180850) do
+ActiveRecord::Schema.define(:version => 20121107091121) do
 
   create_table "builds", :force => true do |t|
     t.integer  "job_id"
@@ -22,6 +22,7 @@ ActiveRecord::Schema.define(:version => 20121030180850) do
     t.datetime "updated_at", :null => false
     t.boolean  "success"
     t.string   "url"
+    t.datetime "date"
   end
 
   create_table "builds_culprits", :id => false, :force => true do |t|
