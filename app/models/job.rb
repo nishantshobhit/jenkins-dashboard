@@ -51,7 +51,8 @@ class Job < ActiveRecord::Base
   end
 
   def get_all_builds
-    US2::Jenkins.instance.get_all_builds(self) do |builds|
+    jenkins = US2::Jenkins.new()
+    jenkins.get_all_builds(self) do |builds|
       builds.each do |build|
         build.save unless build.nil?
       end
