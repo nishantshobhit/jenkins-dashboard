@@ -10,10 +10,6 @@ describe Job, "-" do
     json
   end
 
-  def test_job
-    Job.new(:name => "test", "status" => "red", "url" => "test4")
-  end
-
   before do
     Job.any_instance.stub(:update_attributes){true}
     Job.any_instance.stub(:save){true}
@@ -37,7 +33,7 @@ describe Job, "-" do
     end
 
     it "should create a new job when the job is new" do
-      test_job = Job.new()
+      test_job = FactoryGirl.build(:job)
       Job.stub(:new){test_job}
       Job.stub(:find){[]}
       # parse
@@ -45,7 +41,7 @@ describe Job, "-" do
     end
 
     it "should update the existing jobs color if it is in the database" do
-      test_job = Job.new()
+      test_job = FactoryGirl.build(:job)
       Job.stub(:find){[test_job]}
 
       # test

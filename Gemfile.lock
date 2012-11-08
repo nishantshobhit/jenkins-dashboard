@@ -167,7 +167,7 @@ DEPENDENCIES
   bcrypt-ruby
   coffee-rails (~> 3.2.1)
   d3-rails (~> 0.0.5)
-  factory_girl_rails
+  factory_girl_rails (~> 4.0)
   foreman
   guard (~> 1.5.2)
   guard-rspec

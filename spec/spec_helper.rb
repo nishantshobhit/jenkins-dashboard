@@ -3,6 +3,7 @@ require 'spork'
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
+
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,
   # if you change any configuration or code from libraries loaded here, you'll
@@ -50,6 +51,8 @@ Spork.prefork do
     config.filter_run :focus => true
     config.run_all_when_everything_filtered = true
   end
+
+
 end
 
 Spork.each_run do

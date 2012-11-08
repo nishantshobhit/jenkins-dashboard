@@ -41,7 +41,7 @@ group :test do
   gem "rspec-rails"
   gem "spork"
   gem "guard-spork"
-  gem 'factory_girl_rails'
+  gem "factory_girl_rails", "~> 4.0"
 end
 
 # To use ActiveModel has_secure_password
