@@ -1,7 +1,6 @@
 class Job < ActiveRecord::Base
   attr_accessible :name, :status, :url
   has_many :builds
-  belongs_to :repo
   validates_presence_of :name, :status, :url
   validates_uniqueness_of :name, :url
 

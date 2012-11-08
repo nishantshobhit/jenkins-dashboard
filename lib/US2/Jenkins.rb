@@ -32,7 +32,7 @@ module US2
         # get every build for the job and save it
         get_all_builds(job) do |builds|
           builds.each do |build|
-            build.save unless build.nil?
+            build.save
           end
         end
       end
