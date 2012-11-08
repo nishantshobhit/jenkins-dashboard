@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121107091121) do
+ActiveRecord::Schema.define(:version => 20121108121259) do
 
   create_table "builds", :force => true do |t|
     t.integer  "job_id"
@@ -43,6 +43,14 @@ ActiveRecord::Schema.define(:version => 20121107091121) do
     t.datetime "created_at",                :null => false
     t.datetime "updated_at",                :null => false
     t.string   "url"
+    t.integer  "repo_id"
+  end
+
+  create_table "repos", :force => true do |t|
+    t.string   "url"
+    t.string   "branch"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
   end
 
   create_table "test_reports", :force => true do |t|
