@@ -15,3 +15,6 @@
 /tmp
 
 /vendor/bundle
+.sass-cache
+ignored/
+.DS_Store
