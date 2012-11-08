@@ -7,7 +7,7 @@ gem 'rails', '3.2.6'
 
 gem "sqlite3"
 
-gem 'json'
+
 
 # Gems used only for assets and not required
 # in production environments by default.
@@ -27,15 +27,21 @@ gem "bcrypt-ruby", :require => "bcrypt"
 gem 'whenever', :require => false
 gem "d3-rails", "~> 0.0.5"
 gem "haml", "~> 3.1.7"
+gem "foreman"
+gem 'json'
 
-group :development, :test do
+group :development do
   gem "guard", "~> 1.5.2"
-  gem "rspec-rails"
   gem "guard-rspec"
-  gem "spork", "~> 0.9.2"
   gem 'rb-fsevent', '~> 0.9.1'
   gem "pry"
-  gem "foreman"
+end
+
+group :test do
+  gem "rspec-rails"
+  gem "spork"
+  gem "guard-spork"
+  gem 'factory_girl_rails'
 end
 
 # To use ActiveModel has_secure_password

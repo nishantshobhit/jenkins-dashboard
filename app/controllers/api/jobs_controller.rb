@@ -1,4 +1,4 @@
-module Jobs
+module Api
 
   class JobsController < BaseController
 
