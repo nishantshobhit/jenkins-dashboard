@@ -23,7 +23,7 @@ class Job < ActiveRecord::Base
   end
 
   def status_name
-    @@status_types[self.status]
+    @@status_types[self.status.to_i]
   end
 
   def status=(value)
