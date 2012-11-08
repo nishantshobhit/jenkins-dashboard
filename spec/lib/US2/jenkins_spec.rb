@@ -30,7 +30,7 @@ describe US2::Jenkins, "-" do
   end
 
   def test_job
-    Job.new(:name => "test", "status" => "red", "url" => "test4")
+    FactoryGirl.build(:job, name: "test", status: "red", url: "test4")
   end
 
   describe "When initialized" do
@@ -88,7 +88,7 @@ describe US2::Jenkins, "-" do
 
     before do
       HTTParty.stub(:get){build_json}
-      Build.stub(:from_api_response){Build.new()}
+      Build.stub(:from_api_response){FactoryGirl.build(:build)}
     end
 
     it "should create a Build object and return it in a block" do
@@ -103,7 +103,7 @@ describe US2::Jenkins, "-" do
       test_job = Job.new()
 
       jenkins.stub(:build_urls) {["www.google.com","www.yahoo.com"]}
-      Build.stub(:from_api_response) {Build.new(:url => "www.google.com")}
+      Build.stub(:from_api_response) {FactoryGirl.build(:build, url: "www.google.com")}
 
       jenkins.get_all_builds(test_job) do |builds|
         builds.length.should eq(2)
@@ -158,7 +158,7 @@ describe US2::Jenkins, "-" do
       TestReport.stub(:from_api_response){test_report}
       TestReport.should_receive(:from_api_response)
 
-      test_build = Build.new()
+      test_build = FactoryGirl.build(:build)
       jenkins.get_test_report(test_build) do |report|
       end
     end
@@ -167,7 +167,7 @@ describe US2::Jenkins, "-" do
       HTTParty.stub(:get){garbage_response}
       TestReport.should_receive(:from_api_response).exactly(0).times
 
-      test_build = Build.new()
+      test_build = FactoryGirl.build(:build)
       jenkins.get_test_report(test_build) do |report|
       end
     end

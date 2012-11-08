@@ -52,13 +52,13 @@ describe TestReport do
 
     it "should group the builds by day" do
       Build.any_instance.should_receive(:group_by_day)
-      builds = [Build.new()]
+      builds = [FactoryGirl.build(:build)]
       TestReport.api_response_for_builds(builds)
     end
 
     it "should respond with the correct values" do
       # create a build
-      build = Build.new()
+      build = FactoryGirl.build(:build)
       build.test_report = TestReport.new(:passed => 1, :failed => 2, :skipped => 3)
 
       # return fake group
