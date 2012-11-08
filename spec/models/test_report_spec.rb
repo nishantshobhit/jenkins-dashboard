@@ -59,7 +59,7 @@ describe TestReport do
     it "should respond with the correct values" do
       # create a build
       build = FactoryGirl.build(:build)
-      build.test_report = TestReport.new(:passed => 1, :failed => 2, :skipped => 3)
+      build.test_report = FactoryGirl.build(:test_report, passed: 1, failed: 2, skipped: 3)
 
       # return fake group
       Array.any_instance.stub(:group_by) {{"Day" => [build]}}
