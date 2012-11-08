@@ -36,7 +36,8 @@ gem "foreman"
 
 # environment specific
 group :development do
-  gem "guard", "~> 1.5.2"
+  gem 'guard', :github => 'guard/guard', :branch => 'interactor/cleanup'
+  gem 'rb-readline'
   gem "guard-rspec"
   gem 'rb-fsevent', '~> 0.9.1'
   gem "pry"
