@@ -27,8 +27,10 @@ class Build < ActiveRecord::Base
       if date
         @build.date = DateTime.strptime(date,"%Y-%m-%d_%H-%M-%S")
       end
+
       # assign culprits
       @build.culprits = Culprit.culprits_from_api_response(api_response["culprits"], @build) unless @build.success
+
       #return build
       @build
     end

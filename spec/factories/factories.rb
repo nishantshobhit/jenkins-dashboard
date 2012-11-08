@@ -6,4 +6,25 @@ FactoryGirl.define do
     url "http://test.com"
   end
 
+  factory :build do
+    duration 100
+    name "test"
+    number 100
+    success true
+    job_id 1
+    url "http://test.com"
+    date DateTime.now
+  end
+
+  factory :culprit do
+    name "Test"
+    count 100
+  end
+
+  factory :test_report do
+    passed 100
+    failed 10
+    skipped 20
+  end
+
 end
