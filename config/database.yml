@@ -8,7 +8,7 @@ development:
   encoding: unicode
   database: jenkinsdashboard_development
   pool: 5
-  username: alexfish
+  username:
   password:
 
 test:
@@ -16,7 +16,7 @@ test:
   encoding: unicode
   database: jenkinsdashboard_test
   pool: 5
-  username: alexfish
+  username:
   password:
 
 production:
