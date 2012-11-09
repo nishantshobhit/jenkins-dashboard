@@ -19,7 +19,7 @@ module US2
 
         #get the latest build for the job and save it
         get_latest_build(job) do |build|
-          build.save
+          build.save unless build.nil?
         end
       end
     end
@@ -32,7 +32,7 @@ module US2
         # get every build for the job and save it
         get_all_builds(job) do |builds|
           builds.each do |build|
-            build.save
+            build.save unless build.nil?
           end
         end
       end
