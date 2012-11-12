@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  message: MyString
+  hash: MyString
+  insertions: 1
+  deletions: 1
+  files_changed: 1
+  developer_id: 1
+  build_id: 1
+  date: 2012-11-12 16:43:13
+
+two:
+  message: MyString
+  hash: MyString
+  insertions: 1
+  deletions: 1
+  files_changed: 1
+  developer_id: 1
+  build_id: 1
+  date: 2012-11-12 16:43:13

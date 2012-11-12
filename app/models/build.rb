@@ -5,6 +5,7 @@ class Build < ActiveRecord::Base
   validates_uniqueness_of :name, :url
 
   has_and_belongs_to_many :developers
+  has_many :commits
   belongs_to :job
   has_one :test_report
 

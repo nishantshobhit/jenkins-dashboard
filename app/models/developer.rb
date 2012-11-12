@@ -1,6 +1,7 @@
 class Developer < ActiveRecord::Base
   attr_accessible :broken_build_count, :name
   has_and_belongs_to_many :builds
+  has_many :commits
 
   class << self
 
