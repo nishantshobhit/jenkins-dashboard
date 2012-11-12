@@ -19,7 +19,7 @@ describe Developer, "-" do
 
     it "should return an array of developers" do
       test_developers = Developer.developers_from_api_response(test_json,FactoryGirl.build(:build))
-      test_developers.count.should eq(2)
+      test_developers.length.should eq(2)
     end
 
     it "should hold a reference to its build" do
@@ -59,8 +59,8 @@ describe Developer, "-" do
       test_developer.should_not eq(nil)
     end
 
-    it 'should set count to zero by default' do
-      test_developer.count.should eq(0)
+    it 'should set broken_build_count to zero by default' do
+      test_developer.broken_build_count.should eq(0)
     end
 
     it 'should set the name' do

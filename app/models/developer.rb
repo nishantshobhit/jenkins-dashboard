@@ -1,5 +1,5 @@
 class Developer < ActiveRecord::Base
-  attr_accessible :count, :name
+  attr_accessible :broken_build_count, :name
   has_and_belongs_to_many :builds
 
   class << self
@@ -23,7 +23,7 @@ class Developer < ActiveRecord::Base
       name = response["fullName"]
       @query = Developer.find(:all, :conditions => {:name => name})
       if @query.length == 0
-        @developer = Developer.new(:name => name, :count => 0)
+        @developer = Developer.new(:name => name, :broken_build_count => 0)
       else
         @developer = @query.first
       end

@@ -61,13 +61,13 @@ class Build < ActiveRecord::Base
 
   def update_developers
     # increment the developers count
-    self.increment_developers_count unless self.developers.length == 0 or self.success
+    self.increment_developers_broken_build_count unless self.developers.length == 0 or self.success
   end
 
-  def increment_developers_count
+  def increment_developers_broken_build_count
     self.developers.each do |developer|
-      count = developer.count + 1
-      developer.update_attributes(:count => count)
+      count = developer.broken_build_count + 1
+      developer.update_attributes(:broken_build_count => count)
     end
   end
 

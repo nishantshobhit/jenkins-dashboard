@@ -18,7 +18,7 @@ FactoryGirl.define do
 
   factory :developer do
     name "Test"
-    count 100
+    broken_build_count 100
   end
 
   factory :test_report do

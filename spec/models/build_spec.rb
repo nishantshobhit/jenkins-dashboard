@@ -112,7 +112,7 @@ describe Build, "-" do
     it "should increment developer counts when build has developers" do
       build = FactoryGirl.build(:build, success: false)
       build.developers = [FactoryGirl.build(:developer)]
-      build.should_receive(:increment_developers_count).exactly(1).times
+      build.should_receive(:increment_developers_broken_build_count).exactly(1).times
 
       build.save!
     end
@@ -138,23 +138,23 @@ describe Build, "-" do
     end
 
     it "should increment developer counts for failed builds" do
-      developer = FactoryGirl.build(:developer, count: 1)
+      developer = FactoryGirl.build(:developer, broken_build_count: 1)
 
       test_build = FactoryGirl.build(:build, success: false)
       test_build.developers = [developer]
 
-      test_build.should_receive(:increment_developers_count)
+      test_build.should_receive(:increment_developers_broken_build_count)
       test_build.update_developers
     end
 
     it "should add one to the existing developer count" do
-      developer = FactoryGirl.build(:developer, count: 1)
-      developer.should_receive(:update_attributes).with(:count => 2)
+      developer = FactoryGirl.build(:developer, broken_build_count: 1)
+      developer.should_receive(:update_attributes).with(:broken_build_count => 2)
 
       test_build = FactoryGirl.build(:build)
       test_build.developers = [developer]
 
-      test_build.increment_developers_count
+      test_build.increment_developers_broken_build_count
     end
 
     it "should request the builds test report" do
