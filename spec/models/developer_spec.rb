@@ -19,7 +19,7 @@ describe Developer, "-" do
 
     it "should return an array of developers" do
       test_developers = Developer.developers_from_api_response(test_json,FactoryGirl.build(:build))
-      test_developers.length.should eq(2)
+      test_developers.length.should eq(2)rails
     end
 
     it "should hold a reference to its build" do

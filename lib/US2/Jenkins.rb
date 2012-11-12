@@ -58,14 +58,17 @@ module US2
       build_url = latest_build_url(job)
       # request from jenkins
       response = HTTParty.get("#{build_url}api/json", :basic_auth => @auth)
-      # create a new buld object
-      @build = Build.from_api_response(response)
-      # assign the job
-      @build.job_id = job.id unless job.nil? or @build.nil?
-      # feedback
-      puts "Fetched the build: #{@build.name}" unless @build.nil?
-      # return it
-      block.call(@build)
+
+      if response.code < 400 && response != nil
+        # create a new buld object
+        @build = Build.from_api_response(response)
+        # assign the job
+        @build.job_id = job.id unless job.nil? or @build.nil?
+        # feedback
+        puts "Fetched the build: #{@build.name}" unless @build.nil?
+        # return it
+        block.call(@build)
+      end
     end
 
     def get_all_builds(job, &block)
@@ -77,14 +80,17 @@ module US2
       build_urls.each do |url|
         # get the build json from jenkins
         response = HTTParty.get("#{url}api/json", :basic_auth => @auth)
-        # create a build object
-        @build = Build.from_api_response(response)
-        # assign the job
-        @build.job_id = job.id unless job.nil? or @build.nil?
-        # feedback
-        puts "Fetched the build: #{@build.name}" unless @build.nil?
-        # add it to the builds array
-        builds.push(@build)
+
+        if response.code < 400
+          # create a build object
+          @build = Build.from_api_response(response)
+          # assign the job
+          @build.job_id = job.id unless job.nil? or @build.nil?
+          # feedback
+          puts "Fetched the build: #{@build.name}" unless @build.nil?
+          # add it to the builds array
+          builds.push(@build)
+        end
       end
       # return the build objects
       block.call(builds)
@@ -92,33 +98,39 @@ module US2
 
     def get_test_report(build, &block)
       response = HTTParty.get("#{build.url}testReport/api/json", :basic_auth => @auth)
-      if build_response_has_test_report(response)
-        @test_report = TestReport.from_api_response(response)
-        puts "Test report created for #{build.name}" unless build.nil?
+      if response.code < 400
+        if build_response_has_test_report(response) and response.code < 400
+          @test_report = TestReport.from_api_response(response)
+          puts "Test report created for #{build.name}" unless build.nil?
+        end
+        block.call(@test_report)
       end
-      block.call(@test_report)
     end
 
     private
 
     def latest_build_url(job)
       response = HTTParty.get("#{job.url}api/json", :basic_auth => @auth)
-      builds = response["builds"]
-      if builds
-        builds.first["url"]
+      if response.code < 400
+        builds = response["builds"]
+        if builds
+          builds.first["url"]
+        end
       end
     end
 
     def build_urls(job)
       response = HTTParty.get("#{job.url}api/json", :basic_auth => @auth)
-      builds = response["builds"]
-      urls = []
-      if builds
-        builds.each do |build|
-          urls.push(build["url"])
+      if response.code < 400
+        builds = response["builds"]
+        urls = []
+        if builds
+          builds.each do |build|
+            urls.push(build["url"])
+          end
         end
+        urls
       end
-      urls
     end
 
     def build_response_has_test_report(response)

@@ -6,6 +6,7 @@ class Developer < ActiveRecord::Base
 
     def developers_from_api_response(json,build)
       developers = []
+      return nil if json.nil?
       json.each do |developer_json|
         # parse developer
         developer = self.from_api_response(developer_json)
