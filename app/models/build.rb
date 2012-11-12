@@ -29,8 +29,7 @@ class Build < ActiveRecord::Base
       end
 
       # assign developers
-      developers = Developer.developers_from_api_response(api_response["developers"], @build) unless @build.success
-      @build.developers = developers unless developers.nil?
+      @build.developers = Developer.developers_from_api_response(api_response["culprits"], @build) unless @build.success
 
       #return build
       @build
