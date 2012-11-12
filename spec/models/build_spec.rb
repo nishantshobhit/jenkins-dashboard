@@ -11,6 +11,7 @@ describe Build, "-" do
     json["number"] = 1
     json["url"] = "http://test.com"
     json["id"] = "2012-11-06_01-00-32"
+    json["changeSet"] = {"items" => [{"id" => 1}]}
     json
   end
 
@@ -32,6 +33,10 @@ describe Build, "-" do
   end
 
   describe "When creating a Build object from JSON" do
+
+    before do
+      Commit.stub(:save)
+    end
 
     def test_job
       FactoryGirl.build(:job)
@@ -66,6 +71,15 @@ describe Build, "-" do
       test_build.date.year.should eq(2012)
       test_build.date.month.should eq(11)
     end
+
+    it "should create a commit object if there is a response" do
+      Commit.stub(:from_api_response){FactoryGirl.build(:commit)}
+      Developer.stub(:developers_from_api_response)
+
+      Commit.should_receive(:from_api_response).exactly(1).times
+      test_build
+    end
+
   end
 
   describe "When parsing developers" do

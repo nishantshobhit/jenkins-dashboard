@@ -48,6 +48,8 @@ class Commit < ActiveRecord::Base
         @commit.developer = developer
       end
 
+      @commit.save
+
       @commit
     end
 

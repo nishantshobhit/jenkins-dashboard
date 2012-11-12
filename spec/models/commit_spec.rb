@@ -16,6 +16,10 @@ describe Commit, "-" do
       json
     end
 
+    before do
+      Commit.stub(:save)
+    end
+
     it "should set a date" do
       commit = Commit.from_api_response(test_json)
       commit.date.day.should eq(12)

@@ -19,6 +19,7 @@ class Build < ActiveRecord::Base
       result = api_response["result"] == "FAILURE" ? false : true;
       url = api_response["url"]
       date = api_response["id"]
+      changes = api_response["changeSet"]
 
       # return nil if the build is still building..
       return nil if api_response["building"] == "true" || api_response["building"] == true
@@ -31,6 +32,15 @@ class Build < ActiveRecord::Base
 
       # assign developers
       @build.developers = Developer.developers_from_api_response(api_response["culprits"], @build) unless @build.success
+
+      # handle commits
+      if changes and changes["items"].length > 0
+        items = api_response["changeSet"]["items"]
+        items.each do |item|
+          @commit = Commit.from_api_response(item)
+          @build.commits.push(@commit)
+        end
+      end
 
       #return build
       @build
