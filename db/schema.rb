@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121112164313) do
+ActiveRecord::Schema.define(:version => 20121112172606) do
 
   create_table "builds", :force => true do |t|
     t.integer  "job_id"
@@ -32,7 +32,7 @@ ActiveRecord::Schema.define(:version => 20121112164313) do
 
   create_table "commits", :force => true do |t|
     t.string   "message"
-    t.string   "hash"
+    t.string   "sha1hash"
     t.integer  "insertions"
     t.integer  "deletions"
     t.integer  "files_changed"

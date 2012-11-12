@@ -27,4 +27,13 @@ FactoryGirl.define do
     skipped 20
   end
 
+  factory :commit do
+    date DateTime.now
+    deletions 1
+    files_changed 1
+    insertions 1
+    sha1hash "hash"
+    message "test message"
+  end
+
 end
