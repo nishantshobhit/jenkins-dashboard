@@ -37,8 +37,10 @@ class Build < ActiveRecord::Base
       if changes and changes["items"].length > 0
         items = api_response["changeSet"]["items"]
         items.each do |item|
-          @commit = Commit.from_api_response(item)
-          @build.commits.push(@commit)
+          if item["id"] #only parse commits from git (which have an id)
+            @commit = Commit.from_api_response(item)
+            @build.commits.push(@commit)
+          end
         end
       end
 

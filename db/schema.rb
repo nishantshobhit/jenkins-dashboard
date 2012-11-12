@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121112172606) do
+ActiveRecord::Schema.define(:version => 20121112183247) do
 
   create_table "builds", :force => true do |t|
     t.integer  "job_id"
@@ -31,7 +31,7 @@ ActiveRecord::Schema.define(:version => 20121112172606) do
   end
 
   create_table "commits", :force => true do |t|
-    t.string   "message"
+    t.string   "message",       :limit => nil
     t.string   "sha1hash"
     t.integer  "insertions"
     t.integer  "deletions"
@@ -39,8 +39,8 @@ ActiveRecord::Schema.define(:version => 20121112172606) do
     t.integer  "developer_id"
     t.integer  "build_id"
     t.datetime "date"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.datetime "created_at",                   :null => false
+    t.datetime "updated_at",                   :null => false
   end
 
   create_table "developers", :force => true do |t|
