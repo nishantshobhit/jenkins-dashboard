@@ -25,12 +25,12 @@ ActiveRecord::Schema.define(:version => 20121107091121) do
     t.datetime "date"
   end
 
-  create_table "builds_culprits", :id => false, :force => true do |t|
+  create_table "builds_developers", :id => false, :force => true do |t|
     t.integer "build_id"
-    t.integer "culprit_id"
+    t.integer "developer_id"
   end
 
-  create_table "culprits", :force => true do |t|
+  create_table "developers", :force => true do |t|
     t.string   "name"
     t.integer  "count"
     t.datetime "created_at", :null => false

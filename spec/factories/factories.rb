@@ -16,7 +16,7 @@ FactoryGirl.define do
     date DateTime.now
   end
 
-  factory :culprit do
+  factory :developer do
     name "Test"
     count 100
   end

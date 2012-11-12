@@ -5,7 +5,7 @@ class CreateBuilds < ActiveRecord::Migration
       t.integer :duration
       t.string :name
       t.integer :number
-      t.string :culprit
+      t.string :developer
       t.timestamps
     end
   end

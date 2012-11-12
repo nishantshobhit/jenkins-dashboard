@@ -1,10 +1,10 @@
 class Build < ActiveRecord::Base
   attr_accessible :duration, :name, :number, :success, :url, :date
   validates_presence_of :name, :number, :duration, :job_id
-  after_save :update_culprits, :get_test_report
+  after_save :update_developers, :get_test_report
   validates_uniqueness_of :name, :url
 
-  has_and_belongs_to_many :culprits
+  has_and_belongs_to_many :developers
   belongs_to :job
   has_one :test_report
 
@@ -28,8 +28,8 @@ class Build < ActiveRecord::Base
         @build.date = DateTime.strptime(date,"%Y-%m-%d_%H-%M-%S")
       end
 
-      # assign culprits
-      @build.culprits = Culprit.culprits_from_api_response(api_response["culprits"], @build) unless @build.success
+      # assign developers
+      @build.developers = Developer.developers_from_api_response(api_response["developers"], @build) unless @build.success
 
       #return build
       @build
@@ -59,15 +59,15 @@ class Build < ActiveRecord::Base
     end
   end
 
-  def update_culprits
-    # increment the culprits count
-    self.increment_culprits_count unless self.culprits.length == 0 or self.success
+  def update_developers
+    # increment the developers count
+    self.increment_developers_count unless self.developers.length == 0 or self.success
   end
 
-  def increment_culprits_count
-    self.culprits.each do |culprit|
-      count = culprit.count + 1
-      culprit.update_attributes(:count => count)
+  def increment_developers_count
+    self.developers.each do |developer|
+      count = developer.count + 1
+      developer.update_attributes(:count => count)
     end
   end
 

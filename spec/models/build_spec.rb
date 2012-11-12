@@ -68,27 +68,27 @@ describe Build, "-" do
     end
   end
 
-  describe "When parsing culprits" do
+  describe "When parsing developers" do
 
     before do
-      Culprit.stub(:update_attributes) {true}
+      Developer.stub(:update_attributes) {true}
     end
 
-    it "should assign culprits when build fails" do
-      culprit = FactoryGirl.build(:culprit)
-      Culprit.stub(:culprits_from_api_response) {[culprit]}
+    it "should assign developers when build fails" do
+      developer = FactoryGirl.build(:developer)
+      Developer.stub(:developers_from_api_response) {[developer]}
 
       test_build = FactoryGirl.build(:build, success: false)
       Build.stub(:new){test_build}
 
       build = Build.from_api_response("")
-      build.culprits.should include(culprit)
+      build.developers.should include(developer)
     end
 
-    it "should not assign culprits when build succeeds" do
+    it "should not assign developers when build succeeds" do
       Build.any_instance.stub(:success) {true}
       test_build = FactoryGirl.build(:build)
-      test_build.culprits.should be_empty
+      test_build.developers.should be_empty
     end
 
   end
@@ -109,59 +109,59 @@ describe Build, "-" do
       HTTParty.stub(:get)
     end
 
-    it "should increment culprit counts when build has culprits" do
+    it "should increment developer counts when build has developers" do
       build = FactoryGirl.build(:build, success: false)
-      build.culprits = [FactoryGirl.build(:culprit)]
-      build.should_receive(:increment_culprits_count).exactly(1).times
+      build.developers = [FactoryGirl.build(:developer)]
+      build.should_receive(:increment_developers_count).exactly(1).times
 
       build.save!
     end
 
-    it "should not increment culprit counts when build has no culprits" do
-      Culprit.stub(:culprits_from_api_response) {[]}
+    it "should not increment developer counts when build has no developers" do
+      Developer.stub(:developers_from_api_response) {[]}
       build = FactoryGirl.build(:build, success: false)
       Build.stub(:new){build}
 
-      build.should_receive(:increment_culprits_count).exactly(0).times
+      build.should_receive(:increment_developers_count).exactly(0).times
       test_build = FactoryGirl.build(:build)
       test_build.save!
     end
 
-    it "should not increment culprit counts for succesful builds before save" do
-      Culprit.stub(:culprits_from_api_response) {[]}
+    it "should not increment developer counts for succesful builds before save" do
+      Developer.stub(:developers_from_api_response) {[]}
       build = FactoryGirl.build(:build, success: true)
       Build.stub(:new){build}
 
-      build.should_receive(:increment_culprits_count).exactly(0).times
+      build.should_receive(:increment_developers_count).exactly(0).times
       test_build = FactoryGirl.build(:build)
       test_build.save!
     end
 
-    it "should increment culprit counts for failed builds" do
-      culprit = FactoryGirl.build(:culprit, count: 1)
+    it "should increment developer counts for failed builds" do
+      developer = FactoryGirl.build(:developer, count: 1)
 
       test_build = FactoryGirl.build(:build, success: false)
-      test_build.culprits = [culprit]
+      test_build.developers = [developer]
 
-      test_build.should_receive(:increment_culprits_count)
-      test_build.update_culprits
+      test_build.should_receive(:increment_developers_count)
+      test_build.update_developers
     end
 
-    it "should add one to the existing culprit count" do
-      culprit = FactoryGirl.build(:culprit, count: 1)
-      culprit.should_receive(:update_attributes).with(:count => 2)
+    it "should add one to the existing developer count" do
+      developer = FactoryGirl.build(:developer, count: 1)
+      developer.should_receive(:update_attributes).with(:count => 2)
 
       test_build = FactoryGirl.build(:build)
-      test_build.culprits = [culprit]
+      test_build.developers = [developer]
 
-      test_build.increment_culprits_count
+      test_build.increment_developers_count
     end
 
     it "should request the builds test report" do
       HTTParty.stub(:get){report_json}
       US2::Jenkins.any_instance.should_receive(:get_test_report)
       build = FactoryGirl.build(:build, success: true)
-      build.stub(:update_culprits)
+      build.stub(:update_developers)
       build.save!
     end
 
@@ -176,7 +176,7 @@ describe Build, "-" do
         report.should_not_receive(:build=)
         report.should_not_receive(:save!)
 
-        build.stub(:update_culprits)
+        build.stub(:update_developers)
         build.save!
       end
 
@@ -187,7 +187,7 @@ describe Build, "-" do
         build = FactoryGirl.build(:build, success: true)
 
         report.should_receive(:build=).with(build)
-        build.stub(:update_culprits)
+        build.stub(:update_developers)
         build.save!
       end
 
@@ -198,7 +198,7 @@ describe Build, "-" do
         report.should_receive(:save!)
 
         build = FactoryGirl.build(:build, success: true)
-        build.stub(:update_culprits)
+        build.stub(:update_developers)
         build.save!
       end
 

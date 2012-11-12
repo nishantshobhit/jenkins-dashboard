@@ -1,6 +1,6 @@
-class CreateCulprits < ActiveRecord::Migration
+class CreateDevelopers < ActiveRecord::Migration
   def change
-    create_table :culprits do |t|
+    create_table :developers do |t|
       t.string :name
       t.integer :count
 

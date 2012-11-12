@@ -9,7 +9,7 @@ JenkinsDashboard::Application.routes.draw do
 		resources :test_report
 		resources :health
 		resources :duration
-		resources :culprits
+		resources :developers
 		resources :jobs do
 			resources :builds
 		end

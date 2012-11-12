@@ -1,10 +1,10 @@
 module Api
 
-  class CulpritsController < BaseController
+  class DevelopersController < BaseController
 
     def index
-      @culprits = Culprit.find(:all)
-      respond_with(@culprits)
+      @developers = Developer.find(:all)
+      respond_with(@developers)
     end
 
   end
