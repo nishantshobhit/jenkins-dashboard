@@ -106,7 +106,9 @@ describe Build, "-" do
     end
 
     before do
-      HTTParty.stub(:get)
+      response = ""
+      response.stub(:code){200}
+      HTTParty.stub(:get){response}
     end
 
     it "should increment developer counts when build has developers" do

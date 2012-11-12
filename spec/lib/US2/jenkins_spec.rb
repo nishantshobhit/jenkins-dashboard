@@ -18,6 +18,7 @@ describe US2::Jenkins, "-" do
     job["color"] = "blue"
     job["url"] = "http://google.com"
     job["builds"] = builds_json
+    job.stub(:code){200}
     job
   end
 
@@ -83,6 +84,7 @@ describe US2::Jenkins, "-" do
     def build_json
       build = {}
       build["url"] = "http://test.com"
+      build.stub(:code){200}
       build
     end
 
@@ -141,11 +143,14 @@ describe US2::Jenkins, "-" do
     def report_json
       json = {}
       json["passCount"] = 1
+      json.stub(:code){200}
       json
     end
 
     def garbage_response
-      "oajdfipsjgsifg"
+      garbage = "oajdfipsjgsifg"
+      garbage.stub(:code){200}
+      garbage
     end
 
     def test_build
