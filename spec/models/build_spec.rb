@@ -127,6 +127,7 @@ describe Build, "-" do
 
     it "should increment developer counts when build has developers" do
       build = FactoryGirl.build(:build, success: false)
+      build.stub(:get_test_report)
       build.developers = [FactoryGirl.build(:developer)]
       build.should_receive(:increment_developers_broken_build_count).exactly(1).times
 
@@ -136,6 +137,7 @@ describe Build, "-" do
     it "should not increment developer counts when build has no developers" do
       Developer.stub(:developers_from_api_response) {[]}
       build = FactoryGirl.build(:build, success: false)
+      build.stub(:get_test_report)
       Build.stub(:new){build}
 
       build.should_receive(:increment_developers_count).exactly(0).times
@@ -146,6 +148,7 @@ describe Build, "-" do
     it "should not increment developer counts for succesful builds before save" do
       Developer.stub(:developers_from_api_response) {[]}
       build = FactoryGirl.build(:build, success: true)
+      build.stub(:get_test_report)
       Build.stub(:new){build}
 
       build.should_receive(:increment_developers_count).exactly(0).times
@@ -188,7 +191,7 @@ describe Build, "-" do
         US2::Jenkins.any_instance.stub(:get_test_report).and_yield(nil)
 
         build = FactoryGirl.build(:build, success: true)
-
+        build.stub(:get_test_report)
         report.should_not_receive(:build=)
         report.should_not_receive(:save!)
 
