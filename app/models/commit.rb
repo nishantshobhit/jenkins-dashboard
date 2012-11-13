@@ -1,9 +1,10 @@
 class Commit < ActiveRecord::Base
-  attr_accessible :build_id, :date, :deletions, :developer_id, :files_changed, :sha1hash, :insertions, :message, :developer_id
+  attr_accessible :build_id, :date, :deletions, :developer_id, :files_changed, :sha1hash, :insertions, :message, :developer_id, :spelling_mistakes
 
   belongs_to :developer
   belongs_to :build
   validates_uniqueness_of :sha1hash
+  before_save :check_spelling
 
   class << self
 
@@ -55,6 +56,24 @@ class Commit < ActiveRecord::Base
       @commit
     end
 
+  end
+
+  private
+
+  def check_spelling
+    if self.message
+      results = Spellchecker.check(self.message, dictionary='en')
+
+      mistakes = 0
+
+      results.each do |result|
+        if result[:correct] == false
+          mistakes = mistakes + 1
+        end
+      end
+
+      self.spelling_mistakes = mistakes
+    end
   end
 
 end

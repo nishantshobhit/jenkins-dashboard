@@ -81,4 +81,20 @@ describe Commit, "-" do
 
   end
 
+  describe "When checking spelling" do
+
+    it "should check after the commit is saved" do
+      commit = FactoryGirl.build(:commit)
+      commit.should_receive(:check_spelling)
+      commit.save
+    end
+
+    it "should assing spelling mistakes if there are any" do
+      commit = FactoryGirl.build(:commit, message: 'I canp spell')
+      commit.save
+      commit.spelling_mistakes.should eq(1)
+    end
+
+  end
+
 end

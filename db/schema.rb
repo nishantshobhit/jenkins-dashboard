@@ -39,8 +39,9 @@ ActiveRecord::Schema.define(:version => 20121113091846) do
     t.integer  "developer_id"
     t.integer  "build_id"
     t.datetime "date"
-    t.datetime "created_at",    :null => false
-    t.datetime "updated_at",    :null => false
+    t.integer  "spelling_mistakes"
+    t.datetime "created_at",        :null => false
+    t.datetime "updated_at",        :null => false
   end
 
   create_table "developers", :force => true do |t|
@@ -52,9 +53,9 @@ ActiveRecord::Schema.define(:version => 20121113091846) do
 
   create_table "jobs", :force => true do |t|
     t.string   "name"
-    t.string   "status"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "status",     :limit => nil
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.string   "url"
   end
 

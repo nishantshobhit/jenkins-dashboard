@@ -1,4 +1,4 @@
-class RemoteDeveloperFromBuild < ActiveRecord::Migration
+class RemoveDeveloperFromBuild < ActiveRecord::Migration
   def up
     remove_column :builds, :developer
   end

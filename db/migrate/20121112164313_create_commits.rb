@@ -9,6 +9,7 @@ class CreateCommits < ActiveRecord::Migration
       t.integer :developer_id
       t.integer :build_id
       t.datetime :date
+      t.integer :spelling_mistakes
 
       t.timestamps
     end
