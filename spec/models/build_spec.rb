@@ -200,9 +200,9 @@ describe Build, "-" do
         report = FactoryGirl.build(:test_report)
         US2::Jenkins.any_instance.stub(:get_test_report).and_yield(report)
 
-        build = FactoryGirl.build(:build, success: true)
+        build = FactoryGirl.build(:build, success: true, id: 1)
 
-        report.should_receive(:build=).with(build)
+        report.should_receive(:build_id=).with(build.id)
         build.stub(:update_developers)
         build.save!
       end

@@ -1,6 +1,6 @@
 class TestReport < ActiveRecord::Base
   belongs_to :build
-  attr_accessible :duration, :failed, :passed, :skipped
+  attr_accessible :duration, :failed, :passed, :skipped, :build_id
 
   class << self
     def from_api_response(response)

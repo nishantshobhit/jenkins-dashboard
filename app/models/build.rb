@@ -87,7 +87,7 @@ class Build < ActiveRecord::Base
   def get_test_report
     jenkins = US2::Jenkins.new()
     jenkins.get_test_report(self) do |report|
-      report.build = Build.find(self.id) unless report.nil?
+      report.build_id = self.id unless report.nil?
       report.save! unless report.nil?
      end
   end
