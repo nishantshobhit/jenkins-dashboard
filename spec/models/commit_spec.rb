@@ -53,20 +53,26 @@ describe Commit, "-" do
     end
 
     it "should set a developer" do
+      developer = FactoryGirl.build(:developer, name:"test author", id: 1)
+      Developer.stub(:new){developer}
+      Developer.stub(:save)
+
       commit = Commit.from_api_response(test_json)
-      commit.developer.name.should eq("test author")
+      commit.developer_id.should eq(1)
     end
 
     it "should fetch the developer from the db if it already exists" do
-      build = FactoryGirl.build(:developer, name:"test author")
+      developer = FactoryGirl.build(:developer, name:"test author", id: 1)
 
-      Developer.stub(:find){[build]}
+      Developer.stub(:find){[developer]}
       commit = Commit.from_api_response(test_json)
 
-      commit.developer.name.should eq("test author")
+      commit.developer_id.should eq(1)
     end
 
     it "should create a new developer if it doesn't exist" do
+      developer = FactoryGirl.build(:developer, name:"test author", id: 1)
+      Developer.stub(:new){developer}
       Developer.stub(:find){[]}
       Developer.should_receive(:new)
 

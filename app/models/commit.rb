@@ -1,8 +1,9 @@
 class Commit < ActiveRecord::Base
-  attr_accessible :build_id, :date, :deletions, :developer_id, :files_changed, :sha1hash, :insertions, :message
+  attr_accessible :build_id, :date, :deletions, :developer_id, :files_changed, :sha1hash, :insertions, :message, :developer_id
 
   belongs_to :developer
   belongs_to :build
+  validates_uniqueness_of :sha1hash
 
   class << self
 
@@ -41,11 +42,12 @@ class Commit < ActiveRecord::Base
 
         if query.length == 0
           developer = Developer.new(:name => name)
+          developer.save
         else
           developer = query.first
         end
 
-        @commit.developer = developer
+        @commit.developer_id = developer.id
       end
 
       @commit.save
