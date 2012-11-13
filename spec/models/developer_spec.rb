@@ -9,13 +9,12 @@ describe Developer, "-" do
     json = [developer,developer]
   end
 
-
-  before do
-    Developer.any_instance.stub(:save) {true}
-    Developer.any_instance.stub(:update_attributes) {true}
-  end
-
   describe "When parsing an array of developers" do
+
+    before do
+     Developer.any_instance.stub(:save) {true}
+      Developer.any_instance.stub(:update_attributes) {true}
+    end
 
     it "should return an array of developers" do
       test_developers = Developer.developers_from_api_response(test_json,FactoryGirl.build(:build))
@@ -35,6 +34,14 @@ describe Developer, "-" do
       Developer.developers_from_api_response(test_json,FactoryGirl.build(:build))
     end
 
+  end
+
+  describe "Before saving" do
+    it "should set its broken build count to 0 if it has none" do
+      developer = FactoryGirl.build(:developer, broken_build_count: nil)
+      developer.save
+      developer.broken_build_count.should eq(0)
+    end
   end
 
   describe "When parsing a single developer" do
@@ -60,7 +67,9 @@ describe Developer, "-" do
     end
 
     it 'should set broken_build_count to zero by default' do
-      test_developer.broken_build_count.should eq(0)
+      developer = test_developer
+      developer.save
+      developer.broken_build_count.should eq(0)
     end
 
     it 'should set the name' do
