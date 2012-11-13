@@ -10,6 +10,7 @@ JenkinsDashboard::Application.routes.draw do
 		resources :health
 		resources :duration
 		resources :developers
+		resources :commits
 		resources :jobs do
 			resources :builds
 		end
