@@ -94,7 +94,7 @@ describe US2::Jenkins, "-" do
     end
 
     it "should create a Build object and return it in a block" do
-      test_job = Job.new()
+      test_job = FactoryGirl.build(:job)
       Build.should_receive(:from_api_response).with(build_json)
       jenkins.get_latest_build(test_job) do |build|
         build.should_not eq(nil)
@@ -102,7 +102,7 @@ describe US2::Jenkins, "-" do
     end
 
     it "should create an array of Build objects and return them in a block" do
-      test_job = Job.new()
+      test_job = FactoryGirl.build(:job)
 
       jenkins.stub(:build_urls) {["www.google.com","www.yahoo.com"]}
       Build.stub(:from_api_response) {FactoryGirl.build(:build, url: "www.google.com")}
@@ -110,6 +110,16 @@ describe US2::Jenkins, "-" do
       jenkins.get_all_builds(test_job) do |builds|
         builds.length.should eq(2)
         builds.first.url.should eq("www.google.com")
+      end
+    end
+
+    it "should not return nil builds in the array" do
+      test_job = FactoryGirl.build(:job)
+
+      Build.stub(:from_api_response) {nil}
+
+      jenkins.get_all_builds(test_job) do |builds|
+        builds.length.should eq(0)
       end
     end
 

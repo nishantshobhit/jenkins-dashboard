@@ -89,7 +89,7 @@ module US2
           # feedback
           puts "Fetched the build: #{@build.name}" unless @build.nil?
           # add it to the builds array
-          builds.push(@build)
+          builds.push(@build) unless @build.nil?
         end
       end
       # return the build objects
