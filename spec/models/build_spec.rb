@@ -35,7 +35,7 @@ describe Build, "-" do
   describe "When creating a Build object from JSON" do
 
     before do
-      Commit.stub(:save)
+      Commit.stub(:from_api_response){FactoryGirl.build(:commit)}
     end
 
     def test_job
@@ -66,14 +66,14 @@ describe Build, "-" do
       test_build.number.should eq(1)
     end
 
-    it "should assing a date" do
+    it "should assign a date" do
       test_build.date.day.should eq(6)
       test_build.date.year.should eq(2012)
       test_build.date.month.should eq(11)
     end
 
     it "should create a commit object if there is a response" do
-      Commit.stub(:from_api_response){FactoryGirl.build(:commit)}
+
       Developer.stub(:developers_from_api_response)
 
       Commit.should_receive(:from_api_response).exactly(1).times

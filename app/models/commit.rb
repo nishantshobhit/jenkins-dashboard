@@ -51,7 +51,7 @@ class Commit < ActiveRecord::Base
         @commit.developer_id = developer.id
       end
 
-      @commit.save
+      @commit.save!
 
       @commit
     end
