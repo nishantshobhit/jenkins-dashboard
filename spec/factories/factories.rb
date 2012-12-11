@@ -14,6 +14,7 @@ FactoryGirl.define do
     job_id 1
     url "http://test.com"
     date DateTime.now
+    association :job
   end
 
   factory :developer do
@@ -34,10 +35,16 @@ FactoryGirl.define do
     insertions 1
     sha1hash "hash"
     message "test message"
+    association :build
   end
 
   factory :dashboard do
     name 'Example Dashboard'
+  end
+
+  factory :widget do
+    name 'Example Widget'
+    association :dashboard
   end
 
 end

@@ -62,6 +62,7 @@ module US2
       if response.code < 400 && response != nil
         # create a new buld object
         @build = Build.from_api_response(response)
+
         # assign the job
         @build.job_id = job.id unless job.nil? or @build.nil?
         # feedback
@@ -84,6 +85,7 @@ module US2
         if response.code < 400
           # create a build object
           @build = Build.from_api_response(response)
+
           # assign the job
           @build.job_id = job.id unless job.nil? or @build.nil?
           # feedback

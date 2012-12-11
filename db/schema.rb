@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121211102312) do
+ActiveRecord::Schema.define(:version => 20121211115525) do
 
   create_table "builds", :force => true do |t|
     t.integer  "job_id"
@@ -83,6 +83,16 @@ ActiveRecord::Schema.define(:version => 20121211102312) do
     t.string   "password_salt"
     t.datetime "created_at",    :null => false
     t.datetime "updated_at",    :null => false
+  end
+
+  create_table "widgets", :force => true do |t|
+    t.string   "name"
+    t.string   "kind"
+    t.string   "size"
+    t.integer  "dashboard_id"
+    t.integer  "update_interval"
+    t.datetime "created_at",      :null => false
+    t.datetime "updated_at",      :null => false
   end
 
 end
