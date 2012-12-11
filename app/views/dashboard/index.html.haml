@@ -1,8 +1,0 @@
-#global-test-report-container
-#jobs-health-container
-#jobs-build-time-container
-
-%ul{:id => "jobs"}
-  - @jobs.each do |job|
-    %li{:class => "#{job.status_name}"}
-      %p= job.name

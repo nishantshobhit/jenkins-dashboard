@@ -12,8 +12,14 @@
  *= require_tree .
  */
 
-body {
-	background-color: #2c2c2c;
+body
+{
 	font-family: 'Open Sans', sans-serif;
 	color:#fff;
+    background-color: #2c2c2c;
+}
+
+table
+{
+  margin:20px 0;
 }

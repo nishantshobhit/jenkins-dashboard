@@ -1,0 +1,10 @@
+%div.container
+  %h1 Jenkins Dashboard
+  %table.table.table-striped.table-bordered
+    %tbody
+      - @dashboards.each do |dashboard|
+        %tr
+          %td
+            %h4= link_to dashboard.name, dashboard_path(dashboard)
+  %div.clear
+    = link_to 'Add Dashboard', new_dashboard_path, :class => "btn btn-large btn-success"

@@ -1,0 +1,7 @@
+%div.container
+  %h1 Add Dashboard
+  = form_for @dashboard do |f|
+    = f.label :name
+    = f.text_field :name
+    %p
+      = f.submit(:class => "btn")

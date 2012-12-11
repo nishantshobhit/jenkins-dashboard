@@ -44,6 +44,7 @@ group :development do
   gem "guard-rspec"
   gem 'rb-fsevent', '~> 0.9.1'
   gem "pry"
+  gem 'guard-livereload'
 end
 
 group :test do
