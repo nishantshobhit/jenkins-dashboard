@@ -1,18 +1,18 @@
 FactoryGirl.define do
 
   factory :job do
-    name "test"
+    sequence(:name){|n| "name#{n}" }
     status "red"
-    url "http://test.com"
+    sequence(:url){|n| "http://#{n}.com" }
   end
 
   factory :build do
     duration 100
-    name "test"
+    sequence(:name){|n| "name#{n}" }
     number 100
     success true
     job_id 1
-    url "http://test.com"
+    sequence(:url){|n| "http://#{n}.com" }
     date DateTime.now
     association :job
   end
@@ -35,7 +35,6 @@ FactoryGirl.define do
     insertions 1
     sha1hash "hash"
     message "test message"
-    association :build
   end
 
   factory :dashboard do
@@ -44,7 +43,6 @@ FactoryGirl.define do
 
   factory :widget do
     name 'Example Widget'
-    association :dashboard
   end
 
 end

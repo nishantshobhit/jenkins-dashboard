@@ -91,6 +91,8 @@ describe US2::Jenkins, "-" do
     before do
       HTTParty.stub(:get){build_json}
       Build.stub(:from_api_response){FactoryGirl.build(:build)}
+      Job.any_instance.stub(:save)
+      Build.any_instance.stub(:save)
     end
 
     it "should create a Build object and return it in a block" do
