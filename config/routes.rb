@@ -18,6 +18,9 @@ JenkinsDashboard::Application.routes.draw do
 
 	resources :users
 	resources :sessions
-	resources :dashboards
+	resources :dashboards do
+		resources :widgets
+	end
+	resources :widgets
 
 end
