@@ -36,4 +36,8 @@ FactoryGirl.define do
     message "test message"
   end
 
+  factory :dashboard do
+    name 'Example Dashboard'
+  end
+
 end

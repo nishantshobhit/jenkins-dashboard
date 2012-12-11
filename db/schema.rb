@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121113091846) do
+ActiveRecord::Schema.define(:version => 20121211102312) do
 
   create_table "builds", :force => true do |t|
     t.integer  "job_id"
@@ -44,6 +44,14 @@ ActiveRecord::Schema.define(:version => 20121113091846) do
     t.datetime "updated_at",        :null => false
   end
 
+  create_table "dashboards", :force => true do |t|
+    t.string   "name"
+    t.string   "layout"
+    t.boolean  "locked",     :default => false
+    t.datetime "created_at",                    :null => false
+    t.datetime "updated_at",                    :null => false
+  end
+
   create_table "developers", :force => true do |t|
     t.string   "name"
     t.integer  "broken_build_count"
@@ -53,9 +61,9 @@ ActiveRecord::Schema.define(:version => 20121113091846) do
 
   create_table "jobs", :force => true do |t|
     t.string   "name"
-    t.string   "status",     :limit => nil
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.string   "status"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "url"
   end
 

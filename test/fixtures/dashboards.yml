@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  name: MyString
+  layout: MyString
+  locked: false
+
+two:
+  name: MyString
+  layout: MyString
+  locked: false
