@@ -9,11 +9,21 @@
 </head>
 <body>
 
+  <div class="navbar">
+    <div class="navbar-inner">
+      <a class="brand" href="/">Jenkins Dashboard</a>
+      <ul class="nav">
+        <li class="active"><a href="/">Dashboards</a></li>
+      </ul>
+    </div>
+  </div>
 
-<% flash.each do |name, msg| %>
-  <%= content_tag :div, msg, :id => "flash_#{name}" %>
-<% end %>
-  
+  <% flash.each do |name, msg| %>
+    <div class="alert alert-error">
+      <%= content_tag :div, msg, :id => "flash_#{name}" %>
+    </div>
+  <% end %>
+
 <%= yield %>
 
 </body>
