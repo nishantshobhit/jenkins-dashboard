@@ -50,4 +50,12 @@ class Widget < ActiveRecord::Base
     end
   end
 
+  def to=(value)
+    write_attribute(:to, value.to_datetime)
+  end
+
+  def from=(value)
+    write_attribute(:from, value.to_datetime)
+  end
+
 end

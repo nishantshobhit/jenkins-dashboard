@@ -16,6 +16,8 @@ $(document).ready ->
     layout = $("#layout").val()
     size = $("#size").val()
     job_id = $("#job").val()
+    from = $("#widget_from").val()
+    to = $("#widget_to").val()
 
     $.post url,
       widget:
@@ -25,6 +27,8 @@ $(document).ready ->
         data_type: data_type
         layout: layout
         size: size
+        to: to
+        from: from
       (data) ->
         $("#modal").modal('hide')
         location.reload() #TODO nice reload
