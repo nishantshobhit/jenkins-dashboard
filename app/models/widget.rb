@@ -1,11 +1,11 @@
 class Widget < ActiveRecord::Base
-  attr_accessible :dashboard_id, :name
+  attr_accessible :dashboard_id, :name, :data_type, :layout, :size, :from, :to
 
   @@data_types = [:health, :status, :duration, :commits, :developers]
   @@layouts = [:bar, :line, :text]
   @@sizes = [:small, :medium, :large]
 
-  def data_type
+  def data_type_name
     @@data_types[self.data_type.to_i]
   end
 
@@ -16,7 +16,7 @@ class Widget < ActiveRecord::Base
     end
   end
 
-  def layout
+  def layout_name
     @@layoutsizes[self.layout.to_i]
   end
 
@@ -27,7 +27,7 @@ class Widget < ActiveRecord::Base
     end
   end
 
-  def size
+  def size_name
     @@sizes[self.size.to_i]
   end
 
