@@ -1,10 +1,5 @@
-%div.navbar
-  %div.navbar-inner
-    %a.brand{:href=>"/"}
-      Jenkins Dashboard
-    %ul.nav
-      %li.active
-        = link_to "Home", "/"
+= content_for :head do
+  = javascript_include_tag :dashboards
 
 %div.container
   %table.table.table-striped.table-bordered

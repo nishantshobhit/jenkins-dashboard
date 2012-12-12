@@ -1,12 +1,9 @@
-%div.navbar
-  %div.navbar-inner
-    %a.brand{:href=>"/"}
-      Jenkins Dashboard
-    %ul.nav
-      %li
-        = link_to "Home", "/"
-      %li.active
-        = link_to @dashboard.name, dashboard_path(@dashboard)
+= content_for :head do
+  = javascript_include_tag :dashboards
+
+= content_for :nav do
+  %li.active
+    = link_to @dashboard.name, dashboard_path(@dashboard)
 
 - @widgets.each do |widget|
   %h2= widget.name
