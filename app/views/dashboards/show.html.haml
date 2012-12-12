@@ -5,8 +5,10 @@
   %li.active
     = link_to @dashboard.name, dashboard_path(@dashboard)
 
+%div.row-fluid
 - @widgets.each do |widget|
-  %h2= widget.name
+  %div.span7.well
+    %h4= widget.name
 
 %div.clear.center
   %a#add-widget.btn.btn-large.btn-success{:href => new_dashboard_widget_path(params[:id]), "data-target" => "#modal", "data-toggle" => "modal"}
