@@ -12,17 +12,17 @@
     %div.controls
       = select_tag "job", options_from_collection_for_select(@jobs, "id", "name")
   %div.control-group
-    = f.label :content, :class => "control-label"
+    = f.label :data, :class => "control-label"
     %div.controls
-      = select_tag "content", "<option>Commits</options><option>Health</options><option>Status</options><option>Duration</options>".html_safe
+      = select_tag "data-type", options_from_collection_for_select(@widget.data_types, "to_s", "to_s")
   %div.control-group
-    = f.label :kind, :class => "control-label"
+    = f.label :layout, :class => "control-label"
     %div.controls
-      = select_tag "kind", "<option>Bar</options><option>Line</options><option>Text</options>".html_safe
+      = select_tag "layout", options_from_collection_for_select(@widget.layouts, "to_s", "to_s")
   %div.control-group
-    = f.label :widget_size, :class => "control-label"
+    = f.label :size, :class => "control-label"
     %div.controls
-      = select_tag "size", "<option>Small</options><option>Medium</options><option>Large</options>".html_safe
+      = select_tag "size", options_from_collection_for_select(@widget.sizes, "to_s", "to_s")
   %div.control-group
     %div.input-append.date.from{"data-date" => "12-12-2012", "data-date-format"=>"dd-mm-yyyy"}
       = f.label :from, :class => "control-label"
