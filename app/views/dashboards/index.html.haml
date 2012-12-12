@@ -12,7 +12,9 @@
       - @dashboards.each do |dashboard|
         %tr
           %td
-            %h4= link_to dashboard.name, dashboard_path(dashboard)
+            %h4.pull-left= link_to dashboard.name, dashboard_path(dashboard)
+            %a.close.pull-right{:href => "#"}
+              &times;
   %div.clear
   %a#add-dashboard.btn.btn-large.btn-success
     Add Dashboard

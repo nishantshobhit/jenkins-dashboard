@@ -11,6 +11,7 @@ $(document).ready ->
       dashboard:
         name: name
       (data) ->
+        alert("Added")
         $("#modal").modal('hide')
     false
 
