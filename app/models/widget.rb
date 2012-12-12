@@ -1,5 +1,7 @@
 class Widget < ActiveRecord::Base
   attr_accessible :dashboard_id, :name, :data_type, :layout, :size, :from, :to, :job_id
+  belongs_to :dashboard
+  belongs_to :job
 
   @@data_types = [:health, :status, :duration, :commits, :developers]
   @@layouts = [:bar, :line, :text]
