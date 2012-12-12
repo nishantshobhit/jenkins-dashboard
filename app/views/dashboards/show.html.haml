@@ -4,6 +4,9 @@
 = content_for :nav do
   %li.active
     = link_to @dashboard.name, dashboard_path(@dashboard)
+= content_for :nav_action do
+  %a#add-widget.btn.btn-success.pull-right{:href => new_dashboard_widget_path(params[:id]), "data-target" => "#modal", "data-toggle" => "modal"}
+    Add Widget
 
 %div.row-fluid
 - @widgets.each do |widget|
@@ -11,8 +14,7 @@
     %h4= widget.name
 
 %div.clear.center
-  %a#add-widget.btn.btn-large.btn-success{:href => new_dashboard_widget_path(params[:id]), "data-target" => "#modal", "data-toggle" => "modal"}
-    Add Widget
+
 
 %div#modal.modal.hide.fade{"tabindex"=>"-1", "role"=>"dialog", "aria-labelledby"=>"Add Widget", "aria-hidden"=>"true"}
   %div.modal-header
