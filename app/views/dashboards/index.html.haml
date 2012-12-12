@@ -1,3 +1,11 @@
+%div.navbar
+  %div.navbar-inner
+    %a.brand{:href=>"/"}
+      Jenkins Dashboard
+    %ul.nav
+      %li.active
+        = link_to "Home", "/"
+
 %div.container
   %table.table.table-striped.table-bordered
     %tbody
@@ -6,4 +14,25 @@
           %td
             %h4= link_to dashboard.name, dashboard_path(dashboard)
   %div.clear
-    = link_to 'Add Dashboard', new_dashboard_path, :class => "btn btn-large btn-success"
+  %a#add-widget.btn.btn-large.btn-success{"data-target" => "#modal", "data-toggle" => "modal"}
+    Add Dashboard
+
+%div#modal.modal.hide.fade{"tabindex"=>"-1", "role"=>"dialog", "aria-labelledby"=>"Add Dashboard", "aria-hidden"=>"true"}
+  %div.modal-header
+    %button.close{:type=>"button", "data-dismiss"=>"modal", "aria-hidden"=>"true"}
+      x
+    %h3#myModalLabel
+      Add Dashboard
+  %div.modal-body
+    - flash.each do |name, msg|
+      %div.alert.alert-error
+        = content_tag :div, msg, :id => "flash_#{name}"
+
+    = form_for @dashboard do |f|
+      = f.label :name
+      = f.text_field :name
+  %div.modal-footer
+    %button.btn{"data-dismiss"=>"modal", "aria-hidden"=>"true"}
+      Close
+    %button.btn.btn-primary
+      Add Dashboard

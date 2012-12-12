@@ -1,11 +1,22 @@
 %div.container
-  %h1 Add Widget
   = form_for @widget do |f|
     = f.label :name
     = f.text_field :name
     = f.label :job
     = select_tag "job", options_from_collection_for_select(@jobs, "id", "name")
+    = f.label :content
+    = select_tag "content", "<option>Commits</options><option>Health</options><option>Status</options><option>Duration</options>".html_safe
+    = f.label :kind
+    = select_tag "kind", "<option>Bar</options><option>Line</options><option>Text</options>".html_safe
     = f.label :widget_size
     = select_tag "size", "<option>Small</options><option>Medium</options><option>Large</options>".html_safe
-    %p
-      = f.submit(:class => "btn")
+    %div.input-append.date.from
+      = f.label :from
+      = f.text_field :name
+      %span.add-on
+        %i.icon-th
+    %div.input-append.date.to
+      = f.label :to
+      = f.text_field :name
+      %span.add-on
+        %i.icon-th

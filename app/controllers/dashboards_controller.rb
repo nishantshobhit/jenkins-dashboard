@@ -6,9 +6,6 @@ class DashboardsController < ApplicationController
 
   def index
     @dashboards ||= Dashboard.find(:all)
-  end
-
-  def new
     @dashboard = Dashboard.new
   end
 

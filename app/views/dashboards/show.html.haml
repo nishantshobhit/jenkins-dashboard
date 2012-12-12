@@ -1,2 +1,26 @@
+%div.navbar
+  %div.navbar-inner
+    %a.brand{:href=>"/"}
+      Jenkins Dashboard
+    %ul.nav
+      %li
+        = link_to "Home", "/"
+      %li.active
+        = link_to @dashboard.name, dashboard_path(@dashboard)
+
 %div.clear.center
-    = link_to 'Add Widget', new_dashboard_widget_path(params[:id]), :class => "btn btn-large btn-success"
+  %a#add-widget.btn.btn-large.btn-success{:href => new_dashboard_widget_path(params[:id]), "data-target" => "#modal", "data-toggle" => "modal"}
+    Add Widget
+
+%div#modal.modal.hide.fade{"tabindex"=>"-1", "role"=>"dialog", "aria-labelledby"=>"Add Widget", "aria-hidden"=>"true"}
+  %div.modal-header
+    %button.close{:type=>"button", "data-dismiss"=>"modal", "aria-hidden"=>"true"}
+      x
+    %h3#myModalLabel
+      Add Widget
+  %div.modal-body
+  %div.modal-footer
+    %button.btn{"data-dismiss"=>"modal", "aria-hidden"=>"true"}
+      Close
+    %button.btn.btn-primary
+      Add Widget

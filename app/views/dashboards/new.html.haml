@@ -1,12 +1,2 @@
 %div.container
-  %h1 Add Dashboard
 
-  - flash.each do |name, msg|
-    %div.alert.alert-error
-      = content_tag :div, msg, :id => "flash_#{name}"
-
-  = form_for @dashboard do |f|
-    = f.label :name
-    = f.text_field :name
-    %p
-      = f.submit(:class => "btn")
