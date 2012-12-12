@@ -10,7 +10,7 @@
 
 %div.row-fluid
 - @widgets.each do |widget|
-  %div.span7.well
+  %div{:class => ["span#{widget.span_size}","well"]}
     %h4= widget.name unless widget.name.nil?
     %h5= widget.job.name unless widget.job.nil?
     %p= widget.data_type_name

@@ -7,6 +7,14 @@ class Widget < ActiveRecord::Base
   @@layouts = [:bar, :line, :text]
   @@sizes = [:small, :medium, :large]
 
+  def span_size
+    if self.size
+      (self.size) + 4
+    else
+      4
+    end
+  end
+
   def data_types
     @@data_types
   end
