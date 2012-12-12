@@ -1,22 +1,35 @@
-%div.container
-  = form_for @widget do |f|
-    = f.label :name
-    = f.text_field :name
-    = f.label :job
-    = select_tag "job", options_from_collection_for_select(@jobs, "id", "name")
-    = f.label :content
-    = select_tag "content", "<option>Commits</options><option>Health</options><option>Status</options><option>Duration</options>".html_safe
-    = f.label :kind
-    = select_tag "kind", "<option>Bar</options><option>Line</options><option>Text</options>".html_safe
-    = f.label :widget_size
-    = select_tag "size", "<option>Small</options><option>Medium</options><option>Large</options>".html_safe
+= form_for @widget, :html => {:class => 'form-horizontal'} do |f|
+  %div.control-group
+    = f.label :name, :class => "control-label"
+    %div.controls
+      = f.text_field :name
+  %div.control-group
+    = f.label :job, :class => "control-label"
+    %div.controls
+      = select_tag "job", options_from_collection_for_select(@jobs, "id", "name")
+  %div.control-group
+    = f.label :content, :class => "control-label"
+    %div.controls
+      = select_tag "content", "<option>Commits</options><option>Health</options><option>Status</options><option>Duration</options>".html_safe
+  %div.control-group
+    = f.label :kind, :class => "control-label"
+    %div.controls
+      = select_tag "kind", "<option>Bar</options><option>Line</options><option>Text</options>".html_safe
+  %div.control-group
+    = f.label :widget_size, :class => "control-label"
+    %div.controls
+      = select_tag "size", "<option>Small</options><option>Medium</options><option>Large</options>".html_safe
+  %div.control-group
     %div.input-append.date.from{"data-date" => "12-12-2012", "data-date-format"=>"dd-mm-yyyy"}
-      = f.label :from
-      = f.text_field :name
-      %span.add-on
-        %i.icon-th
+      = f.label :from, :class => "control-label"
+      %div.controls
+        = f.text_field :name
+        %span.add-on
+          %i.icon-th
+  %div.control-group
     %div.input-append.date.to{"data-date" => "12-12-2012", "data-date-format"=>"dd-mm-yyyy"}
-      = f.label :to
-      = f.text_field :name
-      %span.add-on
-        %i.icon-th
+      = f.label :to, :class => "control-label"
+      %div.controls
+        = f.text_field :name
+        %span.add-on
+          %i.icon-th

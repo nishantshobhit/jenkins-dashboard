@@ -11,7 +11,7 @@
 #
 # It's strongly recommended to check this file into your version control system.
 
-ActiveRecord::Schema.define(:version => 20121211115525) do
+ActiveRecord::Schema.define(:version => 20121212135221) do
 
   create_table "builds", :force => true do |t|
     t.integer  "job_id"
@@ -61,9 +61,9 @@ ActiveRecord::Schema.define(:version => 20121211115525) do
 
   create_table "jobs", :force => true do |t|
     t.string   "name"
-    t.string   "status"
-    t.datetime "created_at", :null => false
-    t.datetime "updated_at", :null => false
+    t.string   "status",     :limit => nil
+    t.datetime "created_at",                :null => false
+    t.datetime "updated_at",                :null => false
     t.string   "url"
   end
 
@@ -87,12 +87,15 @@ ActiveRecord::Schema.define(:version => 20121211115525) do
 
   create_table "widgets", :force => true do |t|
     t.string   "name"
-    t.string   "kind"
-    t.string   "size"
+    t.integer  "job_id"
     t.integer  "dashboard_id"
-    t.integer  "update_interval"
-    t.datetime "created_at",      :null => false
-    t.datetime "updated_at",      :null => false
+    t.integer  "data_type"
+    t.integer  "layout"
+    t.integer  "size"
+    t.datetime "from"
+    t.datetime "to"
+    t.datetime "created_at",   :null => false
+    t.datetime "updated_at",   :null => false
   end
 
 end

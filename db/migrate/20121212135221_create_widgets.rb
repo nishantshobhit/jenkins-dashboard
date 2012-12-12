@@ -2,11 +2,13 @@ class CreateWidgets < ActiveRecord::Migration
   def change
     create_table :widgets do |t|
       t.string :name
-      t.string :kind
-      t.string :size
+      t.integer :job_id
       t.integer :dashboard_id
-      t.integer :update_interval
-
+      t.integer :data_type
+      t.integer :layout
+      t.integer :size
+      t.datetime :from
+      t.datetime :to
       t.timestamps
     end
   end
