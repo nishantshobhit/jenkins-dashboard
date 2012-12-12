@@ -10,7 +10,7 @@ class Widget < ActiveRecord::Base
   end
 
   def data_type=(value)
-    @data_type = @@data_types.index(value.to_sym)
+    @data_type = @@data_types.index(value.downcase.to_sym)
     if @data_type
       write_attribute(:data_type, @data_type)
     end
@@ -21,7 +21,7 @@ class Widget < ActiveRecord::Base
   end
 
   def layout=(value)
-    @layout = @@layouts.index(value.to_sym)
+    @layout = @@layouts.index(value.downcase.to_sym)
     if @layout
       write_attribute(:layout, @layout)
     end
@@ -32,7 +32,7 @@ class Widget < ActiveRecord::Base
   end
 
   def size=(value)
-    @size = @@sizes.index(value.to_sym)
+    @size = @@sizes.index(value.downcase.to_sym)
     if @size
       write_attribute(:size, @size)
     end

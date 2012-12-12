@@ -38,4 +38,22 @@ describe Widget, "-" do
     @widget.size.should eq(nil)
   end
 
+  it "should handle uppercase data type strings" do
+    @widget = FactoryGirl.build(:widget)
+    @widget.data_type = "HeAlTH"
+    @widget.data_type.should eq(0)
+  end
+
+  it "should handle uppercase layout strings" do
+    @widget = FactoryGirl.build(:widget)
+    @widget.layout = "bAr"
+    @widget.layout.should eq(0)
+  end
+
+  it "should handle uppercase size strings" do
+    @widget = FactoryGirl.build(:widget)
+    @widget.size = "LARGE"
+    @widget.size.should eq(2)
+  end
+
 end
