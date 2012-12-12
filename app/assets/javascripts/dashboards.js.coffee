@@ -6,13 +6,12 @@ $(document).ready ->
 
   $("#save-dashboard").click ->
     name = $("#dashboard_name").val()
-    console.log(this.href)
     $.post this.href,
       dashboard:
         name: name
       (data) ->
         $("#modal").modal('hide')
-        location.reload()
+        location.reload() #TODO load the content in nicely
     false
 
   $(".delete-dashboard").click ->

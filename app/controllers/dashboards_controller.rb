@@ -2,6 +2,7 @@ class DashboardsController < ApplicationController
 
   def show
     @dashboard = Dashboard.find(params[:id])
+    @widgets = @dashboard.widgets
   end
 
   def index

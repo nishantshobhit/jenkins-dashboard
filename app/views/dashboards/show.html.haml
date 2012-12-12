@@ -8,6 +8,9 @@
       %li.active
         = link_to @dashboard.name, dashboard_path(@dashboard)
 
+- @widgets.each do |widget|
+  %h2= widget.name
+
 %div.clear.center
   %a#add-widget.btn.btn-large.btn-success{:href => new_dashboard_widget_path(params[:id]), "data-target" => "#modal", "data-toggle" => "modal"}
     Add Widget
@@ -22,5 +25,5 @@
   %div.modal-footer
     %button.btn{"data-dismiss"=>"modal", "aria-hidden"=>"true"}
       Close
-    %button.btn.btn-primary
+    %button.btn.btn-primary#new-widget{:href => dashboard_widgets_path(@dashboard)}
       Add Widget

@@ -3,5 +3,19 @@
 # You can use CoffeeScript in this file: http://jashkenas.github.com/coffee-script/
 
 $(document).ready ->
+
   $(".from").datepicker()
   $(".to").datepicker()
+
+  $("#new-widget").click ->
+    url = $("#new-widget").attr("href")
+    name = $("#widget_name").val()
+    dashboard_id = $("#dashboard_id").val()
+    $.post url,
+      widget:
+        name: name
+        dashboard_id: dashboard_id
+      (data) ->
+        $("#modal").modal('hide')
+        location.reload() #TODO nice reload
+    false

@@ -6,6 +6,13 @@ class WidgetsController < ApplicationController
     @jobs.unshift(Job.new(:name => "All"))
   end
 
+  def create
+    @widget = Widget.create(params[:widget])
+    if @widget.save
+      redirect_to root_path
+    end
+  end
+
   def show
   end
 
