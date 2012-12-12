@@ -11,8 +11,16 @@ $(document).ready ->
       dashboard:
         name: name
       (data) ->
-        alert("Added")
         $("#modal").modal('hide')
+        location.reload()
+    false
+
+  $(".delete-dashboard").click ->
+    button = $(this)
+    $.ajax this.href,
+      type: "DELETE"
+      success: (data, textStatus, jqXHR) ->
+        button.parent().fadeOut()
     false
 
   $("#add-dashboard").click ->

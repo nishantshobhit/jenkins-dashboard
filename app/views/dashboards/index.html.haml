@@ -13,7 +13,7 @@
         %tr
           %td
             %h4.pull-left= link_to dashboard.name, dashboard_path(dashboard)
-            %a.close.pull-right{:href => "#"}
+            %a.close.pull-right.delete-dashboard{:href => dashboard_path(dashboard)}
               &times;
   %div.clear
   %a#add-dashboard.btn.btn-large.btn-success
