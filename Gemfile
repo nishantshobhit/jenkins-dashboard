@@ -40,7 +40,7 @@ gem "spellchecker", "~> 0.1.5"
 
 # environment specific
 group :development do
-  gem 'guard', :github => 'guard/guard', :branch => 'interactor/cleanup'
+  gem 'guard'
   gem 'rb-readline'
   gem "guard-rspec"
   gem 'rb-fsevent', '~> 0.9.1'
