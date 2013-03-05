@@ -5,3 +5,21 @@
 .datepicker {
   z-index: 9999;
 }
+
+.well
+{
+  &.large
+  {
+    width:96%;
+    height:89%;
+    display:inline-block;
+  }
+  &.medium
+  {
+    width:50%;
+  }
+  &.small
+  {
+    width:25%;
+  }
+}

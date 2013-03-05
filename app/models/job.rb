@@ -27,6 +27,54 @@ class Job < ActiveRecord::Base
     @@status_types[self.status.to_i]
   end
 
+  def passed_tests
+    total = 0
+    self.builds.each do |build|
+      total += build.test_report.passed if build.test_report
+    end
+    total
+  end
+
+  def failed_tests
+    total = 0
+    self.builds.each do |build|
+      total += build.test_report.failed if build.test_report
+    end
+    total
+  end
+
+  def skipped_tests
+    total = 0
+    self.builds.each do |build|
+      total += build.test_report.skipped if build.test_report
+    end
+    total
+  end
+
+  def insertions
+    total = 0
+    self.builds.each do |build|
+      build.commits.each do |commit|
+        total += commit.insertions if commit.insertions
+      end
+    end
+    total
+  end
+
+  def deletions
+    total = 0
+    self.builds.each do |build|
+      build.commits.each do |commit|
+        total += commit.deletions if commit.deletions
+      end
+    end
+    total
+  end
+
+  def total_lines
+    self.insertions - self.deletions
+  end
+
   def status=(value)
     if value.include? "anime"
       value = "building"

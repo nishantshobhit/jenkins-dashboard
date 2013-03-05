@@ -1,0 +1,124 @@
+// Graph 1.
+// Project Development Stats
+
+/*
+TODO:
+- Convert to ems
+- Use media queries for font size
+- Reduze to 4 lines each column
+- Implement Smart Vertical alignment
+*/
+
+.project-development-stats {
+  background-color: #1A3F60;
+  color: white;
+  font-family: "Bebas Neue";
+  text-transform: uppercase;
+  font-size: 45px;
+  line-height: 90px;
+  letter-spacing: 1px;
+  padding-right: 70px;
+  ul {
+    display: inline-block;
+    width: 50%;
+    float: left;
+    padding: 150px 0;
+    margin: 0;
+  }
+  li {
+    height: 90px;
+    line-height:90px;
+    margin: 30px 0;
+    display: block;
+    width: 100%;
+    display:inline-block;
+  }
+  .figure,
+  .icon,
+  .label {
+    display: inline-block;
+    float: left;
+    background:none;
+    line-height:90px;
+    font-size: 45px;
+  }
+  .figure,
+  .label {
+    -webkit-animation-duration: 1s;
+       -moz-animation-duration: 1s;
+         -o-animation-duration: 1s;
+            animation-duration: 1s;
+    -webkit-animation-name: fadeIn;
+       -moz-animation-name: fadeIn;
+         -o-animation-name: fadeIn;
+            animation-name: fadeIn;
+  }
+  .figure {
+    text-align: right;
+    width: 30%;
+    span {
+      float: right;
+    }
+  }
+  .icon {
+    background-color: rgba(0,0,0,.33); // Defalut, fallback.
+    width: 80px;
+    height: 80px;
+    padding: 5px;
+    border-radius: 45px;
+    margin: 0 15px;
+    -webkit-animation-duration: 0.7s;
+       -moz-animation-duration: 0.7s;
+         -o-animation-duration: 0.7s;
+            animation-duration: 0.7s;
+    -webkit-animation-name: rollIn;
+       -moz-animation-name: rollIn;
+         -o-animation-name: rollIn;
+            animation-name: rollIn;
+  }
+  .label {
+    color: rgba(255,255,255,.5);
+  }
+  // Add custom colors to each icon.
+  li[ref="total-files"] .icon {
+    background-color: #E3782D;
+  }
+  li[ref="total-lines"] .icon {
+    background-color: #812A5F;
+  }
+  li[ref="lines-added"] .icon {
+    background-color: #9F325D;
+  }
+  li[ref="lines-removed"] .icon {
+    background-color: #ED4C79;
+  }
+  li[ref="total-tags"] .icon {
+    background-color: #5F6B0F;
+  }
+  li[ref="tests-passed"] .icon {
+    background-color: #9BBA2B;
+  }
+  li[ref="tests-skipped"] .icon {
+    background-color: #E27A33;
+  }
+  li[ref="tests-failed"] .icon {
+    background-color: #D3452D;
+  }
+  li.out {
+    .figure,
+    .label {
+      opacity: 0;
+      -webkit-animation-name: fadeOut;
+         -moz-animation-name: fadeOut;
+           -o-animation-name: fadeOut;
+              animation-name: fadeOut;
+    }
+    .icon {
+      opacity: 0;
+      -webkit-animation-name: rollOut;
+         -moz-animation-name: rollOut;
+           -o-animation-name: rollOut;
+              animation-name: rollOut;
+    }
+  }
+}
