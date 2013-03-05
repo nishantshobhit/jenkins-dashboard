@@ -9,7 +9,16 @@ module Api
 
     def show
     	@job = Job.find(params[:id])
-      respond_with(@job)
+      @job_hash = {
+        :id => @job.id,
+        :insertions => @job.insertions,
+        :deletions => @job.deletions,
+        :total_lines => @job.total_lines,
+        :passed_tests => @job.passed_tests,
+        :failed_tests => @job.failed_tests,
+        :skipped_tests => @job.skipped_tests
+      }
+      respond_with(@job_hash)
     end
 
   end
