@@ -1,5 +1,7 @@
 = content_for :head do
   = javascript_include_tag :dashboards
+  = javascript_include_tag "controller/widgets_controller.js"
+  = javascript_include_tag "view/widget_view.js"
   = javascript_include_tag "pie-chart.js"
   = javascript_include_tag "project-development-stats.js"
 
@@ -12,52 +14,52 @@
 
 %div.row-fluid
 - @widgets.each do |widget|
-  %div.graph.widget.project-development-stats
+  %div.graph.widget.project-development-stats{:data => {'job-id' => "#{widget.job.id}"}}
     %ul
-      %li{:ref => "total-files"}
+      %li.total-files
         %span.figure{:data => {'old-value' => "2,288"}}
           2,888
         = image_tag "graphs/icon-total-files.svg", {:width => "80", :height => "80"}
         %span.label
           Total Files
-      %li{:ref => "total-lines"}
+      %li.total-lines
         %span.figure{:data => {'old-value' => "0"}}
           = widget.job.total_lines
         = image_tag "graphs/icon-total-lines.svg", {:width => "80", :height => "80"}
         %span.label
           Total Lines
-      %li{:ref => "lines-added"}
+      %li.lines-added
         %span.figure{:data => {'old-value' => "0"}}
-          = widget.job.insertions
+          = 0
         = image_tag "graphs/icon-lines-added.svg", {:width => "80", :height => "80"}
         %span.label
           Lines Added
-      %li{:ref => "lines-removed"}
+      %li.lines-removed
         %span.figure{:data => {'old-value' => "0"}}
           = widget.job.deletions
         = image_tag "graphs/icon-lines-removed.svg", {:width => "80", :height => "80"}
         %span.label
           Lines Removed
     %ul
-      %li{:ref => "total-tags"}
+      %li.total-tags
         %span.figure{:data => {'old-value' => "2,288"}}
           2,888
         = image_tag "graphs/icon-total-tags.svg", {:width => "80", :height => "80"}
         %span.label
           Total Tags
-      %li{:ref => "tests-passed"}
+      %li.tests-passed
         %span.figure{:data => {'old-value' => "0"}}
           = widget.job.passed_tests
         = image_tag "graphs/icon-tests-passed.svg", {:width => "80", :height => "80"}
         %span.label
           Tests Passed
-      %li{:ref => "tests-skipped"}
+      %li.tests-skipped
         %span.figure{:data => {'old-value' => "0"}}
           = widget.job.skipped_tests
         = image_tag "graphs/icon-tests-skipped.svg", {:width => "80", :height => "80"}
         %span.label
           Tests Skipped
-      %li{:ref => "tests-failed"}
+      %li.tests-failed
         %span.figure{:data => {'old-value' => "0"}}
           = widget.job.skipped_tests
         = image_tag "graphs/icon-tests-failed.svg", {:width => "80", :height => "80"}
