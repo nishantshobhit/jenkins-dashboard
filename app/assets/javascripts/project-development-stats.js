@@ -132,9 +132,9 @@ function hideSequentially(el, gap) {
 $(document).ready(function(){
 
   updateFigures('.figure');
-  displaySequentially('#project-development-stats li', 100);
-  setTimeout(function(){
-    hideSequentially('#project-development-stats li', 100);
-  }, 12000);
+  displaySequentially('.project-development-stats li', 100);
+  // setTimeout(function(){
+  //   hideSequentially('.project-development-stats li', 100);
+  // }, 12000);
 
 });

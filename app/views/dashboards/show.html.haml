@@ -2,8 +2,8 @@
   = javascript_include_tag :dashboards
   = javascript_include_tag "controller/widgets_controller.js"
   = javascript_include_tag "view/widget_view.js"
-  = javascript_include_tag "pie-chart.js"
   = javascript_include_tag "project-development-stats.js"
+  = javascript_include_tag "pie-chart.js"
 
 = content_for :nav do
   %li.active
@@ -19,50 +19,50 @@
       %li.total-files
         %span.figure{:data => {'old-value' => "2,288"}}
           2,888
-        = image_tag "graphs/icon-total-files.svg", {:width => "80", :height => "80"}
+        = image_tag "graphs/icon-total-files.svg", {:width => "80", :height => "80", :class => "icon"}
         %span.label
           Total Files
       %li.total-lines
-        %span.figure{:data => {'old-value' => "0"}}
+        %span.figure{:data => {'old-value' => "#{widget.job.total_lines}"}}
           = widget.job.total_lines
-        = image_tag "graphs/icon-total-lines.svg", {:width => "80", :height => "80"}
+        = image_tag "graphs/icon-total-lines.svg", {:width => "80", :height => "80", :class => "icon"}
         %span.label
           Total Lines
       %li.lines-added
-        %span.figure{:data => {'old-value' => "0"}}
-          = 0
-        = image_tag "graphs/icon-lines-added.svg", {:width => "80", :height => "80"}
+        %span.figure{:data => {'old-value' => "#{widget.job.insertions}"}}
+          = widget.job.insertions
+        = image_tag "graphs/icon-lines-added.svg", {:width => "80", :height => "80", :class => "icon"}
         %span.label
           Lines Added
       %li.lines-removed
-        %span.figure{:data => {'old-value' => "0"}}
+        %span.figure{:data => {'old-value' => "#{widget.job.deletions}"}}
           = widget.job.deletions
-        = image_tag "graphs/icon-lines-removed.svg", {:width => "80", :height => "80"}
+        = image_tag "graphs/icon-lines-removed.svg", {:width => "80", :height => "80", :class => "icon"}
         %span.label
           Lines Removed
     %ul
       %li.total-tags
-        %span.figure{:data => {'old-value' => "2,288"}}
+        %span.figure{:data => {'old-value' => "0"}}
           2,888
-        = image_tag "graphs/icon-total-tags.svg", {:width => "80", :height => "80"}
+        = image_tag "graphs/icon-total-tags.svg", {:width => "80", :height => "80", :class => "icon"}
         %span.label
           Total Tags
       %li.tests-passed
-        %span.figure{:data => {'old-value' => "0"}}
+        %span.figure{:data => {'old-value' => "#{widget.job.passed_tests}"}}
           = widget.job.passed_tests
-        = image_tag "graphs/icon-tests-passed.svg", {:width => "80", :height => "80"}
+        = image_tag "graphs/icon-tests-passed.svg", {:width => "80", :height => "80", :class => "icon"}
         %span.label
           Tests Passed
       %li.tests-skipped
-        %span.figure{:data => {'old-value' => "0"}}
+        %span.figure{:data => {'old-value' => "#{widget.job.skipped_tests}"}}
           = widget.job.skipped_tests
-        = image_tag "graphs/icon-tests-skipped.svg", {:width => "80", :height => "80"}
+        = image_tag "graphs/icon-tests-skipped.svg", {:width => "80", :height => "80", :class => "icon"}
         %span.label
           Tests Skipped
       %li.tests-failed
-        %span.figure{:data => {'old-value' => "0"}}
+        %span.figure{:data => {'old-value' => "#{widget.job.skipped_tests}"}}
           = widget.job.skipped_tests
-        = image_tag "graphs/icon-tests-failed.svg", {:width => "80", :height => "80"}
+        = image_tag "graphs/icon-tests-failed.svg", {:width => "80", :height => "80", :class => "icon"}
         %span.label
           Tests Failed
 -#%div{:class => ["span","well",widget.size_name]}

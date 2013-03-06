@@ -24,5 +24,9 @@ class WidgetsController
 
   parse_data:(data) ->
     WidgetView.set_insertions(data.insertions)
+    WidgetView.set_deletions(data.deletions)
+    WidgetView.set_passed(data.passed_tests)
+    WidgetView.set_failed(data.failed_tests)
+    WidgetView.set_skipped(data.skipped_tests)
 
 window.WidgetsController = new WidgetsController()

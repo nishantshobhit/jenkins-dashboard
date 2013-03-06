@@ -79,28 +79,28 @@ TODO:
     color: rgba(255,255,255,.5);
   }
   // Add custom colors to each icon.
-  li[ref="total-files"] .icon {
+  li.total-files .icon {
     background-color: #E3782D;
   }
-  li[ref="total-lines"] .icon {
+  li.total-lines .icon {
     background-color: #812A5F;
   }
-  li[ref="lines-added"] .icon {
+  li.lines-added .icon {
     background-color: #9F325D;
   }
-  li[ref="lines-removed"] .icon {
+  li.lines-removed .icon {
     background-color: #ED4C79;
   }
-  li[ref="total-tags"] .icon {
+  li.total-tags .icon {
     background-color: #5F6B0F;
   }
-  li[ref="tests-passed"] .icon {
+  li.tests-passed .icon {
     background-color: #9BBA2B;
   }
-  li[ref="tests-skipped"] .icon {
+  li.tests-skipped .icon {
     background-color: #E27A33;
   }
-  li[ref="tests-failed"] .icon {
+  li.tests-failed .icon {
     background-color: #D3452D;
   }
   li.out {
