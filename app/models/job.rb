@@ -71,6 +71,16 @@ class Job < ActiveRecord::Base
     total
   end
 
+  def failed_builds
+    total = self.builds.where("success = FALSE").count
+    total
+  end
+
+  def successful_builds
+    total = self.builds.where("success = TRUE").count
+    total
+  end
+
   def total_lines
     self.insertions - self.deletions
   end

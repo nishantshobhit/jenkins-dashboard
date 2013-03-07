@@ -13,13 +13,19 @@ class WidgetView
     @set_value((@insertions - @deletions), ".total-lines")
     @set_value(deletions, ".lines-removed")
 
-  set_passed:(passed) ->
+  set_failed_builds:(failed) ->
+    @set_value(failed, ".builds-failed")
+
+  set_successful_builds:(successful) ->
+    @set_value(successful, ".builds-successful")
+
+  set_passed_tests:(passed) ->
     @set_value(passed, ".tests-passed")
 
-  set_failed:(failed) ->
+  set_failed_tests:(failed) ->
     @set_value(failed, ".tests-failed")
 
-  set_skipped:(skipped) ->
+  set_skipped_tests:(skipped) ->
     @set_value(skipped, ".tests-skipped")
 
   set_value:(value, selector) ->
@@ -42,4 +48,4 @@ class WidgetView
   widget: ->
     @widget
 
-window.WidgetView = WidgetView
+window.WidgetView = WidgetViewg

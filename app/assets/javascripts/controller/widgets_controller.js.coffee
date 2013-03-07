@@ -11,7 +11,7 @@ class WidgetsController
     self = @
     @reload_timer = setInterval ->
       self.reload_data()
-    , 60000
+    , 3000
 
   # clear all timeout timers
   clear_timers: ->
@@ -36,7 +36,7 @@ class WidgetsController
             first.remove().appendTo(".widgets")
           )
         )
-    , 120000
+    , 60000
 
   # request new data from the server
   reload_data: ->
@@ -53,8 +53,10 @@ class WidgetsController
     widgetView = new WidgetView(widget)
     widgetView.set_insertions(data.insertions)
     widgetView.set_deletions(data.deletions)
-    widgetView.set_passed(data.passed_tests)
-    widgetView.set_failed(data.failed_tests)
-    widgetView.set_skipped(data.skipped_tests)
+    widgetView.set_passed_tests(data.passed_tests)
+    widgetView.set_failed_tests(data.failed_tests)
+    widgetView.set_skipped_tests(data.skipped_tests)
+    widgetView.set_failed_builds(data.failed_builds)
+    widgetView.set_successful_builds(data.successful_builds)
 
 window.WidgetsController = new WidgetsController()

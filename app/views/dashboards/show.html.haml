@@ -20,12 +20,12 @@
       %h1
         = widget.name
       %ul
-        %li.total-files
-          %span.figure{:data => {'old-value' => "2,288"}}
-            2,888
+        %li.builds-failed
+          %span.figure{:data => {'old-value' => "#{widget.job.failed_builds}"}}
+            = widget.job.failed_builds
           = image_tag "graphs/icon-total-files.svg", {:width => "80", :height => "80", :class => "icon"}
           %span.label
-            Total Files
+            Builds Failed
         %li.total-lines
           %span.figure{:data => {'old-value' => "#{widget.job.total_lines}"}}
             = widget.job.total_lines
@@ -45,12 +45,12 @@
           %span.label
             Lines Removed
       %ul
-        %li.total-tags
-          %span.figure{:data => {'old-value' => "0"}}
-            2,888
+        %li.builds-successful
+          %span.figure{:data => {'old-value' => "#{widget.job.successful_builds}"}}
+            = widget.job.successful_builds
           = image_tag "graphs/icon-total-tags.svg", {:width => "80", :height => "80", :class => "icon"}
           %span.label
-            Total Tags
+            Builds Succeeded
         %li.tests-passed
           %span.figure{:data => {'old-value' => "#{widget.job.passed_tests}"}}
             = widget.job.passed_tests
@@ -64,8 +64,8 @@
           %span.label
             Tests Skipped
         %li.tests-failed
-          %span.figure{:data => {'old-value' => "#{widget.job.skipped_tests}"}}
-            = widget.job.skipped_tests
+          %span.figure{:data => {'old-value' => "#{widget.job.failed_tests}"}}
+            = widget.job.failed_tests
           = image_tag "graphs/icon-tests-failed.svg", {:width => "80", :height => "80", :class => "icon"}
           %span.label
             Tests Failed

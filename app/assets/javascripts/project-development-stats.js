@@ -112,7 +112,6 @@ function displaySequentially(el, gap, callback) {
  * @param callback = a callback method to call when complete
  */
 function hideSequentially(el, gap, callback) {
-  console.log("hiding")
   // Store elements in a variable.
   var $items = $(el);
 
