@@ -1,5 +1,8 @@
 class WidgetView
 
+  constructor:(widget) ->
+    @widget = widget
+
   set_insertions:(insertions) ->
     @insertions = insertions
     @set_value((@insertions - @deletions), ".total-lines")
@@ -21,16 +24,22 @@ class WidgetView
 
   set_value:(value, selector) ->
     self = @
-    oldValue = $(""+selector+" span").html()
+    oldValue = @widget.find(""+selector+" span").html()
     unless oldValue == value
       self.set_old_value(""+selector+"", oldValue)
       self.set_new_value(""+selector+"", value)
       window.updateFigures(""+selector+" .figure")
 
   set_old_value: (selector, oldValue) ->
-    $(""+selector+" .figure").attr("data-old-value", oldValue)
+    @widget.find(""+selector+" .figure").attr("data-old-value", oldValue)
 
   set_new_value: (selector, newValue) ->
-    $(""+selector+" .figure").html(newValue)
+    @widget.find(""+selector+" .figure").html(newValue)
 
-window.WidgetView = new WidgetView()
+  set_widget:(widget) ->
+    @widget = widget
+
+  widget: ->
+    @widget
+
+window.WidgetView = WidgetView

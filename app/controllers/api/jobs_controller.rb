@@ -10,6 +10,7 @@ module Api
     def show
     	@job = Job.find(params[:id])
       @job_hash = {
+        :name => @job.name,
         :id => @job.id,
         :insertions => @job.insertions,
         :deletions => @job.deletions,

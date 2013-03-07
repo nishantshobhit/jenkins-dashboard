@@ -10,7 +10,7 @@ class WidgetsController
     self = @
     @reload_timer = setInterval ->
       self.reload_data()
-    , 60000
+    , 2000
 
   clear_timers: ->
     window.clearInterval()
@@ -38,17 +38,19 @@ class WidgetsController
   reload_data: ->
     self = @
     $(".widget").each( ->
+      console.log($(this).attr("class"))
       @job_id = $(this).data("job-id")
       $.get "/api/jobs/#{@job_id}.json",
         (data) ->
-          self.parse_data(data)
+          self.parse_data(data, $(this))
     )
 
-  parse_data:(data) ->
-    WidgetView.set_insertions(data.insertions)
-    WidgetView.set_deletions(data.deletions)
-    WidgetView.set_passed(data.passed_tests)
-    WidgetView.set_failed(data.failed_tests)
-    WidgetView.set_skipped(data.skipped_tests)
+  parse_data:(data, widget) ->
+    widgetView = new WidgetView(widget)
+    widgetView.set_insertions(data.insertions)
+    widgetView.set_deletions(data.deletions)
+    widgetView.set_passed(data.passed_tests)
+    widgetView.set_failed(data.failed_tests)
+    widgetView.set_skipped(data.skipped_tests)
 
 window.WidgetsController = new WidgetsController()
