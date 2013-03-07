@@ -6,15 +6,18 @@ class WidgetsController
       self.start_reload_timer()
       self.cycle_widgets()
 
+  # start a timer to reload the widget data
   start_reload_timer: ->
     self = @
     @reload_timer = setInterval ->
       self.reload_data()
-    , 2000
+    , 60000
 
+  # clear all timeout timers
   clear_timers: ->
     window.clearInterval()
 
+  # cycle inbetween all widgets in a dashboard
   cycle_widgets: ->
     self = @
     $(".widget").not(":first").hide()
@@ -35,6 +38,7 @@ class WidgetsController
         )
     , 120000
 
+  # request new data from the server
   reload_data: ->
     self = @
     $(".widget").each( ->
@@ -44,6 +48,7 @@ class WidgetsController
           self.parse_data(data, $(this))
     )
 
+  # load then new data into the widget
   parse_data:(data, widget) ->
     widgetView = new WidgetView(widget)
     widgetView.set_insertions(data.insertions)

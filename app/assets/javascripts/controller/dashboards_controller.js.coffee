@@ -6,6 +6,7 @@ class DashboardsController
       DashboardView.hide_toolbar()
       self.toolbar_listener()
 
+  # listen for toolbar hover to show/hide
   toolbar_listener: ->
     $(document).mousemove (e) ->
       if e.pageY <= 70
