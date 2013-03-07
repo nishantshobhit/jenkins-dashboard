@@ -8,11 +8,11 @@ class DashboardsController
 
   toolbar_listener: ->
     $(document).mousemove (e) ->
-      if e.pageY <= 40
+      if e.pageY <= 70
         DashboardView.show_toolbar()
       else
         DashboardView.hide_toolbar()
-
+g
   createDashboard: (name) ->
 
   deleteDashboard: (id) ->
