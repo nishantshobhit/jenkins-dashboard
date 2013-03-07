@@ -4,23 +4,45 @@ class WidgetsController
     self = @
     $ ->
       self.start_reload_timer()
+      self.cycle_widgets()
 
   start_reload_timer: ->
     self = @
-    @timer = setInterval ->
+    @reload_timer = setInterval ->
       self.reload_data()
-    , 2000
+    , 60000
 
   clear_timers: ->
-    window.clearInterval
+    window.clearInterval()
+
+  cycle_widgets: ->
+    self = @
+    $(".widget").not(":first").hide()
+    $(".widget").not(":first").children("h1").hide()
+    @cycle_timer = setInterval ->
+      widgets = $(".widget")
+      if widgets.length > 1
+        first = widgets.eq(0)
+        second = widgets.eq(1)
+        first.children("h1").fadeOut(1000)
+        hideSequentially(first.find("li"), 100, ->
+          first.find("li").removeClass("out")
+          first.hide()
+          second.show()
+          second.children("h1").fadeIn(1000, ->
+            first.remove().appendTo(".widgets")
+          )
+        )
+    , 120000
 
   reload_data: ->
     self = @
-    if $(".project-development-stats")
-      @job_id = $(".project-development-stats").data("job-id")
+    $(".widget").each( ->
+      @job_id = $(this).data("job-id")
       $.get "/api/jobs/#{@job_id}.json",
         (data) ->
           self.parse_data(data)
+    )
 
   parse_data:(data) ->
     WidgetView.set_insertions(data.insertions)

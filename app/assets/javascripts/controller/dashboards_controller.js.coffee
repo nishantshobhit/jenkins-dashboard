@@ -12,7 +12,7 @@ class DashboardsController
         DashboardView.show_toolbar()
       else
         DashboardView.hide_toolbar()
-g
+
   createDashboard: (name) ->
 
   deleteDashboard: (id) ->

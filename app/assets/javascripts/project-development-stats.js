@@ -64,10 +64,11 @@ function updateFigures(el) {
  * Display an array of items sequentially with a specific time gap.
  * @param el = array of elements to display.
  * @param gap = time gap in milliseconds to display the elements.
+ * @param callback = a callback method to call when complete.
  */
 
-function displaySequentially(el, gap) {
-
+function displaySequentially(el, gap, callback) {
+  console.log("showing")
   // Store elements in a variable.
   var $items = $(el);
 
@@ -90,6 +91,14 @@ function displaySequentially(el, gap) {
     // Set a timeout for this item once its interval has finished.
     setTimeout(function() {
       $item.show();
+
+      if($items.index($item) == $items.length - 1) {
+        if(callback) {
+          setTimeout(function() {
+          callback();
+          }, interval);
+        }
+      }
     }, interval);
 
   });
@@ -100,9 +109,10 @@ function displaySequentially(el, gap) {
  * Hide an array of items sequentially with a specific time gap.
  * @param el = array of elements to hide.
  * @param gap = time gap in milliseconds to hide the elements.
+ * @param callback = a callback method to call when complete
  */
-function hideSequentially(el, gap) {
-
+function hideSequentially(el, gap, callback) {
+  console.log("hiding")
   // Store elements in a variable.
   var $items = $(el);
 
@@ -122,6 +132,15 @@ function hideSequentially(el, gap) {
     // Set a timeout for this item once its interval has finished.
     setTimeout(function() {
       $item.addClass('out');
+
+      if($items.index($item) == $items.length - 1) {
+        if(callback) {
+          setTimeout(function() {
+            callback();
+          }, interval);
+        }
+      }
+
     }, interval);
 
   });
@@ -130,9 +149,8 @@ function hideSequentially(el, gap) {
 
 
 $(document).ready(function(){
-
-  updateFigures('.figure');
-  displaySequentially('.project-development-stats li', 100);
+  //updateFigures('.figure');
+  //displaySequentially('.project-development-stats li', 100);
   // setTimeout(function(){
   //   hideSequentially('.project-development-stats li', 100);
   // }, 12000);
