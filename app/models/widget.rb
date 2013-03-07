@@ -3,9 +3,9 @@ class Widget < ActiveRecord::Base
   belongs_to :dashboard
   belongs_to :job
 
-  @@data_types = [:health, :status, :duration, :commits, :developers]
-  @@layouts = [:bar, :line, :text]
-  @@sizes = [:small, :medium, :large]
+  @@data_types = [:gitstats]
+  @@layouts = [:text]
+  @@sizes = [:fullscreen]
 
   def span_size
     if self.size

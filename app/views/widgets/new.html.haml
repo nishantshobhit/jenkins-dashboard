@@ -23,17 +23,3 @@
     = f.label :size, :class => "control-label"
     %div.controls
       = select_tag "size", options_from_collection_for_select(@widget.sizes, "to_s", "to_s")
-  %div.control-group
-    %div.input-append.date.from{"data-date" => "12-12-2012", "data-date-format"=>"dd-mm-yyyy"}
-      = f.label :from, :class => "control-label"
-      %div.controls
-        = f.text_field :from
-        %span.add-on
-          %i.icon-th
-  %div.control-group
-    %div.input-append.date.to{"data-date" => "12-12-2012", "data-date-format"=>"dd-mm-yyyy"}
-      = f.label :to, :class => "control-label"
-      %div.controls
-        = f.text_field :to
-        %span.add-on
-          %i.icon-th
