@@ -38,7 +38,6 @@ class WidgetsController
   reload_data: ->
     self = @
     $(".widget").each( ->
-      console.log($(this).attr("class"))
       @job_id = $(this).data("job-id")
       $.get "/api/jobs/#{@job_id}.json",
         (data) ->
