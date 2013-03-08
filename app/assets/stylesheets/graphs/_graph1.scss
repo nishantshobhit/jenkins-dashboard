@@ -79,8 +79,8 @@ TODO:
     color: rgba(255,255,255,.5);
   }
   // Add custom colors to each icon.
-  li.total-files .icon {
-    background-color: #E3782D;
+  li.builds-failed .icon {
+    background-color: #D3452D;
   }
   li.total-lines .icon {
     background-color: #812A5F;
@@ -91,7 +91,7 @@ TODO:
   li.lines-removed .icon {
     background-color: #ED4C79;
   }
-  li.total-tags .icon {
+  li.builds-successful .icon {
     background-color: #5F6B0F;
   }
   li.tests-passed .icon {
