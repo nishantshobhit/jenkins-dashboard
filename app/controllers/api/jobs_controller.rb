@@ -20,6 +20,7 @@ module Api
         :skipped_tests => @job.skipped_tests,
         :failed_builds => @job.failed_builds,
         :successful_builds => @job.successful_builds
+        :build_breaker => @job.build_breaker
       }
       respond_with(@job_hash)
     end

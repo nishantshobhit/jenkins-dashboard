@@ -58,5 +58,6 @@ class WidgetsController
     widgetView.set_skipped_tests(data.skipped_tests)
     widgetView.set_failed_builds(data.failed_builds)
     widgetView.set_successful_builds(data.successful_builds)
+    widgetView.set_build_breaker(data.build_breaker)
 
 window.WidgetsController = new WidgetsController()

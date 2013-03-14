@@ -28,6 +28,9 @@ class WidgetView
   set_skipped_tests:(skipped) ->
     @set_value(skipped, ".tests-skipped")
 
+  set_build_breaker:(breaker) ->
+    @set_value(breaker, ".build-breaker")
+
   set_value:(value, selector) ->
     self = @
     oldValue = @widget.find(""+selector+" span").html()

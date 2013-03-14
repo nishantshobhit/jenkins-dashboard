@@ -35,6 +35,23 @@ class Job < ActiveRecord::Base
     total
   end
 
+  def build_breaker
+    broken_builds = self.builds.where("success = FALSE")
+    hash = {}
+    broken_builds.each do |build|
+      build.commits.each do |commit|
+        developer = commit.developer.name
+        if hash[developer]
+          hash[developer] = hash[developer] + 1
+        else
+          hash[developer] = 1
+        end
+      end
+    end
+    sorted = hash.sort_by {|_key, value| value}
+    sorted.last.first
+  end
+
   def failed_tests
     total = 0
     self.builds.each do |build|
