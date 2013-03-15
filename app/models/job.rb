@@ -49,7 +49,11 @@ class Job < ActiveRecord::Base
       end
     end
     sorted = hash.sort_by {|_key, value| value}
-    sorted.last.first
+    if sorted.last
+      sorted.last.first
+    else
+     "unknown"
+    end
   end
 
   def most_commits
@@ -63,7 +67,7 @@ class Job < ActiveRecord::Base
       end
     end
     sorted = hash.sort_by {|_key, value| value}
-    sorted.last.first
+    sorted.last.first if sorted
   end
 
   def failed_tests
