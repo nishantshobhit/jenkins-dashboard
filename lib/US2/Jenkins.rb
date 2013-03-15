@@ -14,7 +14,6 @@ module US2
 
     def sync
       jobs.each do |job|
-        puts "Fetched the job: #{job.name}" unless job.nil?
         job.save
 
         #get the latest build for the job and save it
@@ -26,7 +25,6 @@ module US2
 
     def populate
       jobs.each do |job|
-        puts "Fetched the job: #{job.name}" unless job.nil?
         job.save
 
         # get every build for the job and save it
@@ -65,8 +63,6 @@ module US2
 
         # assign the job
         @build.job_id = job.id unless job.nil? or @build.nil?
-        # feedback
-        puts "Fetched the build: #{@build.name}" unless @build.nil?
         # return it
         block.call(@build)
       end
@@ -88,8 +84,6 @@ module US2
 
           # assign the job
           @build.job_id = job.id unless job.nil? or @build.nil?
-          # feedback
-          puts "Fetched the build: #{@build.name}" unless @build.nil?
           # add it to the builds array
           builds.push(@build) unless @build.nil?
         end
@@ -103,7 +97,6 @@ module US2
       if response.code < 400
         if build_response_has_test_report(response) and response.code < 400
           @test_report = TestReport.from_api_response(response)
-          puts "Test report created for #{build.name}" unless build.nil?
         end
         block.call(@test_report)
       end

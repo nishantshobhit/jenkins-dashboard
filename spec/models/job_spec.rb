@@ -52,4 +52,46 @@ describe Job, "-" do
 
   end
 
+  describe "When queried" do
+
+    before do
+      @test_job = FactoryGirl.build(:job)
+      @test_build = FactoryGirl.build(:build)
+      @test_builds = [@test_build]
+      @test_commit = FactoryGirl.build(:commit)
+      @test_developer = FactoryGirl.build(:developer)
+
+      @test_developer.stub(:id){1}
+      @test_commit.stub(:developer){@test_developer}
+      @test_build.stub(:commits){[@test_commit]}
+      @test_builds.stub(:where){@test_builds}
+      @test_job.stub(:builds){@test_builds}
+    end
+
+    it "should return its developers" do
+      @test_job.developers.first.id.should eq(1)
+    end
+
+    it "should calculate its total lines" do
+      @test_job.stub(:insertions){100}
+      @test_job.stub(:deletions){50}
+
+      @test_job.total_lines.should eq(50)
+    end
+
+    it "should count it's successful builds" do
+      @test_job.successful_builds.should eq(1)
+    end
+
+    it "should count it's failed builds" do
+      @test_job.failed_builds.should eq(1)
+    end
+
+    it "should count it's deletions" do
+      @test_commit.stub(:deletions){100}
+
+      @test_job.deletions.should eq(100)
+    end
+  end
+
 end
