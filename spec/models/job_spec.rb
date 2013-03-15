@@ -60,11 +60,14 @@ describe Job, "-" do
       @test_builds = [@test_build]
       @test_commit = FactoryGirl.build(:commit)
       @test_developer = FactoryGirl.build(:developer)
+      @test_report = FactoryGirl.build(:test_report)
 
       @test_developer.stub(:id){1}
       @test_commit.stub(:developer){@test_developer}
       @test_build.stub(:commits){[@test_commit]}
+      @test_build.stub(:test_report){@test_report}
       @test_builds.stub(:where){@test_builds}
+      @test_builds.stub(:joins){@test_builds}
       @test_job.stub(:builds){@test_builds}
     end
 
@@ -73,10 +76,7 @@ describe Job, "-" do
     end
 
     it "should calculate its total lines" do
-      @test_job.stub(:insertions){100}
-      @test_job.stub(:deletions){50}
-
-      @test_job.total_lines.should eq(50)
+      @test_job.total_lines.should eq(0)
     end
 
     it "should count it's successful builds" do
@@ -88,10 +88,33 @@ describe Job, "-" do
     end
 
     it "should count it's deletions" do
-      @test_commit.stub(:deletions){100}
-
-      @test_job.deletions.should eq(100)
+      @test_job.deletions.should eq(1)
     end
+
+    it "should count it's insertions" do
+      @test_job.insertions.should eq(1)
+    end
+
+    it "should count it's skipped tests" do
+      @test_job.skipped_tests.should eq(20)
+    end
+
+    it "should count it's failed tests" do
+      @test_job.failed_tests.should eq(10)
+    end
+
+    it "should count it's passed tests" do
+      @test_job.passed_tests.should eq(100)
+    end
+
+    it "should get the developer with most broken builds" do
+      @test_job.build_breaker.should eq("Test")
+    end
+
+    it "should get the developer with most commits" do
+      @test_job.most_commits.should eq("Test")
+    end
+
   end
 
 end
