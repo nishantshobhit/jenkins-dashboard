@@ -54,4 +54,4 @@ class WidgetView
   widget: ->
     @widget
 
-window.WidgetView = WidgetViewg
+window.WidgetView = WidgetView
