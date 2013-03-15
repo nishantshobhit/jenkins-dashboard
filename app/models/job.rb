@@ -55,13 +55,11 @@ class Job < ActiveRecord::Base
   def most_commits
     hash = {}
     self.developers.each do |developer|
-      self.builds.each do |build|
-        commits = build.commits.where("developer_id = #{developer.id}").count
-        if hash[developer.name]
-          hash[developer.name] = hash[developer.name] + commits
-        else
-          hash[developer.name] = commits
-        end
+      commits = self.builds.where(:commits => {:developer_id => developer.id}).joins(:commits).count
+      if hash[developer.name]
+        hash[developer.name] = hash[developer.name] + commits
+      else
+        hash[developer.name] = commits
       end
     end
     sorted = hash.sort_by {|_key, value| value}
