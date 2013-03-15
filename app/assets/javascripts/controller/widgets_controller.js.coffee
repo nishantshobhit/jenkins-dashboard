@@ -59,5 +59,6 @@ class WidgetsController
     widgetView.set_failed_builds(data.failed_builds)
     widgetView.set_successful_builds(data.successful_builds)
     widgetView.set_build_breaker(data.build_breaker)
+    widgetView.set_build_breaker(data.most_commits)
 
 window.WidgetsController = new WidgetsController()

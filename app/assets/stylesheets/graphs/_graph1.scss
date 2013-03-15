@@ -21,7 +21,7 @@ TODO:
     display: inline-block;
     width: 50%;
     float: left;
-    padding: 180px 0 0 0;
+    padding: 250px 0 0 0;
     margin: 0;
   }
   li {
@@ -101,6 +101,12 @@ TODO:
     background-color: #E27A33;
   }
   li.tests-failed .icon {
+    background-color: #D3452D;
+  }
+  li.build-breaker .icon {
+    background-color: #D3452D;
+  }
+  li.most-commits .icon {
     background-color: #D3452D;
   }
   li.out {

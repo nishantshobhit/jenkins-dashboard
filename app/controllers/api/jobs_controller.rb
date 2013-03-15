@@ -19,8 +19,9 @@ module Api
         :failed_tests => @job.failed_tests,
         :skipped_tests => @job.skipped_tests,
         :failed_builds => @job.failed_builds,
-        :successful_builds => @job.successful_builds
-        :build_breaker => @job.build_breaker
+        :successful_builds => @job.successful_builds,
+        :build_breaker => @job.build_breaker,
+        :most_commits => @job.most_commits
       }
       respond_with(@job_hash)
     end

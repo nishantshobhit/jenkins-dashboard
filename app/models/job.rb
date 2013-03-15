@@ -52,6 +52,22 @@ class Job < ActiveRecord::Base
     sorted.last.first
   end
 
+  def most_commits
+    hash = {}
+    self.developers.each do |developer|
+      self.builds.each do |build|
+        commits = build.commits.where("developer_id = #{developer.id}").count
+        if hash[developer.name]
+          hash[developer.name] = hash[developer.name] + commits
+        else
+          hash[developer.name] = commits
+        end
+      end
+    end
+    sorted = hash.sort_by {|_key, value| value}
+    sorted.last.first
+  end
+
   def failed_tests
     total = 0
     self.builds.each do |build|
@@ -100,6 +116,16 @@ class Job < ActiveRecord::Base
 
   def total_lines
     self.insertions - self.deletions
+  end
+
+  def developers
+    devs = []
+    self.builds.each do |build|
+      build.commits.each do |commit|
+        devs << commit.developer
+      end
+    end
+    devs.to_set
   end
 
   def status=(value)

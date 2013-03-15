@@ -31,6 +31,9 @@ class WidgetView
   set_build_breaker:(breaker) ->
     @set_value(breaker, ".build-breaker")
 
+  set_most_commits:(name) ->
+    @set_value(name, ".most-commits")
+
   set_value:(value, selector) ->
     self = @
     oldValue = @widget.find(""+selector+" span").html()

@@ -44,18 +44,12 @@
           = image_tag "graphs/icon-lines-removed.svg", {:width => "80", :height => "80", :class => "icon"}
           %span.label
             Lines Removed
-        %li.build_breaker
+        %li.build-breaker4
           %span.figure{:data => {'old-value' => "#{widget.job.build_breaker}"}}
             = widget.job.build_breaker
           = image_tag "graphs/icon-bugs-remaining.svg", {:width => "80", :height => "80", :class => "icon"}
           %span.label
             Build Breaker
-        %li.lines-removed
-          %span.figure{:data => {'old-value' => "#{widget.job.deletions}"}}
-            = widget.job.deletions
-          = image_tag "graphs/icon-lines-removed.svg", {:width => "80", :height => "80", :class => "icon"}
-          %span.label
-            Most Commits
       %ul
         %li.builds-successful
           %span.figure{:data => {'old-value' => "#{widget.job.successful_builds}"}}
@@ -81,18 +75,12 @@
           = image_tag "graphs/icon-tests-failed.svg", {:width => "80", :height => "80", :class => "icon"}
           %span.label
             Tests Failed
-        %li.lines-removed
-          %span.figure{:data => {'old-value' => "#{widget.job.deletions}"}}
-            = widget.job.deletions
-          = image_tag "graphs/icon-lines-removed.svg", {:width => "80", :height => "80", :class => "icon"}
+        %li.most-commits
+          %span.figure{:data => {'old-value' => "#{widget.job.most_commits}"}}
+            = widget.job.most_commits
+          = image_tag "graphs/icon-lines-added.svg", {:width => "80", :height => "80", :class => "icon"}
           %span.label
-            Build Duration
-        %li.lines-removed
-          %span.figure{:data => {'old-value' => "#{widget.job.deletions}"}}
-            = widget.job.deletions
-          = image_tag "graphs/icon-lines-removed.svg", {:width => "80", :height => "80", :class => "icon"}
-          %span.label
-            Test Duration
+            Most Commits
 -#%div{:class => ["span","well",widget.size_name]}
 -#  %h4= widget.name unless widget.name.nil?
 -#  %h5= widget.job.name unless widget.job.nil?
