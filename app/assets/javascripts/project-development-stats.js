@@ -15,14 +15,19 @@ function updateFigures(el) {
 
   // Per each one of the elements, run functions.
   $numbers.each(function() {
-
     // Define the text element, the numerical value and the speed in which
     // the numerical value will be increased based on the data-speed attribute.
     var $number = $(this);
+
     var newValue = parseInt($number.text().replace(',', ''), 10); // Remove commas and convert to an integer.
     var oldValue = parseInt($number.attr('data-old-value').replace(',', ''), 10);  // Remove commas and convert to an integer.
     var currentValue = oldValue;
     var speed = 10;
+
+    if(isNaN(newValue))
+    {
+      return;
+    }
 
     // Update the text in the element before animating.
     $number.text(oldValue.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","));
