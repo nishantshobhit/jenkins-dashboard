@@ -24,3 +24,6 @@ ignored/
 # Ignore Sublime Text 2 Files
 *.sublime-project
 *.sublime-workspace
+.DS_Store
+
+test-reports/

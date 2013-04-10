@@ -49,6 +49,7 @@ group :development do
 end
 
 group :test do
+  gem 'yarjuf'
   gem "rspec-rails"
   gem "spork"
   gem "guard-spork"
