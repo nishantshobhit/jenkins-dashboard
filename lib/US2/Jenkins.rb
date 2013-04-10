@@ -30,7 +30,7 @@ module US2
         # get every build for the job and save it
         get_all_builds(job) do |builds|
           builds.each do |build|
-            puts "Fetched: #{build.name} for #{build.job.name}"
+            puts "Fetched: #{build.name} for #{build.job.name}" if build.name
             build.save
           end
         end
