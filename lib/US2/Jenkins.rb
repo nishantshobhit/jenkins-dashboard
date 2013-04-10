@@ -30,6 +30,7 @@ module US2
         # get every build for the job and save it
         get_all_builds(job) do |builds|
           builds.each do |build|
+            puts "Fetched: #{build.name} for #{build.job.name}"
             build.save
           end
         end
@@ -90,6 +91,8 @@ module US2
           @build.job_id = job.id unless job.nil? or @build.nil?
           # add it to the builds array
           builds.push(@build) unless @build.nil?
+        else
+          puts "Error fetching Build #{url}"
         end
       end
       # return the build objects
