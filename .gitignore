@@ -18,3 +18,5 @@
 .sass-cache
 ignored/
 .DS_Store
+
+test-reports/
