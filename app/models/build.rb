@@ -12,6 +12,8 @@ class Build < ActiveRecord::Base
   class << self
 
     def from_api_response(api_response)
+
+      return nil if api_response.size == 0
       #set up vars
       duration = api_response["duration"]
       name = api_response["fullDisplayName"]

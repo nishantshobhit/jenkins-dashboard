@@ -30,6 +30,13 @@ describe Build, "-" do
       test_build.should eq(nil)
     end
 
+    it "should handle a garbage response" do
+      json = """"
+      test_build = Build.from_api_response(json)
+
+      test_build.should eq(nil)
+    end
+
   end
 
   describe "When creating a Build object from JSON" do
@@ -95,7 +102,7 @@ describe Build, "-" do
       test_build = FactoryGirl.build(:build, success: false)
       Build.stub(:new){test_build}
 
-      build = Build.from_api_response("")
+      build = Build.from_api_response("{test:'test'}")
       build.developers.should include(developer)
     end
 
