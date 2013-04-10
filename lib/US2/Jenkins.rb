@@ -46,6 +46,10 @@ module US2
           @job = Job.from_api_response(job)
           jobs.push(@job)
         end
+      else
+        puts "There was a problem:"
+        puts
+        puts response
       end
 
       jobs
