@@ -2,6 +2,8 @@ require 'rubygems'
 require 'spork'
 require 'factory_girl_rails'
 require 'yarjuf'
+require 'simplecov'
+require 'simplecov-rcov'
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
@@ -61,3 +63,7 @@ Spork.each_run do
   # This code will be run each time you run your specs.
   FactoryGirl.reload
 end
+
+# Get code coverage
+SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
+SimpleCov.start 'rails'
