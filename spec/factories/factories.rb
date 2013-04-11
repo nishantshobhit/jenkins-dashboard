@@ -3,16 +3,16 @@ FactoryGirl.define do
   factory :job do
     sequence(:name){|n| "name#{n}" }
     status "red"
-    sequence(:url){|n| "http://#{n}.com" }
+    sequence(:url){|n| "https://ci-server.ustwo.co.uk:#{n}/job/Honk_branch_dev/"}
   end
 
   factory :build do
     duration 100
-    sequence(:name){|n| "name#{n}" }
+    name "name#{Random.rand(1000)}"
     number 100
     success true
     job_id 1
-    sequence(:url){|n| "http://#{n}.com" }
+    url "http://#{Random.rand(1000)}.com"
     date DateTime.now
     association :job
   end

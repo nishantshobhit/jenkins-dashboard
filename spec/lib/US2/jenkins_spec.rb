@@ -93,6 +93,13 @@ describe US2::Jenkins, "-" do
       Build.stub(:from_api_response){FactoryGirl.build(:build)}
       Job.any_instance.stub(:save)
       Build.any_instance.stub(:save)
+      HTTParty.stub(:get){build_json}
+    end
+
+    it "should loop from the newest build to the oldest" do
+      jenkins.stub(:latest_build_url){"https://ci-server.ustwo.co.uk:2010/job/__GitDemo/3/"}
+      HTTParty.should_receive(:get).exactly(3).times
+      jenkins.get_all_builds(test_job)
     end
 
     it "should create a Build object and return it in a block" do
@@ -100,18 +107,6 @@ describe US2::Jenkins, "-" do
       Build.should_receive(:from_api_response).with(build_json)
       jenkins.get_latest_build(test_job) do |build|
         build.should_not eq(nil)
-      end
-    end
-
-    it "should create an array of Build objects and return them in a block" do
-      test_job = FactoryGirl.build(:job)
-
-      jenkins.stub(:build_urls) {["www.google.com","www.yahoo.com"]}
-      Build.stub(:from_api_response) {FactoryGirl.build(:build, url: "www.google.com")}
-
-      jenkins.get_all_builds(test_job) do |builds|
-        builds.length.should eq(2)
-        builds.first.url.should eq("www.google.com")
       end
     end
 
@@ -141,11 +136,6 @@ describe US2::Jenkins, "-" do
     it "should only respond with the first build url" do
       test_job = Job.new()
       jenkins.instance_eval{latest_build_url(test_job)}.should_not eq("http://blah")
-    end
-
-    it "should respond with all the build urls" do
-      test_job = Job.new()
-      jenkins.instance_eval{build_urls(test_job)}.length.should eq(2)
     end
 
   end
