@@ -17,19 +17,19 @@ describe US2::Request, "-" do
     end
 
     it "should send a request to a url" do
-      HTTParty.should_receive(:get).with("hello world", anything())
-      request.async_request("hello world")
+      HTTParty.should_receive(:get).with("http://google.com", anything())
+      request.async_request("http://google.com")
     end
 
     it "should execute a callback on completion" do
-      request.async_request("hello world") do |response|
-        response.should_eq("response string")
+      request.async_request("http://google.com") do |response|
+        response.should match("response string")
       end
     end
 
     it "should execute on a new thread" do
       Thread.should_receive(:new)
-      request.async_request("hello world")
+      request.async_request("http://google.com")
     end
   end
 

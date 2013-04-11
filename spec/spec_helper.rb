@@ -66,4 +66,12 @@ end
 
 # Get code coverage
 SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
-SimpleCov.start 'rails'
+SimpleCov.start do
+  add_group 'Controllers', 'app/controllers'
+  add_group 'Models', 'app/models'
+  add_group 'Helpers', 'app/helpers'
+  add_group 'Mailers', 'app/mailers'
+  add_group 'Views', 'app/views'
+  add_group 'US2', 'US2'
+  add_filter '/spec/'
+end if ENV["COVERAGE"]
