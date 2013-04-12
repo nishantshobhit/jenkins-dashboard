@@ -75,7 +75,7 @@ class Job < ActiveRecord::Base
       end
     end
     sorted = hash.sort_by {|_key, value| value}
-    sorted.last.first if sorted
+    sorted.last.first if sorted and sorted.last
   end
 
   def failed_tests
