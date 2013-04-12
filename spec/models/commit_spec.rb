@@ -18,6 +18,7 @@ describe Commit, "-" do
 
     before do
       Commit.stub(:save)
+      HTTParty.stub(:get){"response string"}
     end
 
     it "should set a date" do

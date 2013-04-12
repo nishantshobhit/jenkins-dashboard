@@ -13,6 +13,7 @@ describe Job, "-" do
   before do
     Job.any_instance.stub(:update_attributes){true}
     Job.any_instance.stub(:save){true}
+    HTTParty.stub(:get){"response string"}
   end
 
   describe "When parsing jobs json" do
@@ -128,6 +129,11 @@ describe Job, "-" do
     it "should not return null skipped tests" do
       @test_report.stub(:skipped){nil}
       @test_job.skipped_tests.should eq(0)
+    end
+
+    it "should not return null most commits" do
+      @test_job.stub(:developers){[]}
+      @test_job.most_commits.should match("unknown")
     end
 
     it "should get the developer with most broken builds" do

@@ -11,6 +11,10 @@ describe TestReport do
     json
   end
 
+  before do
+    HTTParty.stub(:get){"response string"}
+  end
+
   describe "When parsing" do
 
     it "should return a TestReport object" do
