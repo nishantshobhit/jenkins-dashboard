@@ -83,6 +83,14 @@ describe Job, "-" do
       @test_job.successful_builds.should eq(1)
     end
 
+    it "should return the latest build" do
+      test_build = FactoryGirl.build(:build, :number => 0)
+      test_build1 = FactoryGirl.build(:build, :number => 1)
+      test_build2 = FactoryGirl.build(:build, :number => 2)
+      Array.any_instance.stub(:sort!){[test_build2, test_build1, test_build]}
+      @test_job.latest_build.number.should eq(2)
+    end
+
     it "should count it's failed builds" do
       @test_job.failed_builds.should eq(1)
     end
