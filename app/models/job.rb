@@ -27,12 +27,12 @@ class Job < ActiveRecord::Base
     @@status_types[self.status.to_i]
   end
 
+  def latest_build
+    self.builds.sort!{|x, y| y["number"] <=> x["number"]}.first
+  end
+
   def passed_tests
-    total = 0
-    self.builds.each do |build|
-      total += build.test_report.passed if build.test_report
-    end
-    total
+    latest_build.test_report.passed if latest_build.test_report
   end
 
   def build_breaker
@@ -40,11 +40,13 @@ class Job < ActiveRecord::Base
     hash = {}
     broken_builds.each do |build|
       build.commits.each do |commit|
-        developer = commit.developer.name
-        if hash[developer]
-          hash[developer] = hash[developer] + 1
-        else
-          hash[developer] = 1
+        if commit.developer.name != "unknown"
+          developer = commit.developer.name
+          if hash[developer]
+            hash[developer] = hash[developer] + 1
+          else
+            hash[developer] = 1
+          end
         end
       end
     end
@@ -71,19 +73,11 @@ class Job < ActiveRecord::Base
   end
 
   def failed_tests
-    total = 0
-    self.builds.each do |build|
-      total += build.test_report.failed if build.test_report
-    end
-    total
+    latest_build.test_report.failed if latest_build.test_report
   end
 
   def skipped_tests
-    total = 0
-    self.builds.each do |build|
-      total += build.test_report.skipped if build.test_report
-    end
-    total
+    latest_build.test_report.skipped if latest_build.test_report
   end
 
   def insertions

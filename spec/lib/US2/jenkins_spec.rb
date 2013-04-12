@@ -2,6 +2,10 @@ require "spec_helper"
 
 describe US2::Jenkins, "-" do
 
+  before do
+    HTTParty.stub(:get){"response string"}
+  end
+
   def jenkins
     US2::Jenkins.instance
   end

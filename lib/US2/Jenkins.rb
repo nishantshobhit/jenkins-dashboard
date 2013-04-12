@@ -14,7 +14,6 @@ module US2
     def sync
       jobs.each do |job|
         job.save
-
         #get the latest build for the job and save it
         get_latest_build(job) do |build|
           build.save

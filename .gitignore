@@ -27,3 +27,4 @@ ignored/
 .DS_Store
 
 test-reports/
+coverage/
