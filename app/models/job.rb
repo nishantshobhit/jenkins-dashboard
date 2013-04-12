@@ -32,7 +32,11 @@ class Job < ActiveRecord::Base
   end
 
   def passed_tests
-    latest_build.test_report.passed if latest_build.test_report
+    passed = latest_build.test_report.passed if latest_build.test_report
+    if !passed
+      passed = 0
+    end
+    passed
   end
 
   def build_breaker
@@ -74,10 +78,20 @@ class Job < ActiveRecord::Base
 
   def failed_tests
     latest_build.test_report.failed if latest_build.test_report
+    failed = latest_build.test_report.failed if latest_build.test_report
+    if !failed
+      failed = 0
+    end
+    failed
   end
 
   def skipped_tests
     latest_build.test_report.skipped if latest_build.test_report
+    skipped = latest_build.test_report.skipped if latest_build.test_report
+    if !skipped
+      skipped = 0
+    end
+    skipped
   end
 
   def insertions
