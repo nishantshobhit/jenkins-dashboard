@@ -12,8 +12,9 @@ describe Developer, "-" do
   describe "When parsing an array of developers" do
 
     before do
-     Developer.any_instance.stub(:save) {true}
+      Developer.any_instance.stub(:save) {true}
       Developer.any_instance.stub(:update_attributes) {true}
+      HTTParty.stub(:get){"response string"}
     end
 
     it "should return an array of developers" do

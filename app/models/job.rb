@@ -75,7 +75,12 @@ class Job < ActiveRecord::Base
       end
     end
     sorted = hash.sort_by {|_key, value| value}
-    sorted.last.first if sorted and sorted.last
+    if sorted and sorted.last
+      name = sorted.last.first
+    else
+      name = "unknown"
+    end
+    name
   end
 
   def failed_tests

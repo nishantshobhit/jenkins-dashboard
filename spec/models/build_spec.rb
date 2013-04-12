@@ -2,6 +2,10 @@ require "spec_helper"
 
 describe Build, "-" do
 
+  before do
+    HTTParty.stub(:get){"response string"}
+  end
+
   def test_json
     # create json hash
     json = {}
