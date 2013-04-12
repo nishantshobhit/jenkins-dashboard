@@ -38,6 +38,9 @@ gem "foreman"
 # big brother is watching you
 gem "spellchecker", "~> 0.1.5"
 
+# capistrano
+gem 'rvm-capistrano'
+
 # environment specific
 group :development do
   gem 'guard'
