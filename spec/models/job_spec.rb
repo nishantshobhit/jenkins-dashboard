@@ -115,6 +115,21 @@ describe Job, "-" do
       @test_job.passed_tests.should eq(100)
     end
 
+    it "should not return null passed tests" do
+      @test_report.stub(:passed){nil}
+      @test_job.passed_tests.should eq(0)
+    end
+
+    it "should not return null failed tests" do
+      @test_report.stub(:failed){nil}
+      @test_job.failed_tests.should eq(0)
+    end
+
+    it "should not return null skipped tests" do
+      @test_report.stub(:skipped){nil}
+      @test_job.skipped_tests.should eq(0)
+    end
+
     it "should get the developer with most broken builds" do
       @test_job.build_breaker.should eq("Test")
     end
