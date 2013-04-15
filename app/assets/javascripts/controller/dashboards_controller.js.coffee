@@ -35,6 +35,7 @@ class DashboardsController
     if localStorage.jenkins_path
       stored_path = localStorage.jenkins_path
       if stored_path != path
+        localStorage.jenkins_path = path
         location.reload
     else
       localStorage.jenkins_path = path
