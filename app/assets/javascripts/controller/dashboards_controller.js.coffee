@@ -32,7 +32,6 @@ class DashboardsController
   # load then new data into the widget
   parse_data:(data) ->
     path = data["path"]
-    console.log(path)
     if localStorage.jenkins_path
       stored_path = localStorage.jenkins_path
       if stored_path != path
