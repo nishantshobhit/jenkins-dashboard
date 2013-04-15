@@ -20,6 +20,8 @@ group :assets do
 end
 
 # General
+gem 'highline'
+gem 'ffi'
 
 # js
 gem 'jquery-rails'
