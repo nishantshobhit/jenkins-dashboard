@@ -222,14 +222,12 @@ DEPENDENCIES
   compass-rails
   d3-rails (~> 0.0.5)
   factory_girl_rails (~> 4.0)
-  ffi
   foreman
   guard
   guard-livereload
   guard-rspec
   guard-spork
   haml (~> 3.1.7)
-  highline
   httparty
   jquery-rails
   json
