@@ -20,7 +20,7 @@ class DashboardsController
     self = @
     @reload_timer = setInterval ->
       self.check_root()
-    , 5000
+    , 12000
 
   # request new data from the server
   check_root: ->
