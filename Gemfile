@@ -22,6 +22,7 @@ end
 # General
 gem 'highline'
 gem 'ffi'
+gem 'diff-lcs'
 
 # js
 gem 'jquery-rails'
