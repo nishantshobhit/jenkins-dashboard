@@ -20,7 +20,7 @@ class DashboardsController
     self = @
     @reload_timer = setInterval ->
       self.check_root()
-    , 12000
+    , 5000
 
   # request new data from the server
   check_root: ->
@@ -32,11 +32,13 @@ class DashboardsController
   # load then new data into the widget
   parse_data:(data) ->
     path = data["path"]
+    console.log(path)
     if localStorage.jenkins_path
       stored_path = localStorage.jenkins_path
       if stored_path != path
+        console.log("reloading")
         localStorage.jenkins_path = path
-        location.reload
+        window.location = window.location
     else
       localStorage.jenkins_path = path
 
