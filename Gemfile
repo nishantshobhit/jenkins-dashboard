@@ -41,6 +41,9 @@ gem "spellchecker", "~> 0.1.5"
 # capistrano
 gem 'rvm-capistrano'
 
+# passegner
+gem 'passenger'
+
 # environment specific
 group :development do
   gem 'guard'
