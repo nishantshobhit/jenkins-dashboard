@@ -9,7 +9,7 @@
     = csrf_meta_tags
     = favicon_link_tag 'favicon.ico'
     = yield :head
-  %body
+  %body{:id => Rails.root}
     %div.navbar
       %div.navbar-inner
         %a.brand.title{:href=>"/"}
