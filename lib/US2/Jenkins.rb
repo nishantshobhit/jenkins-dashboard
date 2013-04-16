@@ -26,12 +26,13 @@ module US2
         puts
         puts "Fetching #{job.name}"
         puts "Fetching #{job.name}".length.times.map {"="}.join
-        job.save
-        # get every build for the job and save it
-        get_all_builds(job) do |builds|
-          builds.each do |build|
-            puts "Fetched: #{build.name}" if build.name
-            build.save
+        if job.save
+          # get every build for the job and save it
+          get_all_builds(job) do |builds|
+            builds.each do |build|
+              puts "Fetched: #{build.name}" if build.name
+              build.save
+            end
           end
         end
       end

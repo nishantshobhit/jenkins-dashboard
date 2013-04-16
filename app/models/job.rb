@@ -5,7 +5,7 @@ class Job < ActiveRecord::Base
   validates_presence_of :name, :status, :url
   validates_uniqueness_of :name, :url
 
-  @@status_types = [:fixed, :broken, :building, :disabled, :aborted]
+  @@status_types = [:fixed, :broken, :building, :disabled, :aborted, :unstable, :unknown]
 
   class << self
 
@@ -14,6 +14,7 @@ class Job < ActiveRecord::Base
       # see if we have the job in the db already and just update it if so
       if @query.length == 0
         @job = Job.new(:name => api_response["name"], :status => api_response["color"], :url => api_response["url"])
+        puts "created new job #{@job.name}"
       else
         @job = @query.first
         @job.status = api_response["color"];
@@ -154,6 +155,10 @@ class Job < ActiveRecord::Base
       value = "broken"
     elsif value == "grey"
       value = "disabled"
+    elsif value == "yellow"
+      value = "unstable"
+    else
+      value = "unknown"
     end
     @status = @@status_types.index(value.to_sym)
     if @status

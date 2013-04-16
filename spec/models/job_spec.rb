@@ -10,6 +10,14 @@ describe Job, "-" do
     json
   end
 
+  def test_json_invalid_color
+    json = {}
+    json["name"] = "Test Job"
+    json["url"] = "http://google.com"
+    json["color"] = "brown" # will equal :unkown
+    json
+  end
+
   before do
     Job.any_instance.stub(:update_attributes){true}
     Job.any_instance.stub(:save){true}
@@ -26,6 +34,11 @@ describe Job, "-" do
     it "should set a status from color json" do
       job = Job.from_api_response(test_json)
       job.status_name.should eq(:broken)
+    end
+
+    it "should handle an unkown status color" do
+      job = Job.from_api_response(test_json_invalid_color)
+      job.status_name.should eq(:unknown)
     end
 
     it "should set a url" do
