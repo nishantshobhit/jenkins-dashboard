@@ -3,9 +3,9 @@ class DashboardView
   constructor: ->
 
   hide_toolbar: ->
-    $(".navbar").fadeOut()
+    $(".navbar").fadeOut(2000)
 
   show_toolbar: ->
-    $(".navbar").fadeIn()
+    $(".navbar").fadeIn(1000)
 
 window.DashboardView = new DashboardView()
