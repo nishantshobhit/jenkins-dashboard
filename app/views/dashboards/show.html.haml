@@ -4,7 +4,6 @@
   = javascript_include_tag "controller/dashboards_controller.js"
   = javascript_include_tag "view/widget_view.js"
   = javascript_include_tag "view/dashboard_view.js"
-  = javascript_include_tag "project-development-stats.js"
   = javascript_include_tag "pie-chart.js"
 
 = content_for :nav do
@@ -16,79 +15,74 @@
 
 %div.widgets
   - @widgets.each do |widget|
-    %div.graph.widget.project-development-stats{:data => {'job-id' => "#{widget.job.id}"}}
-      %h1
-        = widget.name
-      %ul
-        %li.builds-failed
-          %span.figure{:data => {'old-value' => "#{widget.job.failed_builds}"}}
-            = widget.job.failed_builds
-          = image_tag "graphs/icon-builds-failed.svg", {:width => "80", :height => "80", :class => "icon"}
-          %span.label
-            Builds Failed
-        %li.total-lines
-          %span.figure{:data => {'old-value' => "#{widget.job.total_lines}"}}
-            = widget.job.total_lines
-          = image_tag "graphs/icon-total-lines.svg", {:width => "80", :height => "80", :class => "icon"}
-          %span.label
-            Total Lines
-        %li.lines-added
-          %span.figure{:data => {'old-value' => "#{widget.job.insertions}"}}
-            = widget.job.insertions
-          = image_tag "graphs/icon-lines-added.svg", {:width => "80", :height => "80", :class => "icon"}
-          %span.label
-            Lines Added
-        %li.lines-removed
-          %span.figure{:data => {'old-value' => "#{widget.job.deletions}"}}
-            = widget.job.deletions
-          = image_tag "graphs/icon-lines-removed.svg", {:width => "80", :height => "80", :class => "icon"}
-          %span.label
-            Lines Removed
-        %li.build-breaker
-          %span.figure{:data => {'old-value' => "#{widget.job.build_breaker}"}}
-            = widget.job.build_breaker
-          = image_tag "graphs/icon-bugs-remaining.svg", {:width => "80", :height => "80", :class => "icon"}
-          %span.label
-            Build Breaker
-      %ul
-        %li.builds-successful
-          %span.figure{:data => {'old-value' => "#{widget.job.successful_builds}"}}
-            = widget.job.successful_builds
-          = image_tag "graphs/icon-builds-succeeded.svg", {:width => "80", :height => "80", :class => "icon"}
-          %span.label
-            Builds Succeeded
-        %li.tests-passed
-          %span.figure{:data => {'old-value' => "#{widget.job.passed_tests}"}}
-            = widget.job.passed_tests
-          = image_tag "graphs/icon-tests-passed.svg", {:width => "80", :height => "80", :class => "icon"}
-          %span.label
-            Tests Passed
-        %li.tests-skipped
-          %span.figure{:data => {'old-value' => "#{widget.job.skipped_tests}"}}
-            = widget.job.skipped_tests
-          = image_tag "graphs/icon-tests-skipped.svg", {:width => "80", :height => "80", :class => "icon"}
-          %span.label
-            Tests Skipped
-        %li.tests-failed
-          %span.figure{:data => {'old-value' => "#{widget.job.failed_tests}"}}
-            = widget.job.failed_tests
-          = image_tag "graphs/icon-tests-failed.svg", {:width => "80", :height => "80", :class => "icon"}
-          %span.label
-            Tests Failed
-        %li.most-commits
-          %span.figure{:data => {'old-value' => "#{widget.job.most_commits}"}}
-            = widget.job.most_commits
-          = image_tag "graphs/icon-lines-added.svg", {:width => "80", :height => "80", :class => "icon"}
-          %span.label
-            Most Commits
--#%div{:class => ["span","well",widget.size_name]}
--#  %h4= widget.name unless widget.name.nil?
--#  %h5= widget.job.name unless widget.job.nil?
--#  %p= widget.data_type_name
--#  %p= widget.layout_name
--#  %p= widget.size_name
--#  %p= widget.from
--#  %p= widget.to
+    - if widget.layout_name == "pie"
+      %div.pie-chart.graph
+    - else
+      %div.graph.widget.project-development-stats{:data => {'job-id' => "#{widget.job.id}"}}
+        %h1
+          = widget.name
+        %ul
+          %li.builds-failed
+            %span.figure{:data => {'old-value' => "#{widget.job.failed_builds}"}}
+              = widget.job.failed_builds
+            = image_tag "graphs/icon-builds-failed.svg", {:width => "80", :height => "80", :class => "icon"}
+            %span.label
+              Builds Failed
+          %li.total-lines
+            %span.figure{:data => {'old-value' => "#{widget.job.total_lines}"}}
+              = widget.job.total_lines
+            = image_tag "graphs/icon-total-lines.svg", {:width => "80", :height => "80", :class => "icon"}
+            %span.label
+              Total Lines
+          %li.lines-added
+            %span.figure{:data => {'old-value' => "#{widget.job.insertions}"}}
+              = widget.job.insertions
+            = image_tag "graphs/icon-lines-added.svg", {:width => "80", :height => "80", :class => "icon"}
+            %span.label
+              Lines Added
+          %li.lines-removed
+            %span.figure{:data => {'old-value' => "#{widget.job.deletions}"}}
+              = widget.job.deletions
+            = image_tag "graphs/icon-lines-removed.svg", {:width => "80", :height => "80", :class => "icon"}
+            %span.label
+              Lines Removed
+          %li.build-breaker
+            %span.figure{:data => {'old-value' => "#{widget.job.build_breaker}"}}
+              = widget.job.build_breaker
+            = image_tag "graphs/icon-bugs-remaining.svg", {:width => "80", :height => "80", :class => "icon"}
+            %span.label
+              Build Breaker
+        %ul
+          %li.builds-successful
+            %span.figure{:data => {'old-value' => "#{widget.job.successful_builds}"}}
+              = widget.job.successful_builds
+            = image_tag "graphs/icon-builds-succeeded.svg", {:width => "80", :height => "80", :class => "icon"}
+            %span.label
+              Builds Succeeded
+          %li.tests-passed
+            %span.figure{:data => {'old-value' => "#{widget.job.passed_tests}"}}
+              = widget.job.passed_tests
+            = image_tag "graphs/icon-tests-passed.svg", {:width => "80", :height => "80", :class => "icon"}
+            %span.label
+              Tests Passed
+          %li.tests-skipped
+            %span.figure{:data => {'old-value' => "#{widget.job.skipped_tests}"}}
+              = widget.job.skipped_tests
+            = image_tag "graphs/icon-tests-skipped.svg", {:width => "80", :height => "80", :class => "icon"}
+            %span.label
+              Tests Skipped
+          %li.tests-failed
+            %span.figure{:data => {'old-value' => "#{widget.job.failed_tests}"}}
+              = widget.job.failed_tests
+            = image_tag "graphs/icon-tests-failed.svg", {:width => "80", :height => "80", :class => "icon"}
+            %span.label
+              Tests Failed
+          %li.most-commits
+            %span.figure{:data => {'old-value' => "#{widget.job.most_commits}"}}
+              = widget.job.most_commits
+            = image_tag "graphs/icon-lines-added.svg", {:width => "80", :height => "80", :class => "icon"}
+            %span.label
+              Most Commits
 
 %div.clear.center
 
@@ -105,3 +99,6 @@
     %button.btn.btn-primary#new-widget{:href => dashboard_widgets_path(@dashboard)}
       Add Widget
 -#
+= content_for :bottom do
+  = javascript_include_tag "pie-chart.js"
+  = javascript_include_tag "project-development-stats.js"

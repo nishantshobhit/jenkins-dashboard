@@ -36,25 +36,16 @@ var streakerDataAdded;
 function fillArray() {
   return {
     labels: [
-      "PapaQuash",
-      "MouthOff",
-      "Granimator",
-      "MaebyFünke",
-      "MichaelBluth",
-      "Honk",
-      "Whale Trail",
-      "Sparks",
-      "",
-      "",
-      "",
-      ""
+      "Passed",
+      "Skipped",
+      "Failed",
     ],
     octetTotalCount: Math.ceil(Math.random()*(arrayRange))
   };
 }
 
 // Variable for the visualisation.
-var vis = d3.select("#pie-chart").append("svg:svg")
+var vis = d3.select(".pie-chart").append("svg:svg")
   .attr("width", w)
   .attr("height", h);
 
@@ -78,7 +69,7 @@ var updateInterval = window.setInterval(update, interval);
 // To run each time data is generated
 function update() {
 
-  slices = 12; // Number of slices
+  slices = 3; // Number of slices
   streakerDataAdded = d3.range(slices).map(fillArray);
 
   oldPieData = filteredPieData;

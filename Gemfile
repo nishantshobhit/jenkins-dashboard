@@ -22,7 +22,6 @@ end
 
 # js
 gem 'jquery-rails'
-gem "d3-rails", "~> 0.0.5"
 gem 'json'
 
 # requests

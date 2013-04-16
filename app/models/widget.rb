@@ -4,7 +4,7 @@ class Widget < ActiveRecord::Base
   belongs_to :job
 
   @@data_types = [:gitstats]
-  @@layouts = [:text]
+  @@layouts = [:text, :pie]
   @@sizes = [:fullscreen]
 
   def span_size
@@ -39,7 +39,7 @@ class Widget < ActiveRecord::Base
   end
 
   def layout_name
-    @@layouts[self.layout.to_i]
+    @@layouts[self.layout.to_i].to_s
   end
 
   def layout=(value)

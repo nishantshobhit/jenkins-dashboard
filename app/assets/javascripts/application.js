@@ -12,6 +12,5 @@
 //
 //= require jquery
 //= require jquery_ujs
-//= require d3
 //= require external/bootstrap.min
 //= require external/bootstrap-datepicker
