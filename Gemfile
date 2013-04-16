@@ -22,6 +22,7 @@ gem 'uglifier', '>= 1.0.3'
 # General
 
 # js
+gem 'therubyracer'
 gem 'jquery-rails'
 gem 'json'
 

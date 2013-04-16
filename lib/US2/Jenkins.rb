@@ -26,12 +26,13 @@ module US2
         puts
         puts "Fetching #{job.name}"
         puts "Fetching #{job.name}".length.times.map {"="}.join
-        job.save
-        # get every build for the job and save it
-        get_all_builds(job) do |builds|
-          builds.each do |build|
-            puts "Fetched: #{build.name}" if build.name
-            build.save
+        if job.save
+          # get every build for the job and save it
+          get_all_builds(job) do |builds|
+            builds.each do |build|
+              puts "Fetched: #{build.name}" if build.name
+              build.save
+            end
           end
         end
       end
@@ -55,6 +56,7 @@ module US2
         #return the jobs
       end
       thread.join
+      ActiveRecord::Base.connection.close
       jobs
     end
 
@@ -75,6 +77,7 @@ module US2
         end
       end
       thread.join
+      ActiveRecord::Base.connection.close
     end
 
     def get_all_builds(job, &block)
@@ -107,6 +110,7 @@ module US2
         end
         # wait for thread to finish
         thread.join
+        ActiveRecord::Base.connection.close
         # increment build number down
         build_number = build_number - 1
       end
@@ -125,6 +129,7 @@ module US2
         end
       end
       thread.join
+      ActiveRecord::Base.connection.close
     end
 
     private
@@ -141,6 +146,7 @@ module US2
         end
       end
       thread.join
+      ActiveRecord::Base.connection.close
       url
     end
 

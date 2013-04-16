@@ -75,9 +75,20 @@ describe US2::Jenkins, "-" do
     it "should get all of each jobs builds" do
       job = test_job
       job.stub(:get_all_builds)
+      job.stub(:save){true}
 
       jenkins.stub(:jobs){[job]}
       jenkins.should_receive(:get_all_builds)
+      jenkins.populate
+    end
+
+    it "should not get all of each jobs builds if the job didn't save" do
+      job = test_job
+      job.stub(:get_all_builds)
+      job.stub(:save){false}
+
+      jenkins.stub(:jobs){[job]}
+      jenkins.should_not_receive(:get_all_builds)
       jenkins.populate
     end
 

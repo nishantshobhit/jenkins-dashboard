@@ -5,7 +5,7 @@ class Job < ActiveRecord::Base
   validates_presence_of :name, :status, :url
   validates_uniqueness_of :name, :url
 
-  @@status_types = [:fixed, :broken, :building, :disabled, :aborted]
+  @@status_types = [:fixed, :broken, :building, :disabled, :aborted, :unstable, :unknown]
 
   class << self
 
@@ -154,6 +154,10 @@ class Job < ActiveRecord::Base
       value = "broken"
     elsif value == "grey"
       value = "disabled"
+    elsif value == "yellow"
+      value = "unstable"
+    else
+      value = "unknown"
     end
     @status = @@status_types.index(value.to_sym)
     if @status
