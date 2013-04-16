@@ -55,6 +55,7 @@ module US2
         #return the jobs
       end
       thread.join
+      ActiveRecord::Base.connection.close
       jobs
     end
 
@@ -75,6 +76,7 @@ module US2
         end
       end
       thread.join
+      ActiveRecord::Base.connection.close
     end
 
     def get_all_builds(job, &block)
@@ -107,6 +109,7 @@ module US2
         end
         # wait for thread to finish
         thread.join
+        ActiveRecord::Base.connection.close
         # increment build number down
         build_number = build_number - 1
       end
@@ -125,6 +128,7 @@ module US2
         end
       end
       thread.join
+      ActiveRecord::Base.connection.close
     end
 
     private
@@ -141,6 +145,7 @@ module US2
         end
       end
       thread.join
+      ActiveRecord::Base.connection.close
       url
     end
 
