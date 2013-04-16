@@ -14,7 +14,6 @@ class Job < ActiveRecord::Base
       # see if we have the job in the db already and just update it if so
       if @query.length == 0
         @job = Job.new(:name => api_response["name"], :status => api_response["color"], :url => api_response["url"])
-        puts "created new job #{@job.name}"
       else
         @job = @query.first
         @job.status = api_response["color"];
