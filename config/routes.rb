@@ -23,4 +23,6 @@ JenkinsDashboard::Application.routes.draw do
 	end
 	resources :widgets
 
+	match "api/current_path" => "api/base#current_path"
+
 end

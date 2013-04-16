@@ -18,6 +18,13 @@
 .sass-cache
 ignored/
 .DS_Store
+# Ignore OSX Files
+.DS_Store
+
+# Ignore Sublime Text 2 Files
+*.sublime-project
+*.sublime-workspace
+.DS_Store
 
 test-reports/
 coverage/

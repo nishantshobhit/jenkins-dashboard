@@ -36,7 +36,7 @@ class WidgetsController
             first.remove().appendTo(".widgets")
           )
         )
-    , 60000
+    , 30000
 
   # request new data from the server
   reload_data: ->
