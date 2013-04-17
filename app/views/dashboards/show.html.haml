@@ -17,7 +17,7 @@
   %h1
   - @widgets.each do |widget|
     - if widget.layout_name == "pie"
-      %div.pie-chart.graph.widget
+      %div.pie-chart.graph.widget{:class => widget.data_type_name}
         %h1
           = widget.name
     - else

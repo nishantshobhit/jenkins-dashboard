@@ -4,7 +4,7 @@ class Widget < ActiveRecord::Base
   belongs_to :job
   validates_uniqueness_of :name
 
-  @@data_types = [:gitstats]
+  @@data_types = [:gitstats, :test_reports, :build_durations]
   @@layouts = [:text, :pie]
   @@sizes = [:fullscreen]
 
