@@ -2,7 +2,11 @@ class WidgetsController
 
   constructor: ->
     self = @
+    self.test_data =
+      labels: ["Passed", "Skipped", "Failed"]
+      values: [0, 0, 0]
     $ ->
+      self.reload_test_data()
       self.start_reload_timer()
       self.cycle_widgets()
 
@@ -10,8 +14,9 @@ class WidgetsController
   start_reload_timer: ->
     self = @
     @reload_timer = setInterval ->
-      self.reload_data()
-    , 3000
+      self.reload_stats_data()
+      self.reload_test_data()
+    , 10000
 
   # clear all timeout timers
   clear_timers: ->
@@ -38,27 +43,49 @@ class WidgetsController
         )
     , 30000
 
+  # data source for pie chart
+  global_test_data: ->
+    console.log(self.test_data)
+    self.test_data
+
+  # request new test data from the server
+  reload_test_data: ->
+    # parse data and convert to percentages
+    $.get "/api/test_report.json",
+      (data) ->
+        total = data.passed + data.failed + data.skipped;
+        self.test_data =
+          labels: ["Passed", "Skipped", "Failed"]
+          values: [
+            (data.passed / total) * 100,
+            (data.failed / total * 100),
+            (data.skipped / total * 100)
+          ]
+
   # request new data from the server
-  reload_data: ->
+  reload_stats_data: ->
     self = @
     $(".widget").each( ->
-      @job_id = $(this).data("job-id")
-      $.get "/api/jobs/#{@job_id}.json",
-        (data) ->
-          self.parse_data(data, $(this))
+      if $(this).hasClass("project-development-stats")
+        # commit data
+        @job_id = $(this).data("job-id")
+        $.get "/api/jobs/#{@job_id}.json",
+          (data) ->
+            self.parse_text_data(data, $(this))
     )
 
   # load then new data into the widget
-  parse_data:(data, widget) ->
+  parse_text_data:(data, widget) ->
     widgetView = new WidgetView(widget)
-    widgetView.set_insertions(data.insertions)
-    widgetView.set_deletions(data.deletions)
-    widgetView.set_passed_tests(data.passed_tests)
-    widgetView.set_failed_tests(data.failed_tests)
-    widgetView.set_skipped_tests(data.skipped_tests)
-    widgetView.set_failed_builds(data.failed_builds)
-    widgetView.set_successful_builds(data.successful_builds)
-    widgetView.set_build_breaker(data.build_breaker)
-    widgetView.set_most_commits(data.most_commits)
+    job = data.job
+    widgetView.set_insertions(job.insertions)
+    widgetView.set_deletions(job.deletions)
+    widgetView.set_passed_tests(job.passed_tests)
+    widgetView.set_failed_tests(job.failed_tests)
+    widgetView.set_skipped_tests(job.skipped_tests)
+    widgetView.set_failed_builds(job.failed_builds)
+    widgetView.set_successful_builds(job.successful_builds)
+    widgetView.set_build_breaker(job.build_breaker)
+    widgetView.set_most_commits(job.most_commits)
 
 window.WidgetsController = new WidgetsController()

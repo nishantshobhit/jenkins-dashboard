@@ -14,8 +14,11 @@
     Add Widget
 
 %div.widgets
+  %h1
   - @widgets.each do |widget|
     - if widget.layout_name == "pie"
+      %h1
+        = widget.name
       %div.pie-chart.graph
     - else
       %div.graph.widget.project-development-stats{:data => {'job-id' => "#{widget.job.id}"}}

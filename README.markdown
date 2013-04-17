@@ -17,3 +17,9 @@ This may take some time depending on the amount of jobs displayed on on the 'Wal
 ### Deployment
 
 Jenkins will automatically deploy any commits to the master branch
+
+### TODO
+
+* Jasmine Tests
+* Switch to Mongodb
+* Refactor Javascript graph code to Coffee

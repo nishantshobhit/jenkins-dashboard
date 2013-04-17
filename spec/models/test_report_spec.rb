@@ -49,31 +49,60 @@ describe TestReport do
 
   describe "When generating a JSON response" do
 
-    it "should return a json response" do
-      builds = []
-      TestReport.api_response_for_builds(builds).should_not eq(nil)
+    describe "For global data" do
+      it "should return a json reponse" do
+        builds = []
+        TestReport.api_response_for_builds(builds).should_not eq(nil)
+      end
+
+      it "should respond with the correct values" do
+        build1 = FactoryGirl.build(:build)
+        build1.test_report = FactoryGirl.build(:test_report, passed: 1, failed: 2, skipped: 3)
+
+        build2 = FactoryGirl.build(:build)
+        build2.test_report = FactoryGirl.build(:test_report, passed: 1, failed: 2, skipped: 3)
+
+        builds = [build1,build2]
+        TestReport.api_response_for_builds(builds)[:passed].should eq(2)
+        TestReport.api_response_for_builds(builds)[:failed].should eq(4)
+        TestReport.api_response_for_builds(builds)[:skipped].should eq(6)
+      end
+
+      it "should handle builds with no test_reports" do
+        build1 = FactoryGirl.build(:build)
+        TestReport.api_response_for_builds([build1])[:passed].should eq(0)
+        TestReport.api_response_for_builds([build1])[:skipped].should eq(0)
+        TestReport.api_response_for_builds([build1])[:failed].should eq(0)
+      end
     end
 
-    it "should group the builds by day" do
-      Build.any_instance.should_receive(:group_by_day)
-      builds = [FactoryGirl.build(:build)]
-      TestReport.api_response_for_builds(builds)
-    end
+    describe "For daily data" do
+      it "should return a json response" do
+        builds = []
+        TestReport.api_response_for_daily_builds(builds).should_not eq(nil)
+      end
 
-    it "should respond with the correct values" do
-      # create a build
-      build = FactoryGirl.build(:build)
-      build.test_report = FactoryGirl.build(:test_report, passed: 1, failed: 2, skipped: 3)
+      it "should group the builds by day" do
+        Build.any_instance.should_receive(:group_by_day)
+        builds = [FactoryGirl.build(:build)]
+        TestReport.api_response_for_daily_builds(builds)
+      end
 
-      # return fake group
-      Array.any_instance.stub(:group_by) {{"Day" => [build]}}
+      it "should respond with the correct values" do
+        # create a build
+        build = FactoryGirl.build(:build)
+        build.test_report = FactoryGirl.build(:test_report, passed: 1, failed: 2, skipped: 3)
 
-      # get response from stub
-      response = TestReport.api_response_for_builds([build])
+        # return fake group
+        Array.any_instance.stub(:group_by) {{"Day" => [build]}}
 
-      response.first[:passed].should eq(1)
-      response.first[:failed].should eq(2)
-      response.first[:skipped].should eq(3)
+        # get response from stub
+        response = TestReport.api_response_for_daily_builds([build])
+
+        response.first[:passed].should eq(1)
+        response.first[:failed].should eq(2)
+        response.first[:skipped].should eq(3)
+      end
     end
 
   end

@@ -16,10 +16,11 @@ var lines, valueLabels, nameLabels;
 var pieData = [];
 var oldPieData = [];
 var filteredPieData = [];
+var widgetsController = window.WidgetsController
 
 // D3 helper function to populate pie slice parameters from array data.
-var donut = d3.layout.pie().value(function(d){
-  return d.octetTotalCount;
+var donut = d3.layout.pie().value(function(d, i){
+  return d.values[i];
 });
 
 // D3 helper function to draw arcs, populates parameter "d" in path object.
@@ -34,14 +35,7 @@ var slices;
 var streakerDataAdded;
 
 function fillArray() {
-  return {
-    labels: [
-      "Passed",
-      "Skipped",
-      "Failed",
-    ],
-    octetTotalCount: Math.ceil(Math.random()*(arrayRange))
-  };
+  return widgetsController.global_test_data();
 }
 
 // Variable for the visualisation.
@@ -79,7 +73,7 @@ function update() {
   filteredPieData = pieData.filter(filterData);
   function filterData(element, index, array) {
     element.name = streakerDataAdded[index].labels[index];
-    element.value = streakerDataAdded[index].octetTotalCount;
+    element.value = streakerDataAdded[index].values[index];
     totalOctets += element.value;
     return (element.value > 0);
   }

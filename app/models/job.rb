@@ -31,14 +31,6 @@ class Job < ActiveRecord::Base
     self.builds.sort!{|x, y| y["number"] <=> x["number"]}.first
   end
 
-  def passed_tests
-    passed = latest_build.test_report.passed if latest_build.test_report
-    if !passed
-      passed = 0
-    end
-    passed
-  end
-
   def build_breaker
     broken_builds = self.builds.where("success = FALSE")
     hash = {}
@@ -81,6 +73,14 @@ class Job < ActiveRecord::Base
       name = "unknown"
     end
     name
+  end
+
+  def passed_tests
+    passed = latest_build.test_report.passed if latest_build.test_report
+    if !passed
+      passed = 0
+    end
+    passed
   end
 
   def failed_tests

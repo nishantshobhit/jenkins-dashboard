@@ -18,6 +18,20 @@ class TestReport < ActiveRecord::Base
     end
 
     def api_response_for_builds(builds)
+      response = {:passed => 0, :skipped => 0, :failed => 0}
+
+      builds.each do |build|
+        if !build.test_report.nil?
+          response[:passed] = build.test_report.passed + response[:passed]
+          response[:skipped] = build.test_report.skipped + response[:skipped]
+          response[:failed] = build.test_report.failed + response[:failed]
+        end
+      end
+
+      response
+    end
+
+    def api_response_for_daily_builds(builds)
 
       response = []
 

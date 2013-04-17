@@ -6,7 +6,7 @@ module Api
         @job = Job.find(params[:id])
         @builds = @job.builds
 
-        reports = TestReport.api_response_for_builds(@builds)
+        reports = TestReport.api_response_for_daily_builds(@builds)
 
         respond_with(reports)
     	end
