@@ -19,7 +19,7 @@
 
 # Learn more: http://github.com/javan/whenever
 
-set :output, {:error => '~/error.log', :standard => '~/cron.log'}
+set :output, {:error => '/var/www/dashboard/current/error.log', :standard => '/var/www/dashboard/current/cron.log'}
 
 every 1.minutes do
   runner "US2::Jenkins.instance.sync", :environment => :production
