@@ -36,8 +36,8 @@ class WidgetsController
         if first.hasClass("project-development-stats")
           hideSequentially(first.find("li"), 100, ->
             first.find("li").removeClass("out")
-            first.hide()
-            second.show()
+            first.fadeOut(1000)
+            second.fadeIn(1000)
             second.children("h1").fadeIn(1000, ->
               first.remove().appendTo(".widgets")
             )
