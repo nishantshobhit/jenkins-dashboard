@@ -83,6 +83,8 @@ describe Job, "-" do
       @test_builds.stub(:where){@test_builds}
       @test_builds.stub(:joins){@test_builds}
       @test_job.stub(:builds){@test_builds}
+      @test_builds.stub(:count){1}
+      Build.stub_chain(:includes){@test_builds}
     end
 
     it "should return its developers" do
