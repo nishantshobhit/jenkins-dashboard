@@ -33,14 +33,22 @@ class WidgetsController
         first = widgets.eq(0)
         second = widgets.eq(1)
         first.children("h1").fadeOut(1000)
-        hideSequentially(first.find("li"), 100, ->
-          first.find("li").removeClass("out")
-          first.hide()
-          second.show()
+        if first.hasClass("project-development-stats")
+          hideSequentially(first.find("li"), 100, ->
+            first.find("li").removeClass("out")
+            first.hide()
+            second.show()
+            second.children("h1").fadeIn(1000, ->
+              first.remove().appendTo(".widgets")
+            )
+          )
+        else
+          first.fadeOut(1000)
+          second.fadeIn(1000)
           second.children("h1").fadeIn(1000, ->
             first.remove().appendTo(".widgets")
           )
-        )
+
     , 30000
 
   # data source for pie chart
