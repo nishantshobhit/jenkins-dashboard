@@ -2,6 +2,7 @@ class Widget < ActiveRecord::Base
   attr_accessible :dashboard_id, :name, :data_type, :layout, :size, :from, :to, :job_id
   belongs_to :dashboard
   belongs_to :job
+  validates_uniqueness_of :name
 
   @@data_types = [:gitstats]
   @@layouts = [:text, :pie]

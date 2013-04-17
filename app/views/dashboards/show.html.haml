@@ -17,9 +17,9 @@
   %h1
   - @widgets.each do |widget|
     - if widget.layout_name == "pie"
-      %h1
-        = widget.name
-      %div.pie-chart.graph
+      %div.pie-chart.graph.widget
+        %h1
+          = widget.name
     - else
       %div.graph.widget.project-development-stats{:data => {'job-id' => "#{widget.job.id}"}}
         %h1

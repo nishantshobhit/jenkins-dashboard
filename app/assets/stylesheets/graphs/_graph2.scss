@@ -4,7 +4,7 @@ $key-purple: #4B226C;
 .pie-chart {
   background-color: $key-orange;
   // font: bold 15px "Neuzeit S LT Std";
-  font: bold 25px "Neuzeit S LT Std";
+  font: bold 25px "Bebas Neue";
   text-shadow: 1px 1px 0 rgba(0,0,0,.04);
   .units {
     fill: #FFF;
@@ -16,7 +16,7 @@ $key-purple: #4B226C;
   > svg {
     display: block;
     margin: 0 auto;
-    padding: 60px 200px;
+    padding: 250px 200px;
   }
   .arc path {
     -webkit-transition-property: fill, stroke;
