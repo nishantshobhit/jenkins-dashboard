@@ -139,7 +139,7 @@ class Job < ActiveRecord::Base
 
   def developers
     devs = []
-    builds = Build.includes(:commits, :developer).where("job_id = #{self.id}")
+    builds = Build.includes({:commits => :developer}).where("job_id = #{self.id}")
     builds.each do |build|
       build.commits.each do |commit|
         devs << commit.developer
