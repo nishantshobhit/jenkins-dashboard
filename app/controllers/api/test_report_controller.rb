@@ -12,7 +12,7 @@ module Api
     	end
 
     	def index
-    		@builds ||= Build.find(:all)
+    		@builds ||= Build.find(:all, :include => :test_reports)
 
         reports = TestReport.api_response_for_builds(@builds)
   	  	respond_with(reports)

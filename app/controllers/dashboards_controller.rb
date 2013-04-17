@@ -1,7 +1,7 @@
 class DashboardsController < ApplicationController
 
   def show
-    @dashboard = Dashboard.find(params[:id])
+    @dashboard = Dashboard.find(params[:id], :include => :widgets)
     @widgets = @dashboard.widgets
   end
 

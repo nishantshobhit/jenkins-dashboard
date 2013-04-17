@@ -32,7 +32,7 @@ class Job < ActiveRecord::Base
   end
 
   def build_breaker
-    broken_builds = self.builds.where("success = FALSE")
+    broken_builds = self.builds.where("success = FALSE", :include => {:commits => :developer})
     hash = {}
     broken_builds.each do |build|
       build.commits.each do |commit|
@@ -103,7 +103,8 @@ class Job < ActiveRecord::Base
 
   def insertions
     total = 0
-    self.builds.each do |build|
+    builds = Build.includes(:commits).where("job_id = #{self.id}")
+    builds.each do |build|
       build.commits.each do |commit|
         total += commit.insertions if commit.insertions
       end
@@ -113,7 +114,8 @@ class Job < ActiveRecord::Base
 
   def deletions
     total = 0
-    self.builds.each do |build|
+    builds = Build.includes(:commits).where("job_id = #{self.id}")
+    builds.each do |build|
       build.commits.each do |commit|
         total += commit.deletions if commit.deletions
       end
@@ -122,12 +124,12 @@ class Job < ActiveRecord::Base
   end
 
   def failed_builds
-    total = self.builds.where("success = FALSE").count
+    total = self.builds.count(:conditions => "success = FALSE")
     total
   end
 
   def successful_builds
-    total = self.builds.where("success = TRUE").count
+    total = self.builds.count(:conditions => "success = TRUE")
     total
   end
 
@@ -137,7 +139,8 @@ class Job < ActiveRecord::Base
 
   def developers
     devs = []
-    self.builds.each do |build|
+    builds = Build.includes(:commits, :developer).where("job_id = #{self.id}")
+    builds.each do |build|
       build.commits.each do |commit|
         devs << commit.developer
       end
