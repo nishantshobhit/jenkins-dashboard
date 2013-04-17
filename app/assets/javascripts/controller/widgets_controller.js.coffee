@@ -45,7 +45,6 @@ class WidgetsController
 
   # data source for pie chart
   global_test_data: ->
-    console.log(self.test_data)
     self.test_data
 
   # request new test data from the server
