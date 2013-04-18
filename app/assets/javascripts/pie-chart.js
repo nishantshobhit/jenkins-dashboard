@@ -4,9 +4,10 @@
  */
 
 // Variables.
-var w = 600; // Pie chart width.
-var h = 600; // Pie chart height.
-var r = 300; // Pie chart radius.
+
+var w = 900; // Pie chart width.
+var h = 900; // Pie chart height.
+var r = 450; // Pie chart radius.
 var textOffset = 15; // Distance of the text from the pie chart.
 var tweenDuration = 800; // Duration of the animation.
 var interval = 7000; // Duration of the pause between data sets.
@@ -175,7 +176,7 @@ function update() {
 
     /**
      * Draw percentage labels.
-     */
+
     valueLabels = label_group.selectAll("text.value").data(filteredPieData)
       .attr("dy", function(d){
         if ((d.startAngle+d.endAngle)/2 > Math.PI/2 && (d.startAngle+d.endAngle)/2 < Math.PI*1.5 ) {
@@ -234,6 +235,7 @@ function update() {
     valueLabels
       .exit()
       .remove();
+    */
   }
 }
 

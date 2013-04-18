@@ -1,13 +1,19 @@
+// Import Google Fonts.
+@import url(http://fonts.googleapis.com/css?family=Montserrat:400,700);
+
 $key-orange: #F3A21A;
 $key-purple: #4B226C;
 
 .pie-chart {
   background-color: $key-orange;
-  // font: bold 15px "Neuzeit S LT Std";
-  font: bold 25px "Bebas Neue";
+  font-weight: bold;
+  font-size: 25px;
+  font-family: "Montserrat", "Helvetica Neue", sans-serif;
   text-shadow: 1px 1px 0 rgba(0,0,0,.04);
   .units {
     fill: #FFF;
+    // text-shadow: 3px 3px 0 darken($key-orange, 5%);
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.08);
   }
   .value{
     fill: rgba(255,255,255,0.7);
@@ -15,11 +21,18 @@ $key-purple: #4B226C;
   }
   > svg {
     display: block;
-    margin: 0 auto;
-    padding: 250px 200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin: -550px 0 0 -550px;
+    padding: 100px;
+
   }
-  .arc path {
-    -webkit-transition-property: fill, stroke;
-    -webkit-transition-duration: 2s;
+  .arc {
+    path {
+      -webkit-transition-property: fill, stroke;
+      -webkit-transition-duration: 2s;
+
+    }
   }
 }

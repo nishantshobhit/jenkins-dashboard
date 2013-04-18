@@ -29,14 +29,18 @@ body {
   }
   h1 {
     position: absolute;
-    font-family: "Helvetica";
-    font-size: 60px;
     line-height: 60px;
-    letter-spacing: -2px;
-    top: 90px;
+    letter-spacing: -1px;
+    top: 50px;
     left: 50px;
     text-transform: none;
+    color: #FFF;
+    text-shadow: 3px 3px 0 rgba(0,0,0,0.08);
+    font-weight: bold;
+    font-size: 75px;
+    font-family: "Montserrat", "Helvetica Neue", sans-serif;
   }
+
 }
 
 // Common elements.
