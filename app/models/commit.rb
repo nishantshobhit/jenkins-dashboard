@@ -53,7 +53,7 @@ class Commit < ActiveRecord::Base
         end
         @commit.save
       else
-        @commit = Commit.where("sha1hash = #{api_response["id"]}")
+        @commit = Commit.where("sha1hash = '#{api_response["id"]}'")
       end
       @commit
     end
