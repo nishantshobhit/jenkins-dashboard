@@ -73,12 +73,13 @@ class WidgetsController
   reload_stats_data: ->
     self = @
     $(".widget").each( ->
-      if $(this).hasClass("project-development-stats")
+      widget = $(this)
+      if widget.hasClass("project-development-stats")
         # commit data
-        @job_id = $(this).data("job-id")
+        @job_id = widget.data("job-id")
         $.get "/api/jobs/#{@job_id}.json",
           (data) ->
-            self.parse_text_data(data, $(this))
+            self.parse_text_data(data, widget)
     )
 
   # load then new data into the widget
