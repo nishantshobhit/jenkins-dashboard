@@ -61,9 +61,9 @@ ActiveRecord::Schema.define(:version => 20121212135221) do
 
   create_table "jobs", :force => true do |t|
     t.string   "name"
-    t.string   "status",     :limit => nil
-    t.datetime "created_at",                :null => false
-    t.datetime "updated_at",                :null => false
+    t.string   "status"
+    t.datetime "created_at", :null => false
+    t.datetime "updated_at", :null => false
     t.string   "url"
   end
 
