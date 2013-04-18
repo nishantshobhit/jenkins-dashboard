@@ -16,8 +16,12 @@ module US2
         job.save
         #get the latest build for the job and save it
         get_latest_build(job) do |build|
+<<<<<<< HEAD
           puts "Fetched: #{build.name}" if build.name
+          build.save
+=======
           build.save!
+>>>>>>> develop
         end
       end
     end
