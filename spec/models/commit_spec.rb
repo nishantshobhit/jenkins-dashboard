@@ -18,7 +18,20 @@ describe Commit, "-" do
 
     before do
       Commit.stub(:save)
+      Commit.stub(:new){FactoryGirl.build(:commit)}
       HTTParty.stub(:get){"response string"}
+    end
+
+    it "should return return an existing commit if found" do
+      Commit.stub(:exists?){true}
+      Commit.should_not_receive(:new)
+      Commit.from_api_response(test_json)
+    end
+
+    it "should create a new commit if an existing commit is not found" do
+      Commit.stub(:exists?){false}
+      Commit.should_receive(:new)
+      Commit.from_api_response(test_json)
     end
 
     it "should set a date" do
