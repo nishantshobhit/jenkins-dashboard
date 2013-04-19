@@ -2,8 +2,7 @@
 
 ### Getting Started
 
-* install [RVM](https://rvm.io/)
-* `cd` to the project directory
+* install [rbenv](https://github.com/sstephenson/rbenv/)
 * `bundle`
 
 ### Populating your local database
