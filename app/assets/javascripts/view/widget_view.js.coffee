@@ -5,12 +5,14 @@ class WidgetView
 
   set_insertions:(insertions) ->
     @insertions = insertions
-    @set_value((@insertions - @deletions), ".total-lines")
+    if @insertions and @deletions
+      @set_value((@insertions - @deletions), ".total-lines")
     @set_value(insertions, ".lines-added")
 
   set_deletions:(deletions) ->
     @deletions = deletions
-    @set_value((@insertions - @deletions), ".total-lines")
+    if @insertions and @deletions
+      @set_value((@insertions - @deletions), ".total-lines")
     @set_value(deletions, ".lines-removed")
 
   set_failed_builds:(failed) ->
