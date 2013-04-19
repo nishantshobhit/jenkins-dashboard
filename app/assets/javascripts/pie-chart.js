@@ -39,6 +39,11 @@ function fillArray() {
   return widgetsController.global_test_data();
 }
 
+function slices() {
+  array = fillArray()
+  return array.values.length
+}
+
 // Variable for the visualisation.
 var vis = d3.select(".pie-chart").append("svg:svg")
   .attr("width", w)
@@ -64,8 +69,7 @@ var updateInterval = window.setInterval(update, interval);
 // To run each time data is generated
 function update() {
 
-  slices = 3; // Number of slices
-  streakerDataAdded = d3.range(slices).map(fillArray);
+  streakerDataAdded = d3.range(slices()).map(fillArray);
 
   oldPieData = filteredPieData;
   pieData = donut(streakerDataAdded);
