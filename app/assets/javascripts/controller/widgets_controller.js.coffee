@@ -6,7 +6,7 @@ class WidgetsController
       labels: ["Passed", "Skipped", "Failed"]
       values: [0, 0, 0]
     $ ->
-      self.reload_test_data()
+      self.reload_duration_data()
       self.start_reload_timer()
       self.cycle_widgets()
 
@@ -15,7 +15,7 @@ class WidgetsController
     self = @
     @reload_timer = setInterval ->
       self.reload_stats_data()
-      self.reload_test_data()
+      self.reload_duration_data()
     , 10000
 
   # clear all timeout timers
@@ -68,6 +68,24 @@ class WidgetsController
             (data.failed / total * 100),
             (data.skipped / total * 100)
           ]
+
+  # request new test data from the server
+  reload_duration_data: ->
+    # parse data and convert to percentages
+    $.get "/api/duration.json",
+      (data) ->
+        total = 0
+        names = []
+        durations = []
+        response = data
+        for job in data
+          total = total + job.duration
+        for job in data
+          names.push(job.name)
+          durations.push(job.duration / total * 100)
+        self.test_data =
+          labels: names
+          values: durations
 
   # request new data from the server
   reload_stats_data: ->

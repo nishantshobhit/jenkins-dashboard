@@ -248,11 +248,17 @@ describe Build, "-" do
       build.health_response.should_not eq(nil)
     end
 
-    it "should return average duration" do
+    it "should return average build duration in seconds" do
+      build1 = FactoryGirl.build(:build, :duration => 0)
+      build2 = FactoryGirl.build(:build, :duration => 10000)
+      Build.average_duration_for_builds([build1, build2]).should eq(5)
+    end
+
+    it "should return daily average duration" do
       build = FactoryGirl.build(:build, success: true)
       build.job = Job.new(:name => "test")
       build.stub(:date){DateTime.now}
-      Build.duration_response_for_builds([build]).should_not eq(nil)
+      Build.duration_response_for_daily_builds([build]).should_not eq(nil)
     end
 
     it "should return average duration correctly" do
@@ -261,7 +267,7 @@ describe Build, "-" do
       time = DateTime.now
       build.stub(:date){time}
       build.stub(:duration){1000}
-      response = Build.duration_response_for_builds([build])
+      response = Build.duration_response_for_daily_builds([build])
 
       response.first[:date].should eq(time.to_date.to_s)
       response.first["test"].should eq(1)

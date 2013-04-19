@@ -50,7 +50,18 @@ class Build < ActiveRecord::Base
       @build
     end
 
-    def duration_response_for_builds(builds)
+    def average_duration_for_builds(builds)
+      total = 0
+      builds.each do |build|
+        if build.duration >  0
+          total = total + (build.duration / 1000)
+        end
+      end
+      total = total / builds.length
+      total
+    end
+
+    def duration_response_for_daily_builds(builds)
       response = []
       builds = builds.sort_by &:date
       build_groups = builds.group_by(&:group_by_day)
