@@ -4,6 +4,7 @@ describe US2::Jenkins, "-" do
 
   before do
     HTTParty.stub(:get){"response string"}
+    Build.any_instance.stub(:save!)
   end
 
   def jenkins
@@ -107,7 +108,6 @@ describe US2::Jenkins, "-" do
       HTTParty.stub(:get){build_json}
       Build.stub(:from_api_response){FactoryGirl.build(:build)}
       Job.any_instance.stub(:save)
-      Build.any_instance.stub(:save)
       HTTParty.stub(:get){build_json}
     end
 

@@ -13,6 +13,10 @@ class Commit < ActiveRecord::Base
       if !Commit.exists?(:sha1hash => api_response["id"])
         @commit = Commit.new
 
+        if !@commit
+          return
+        end
+
         if api_response["date"]
           date = DateTime.strptime(api_response["date"],"%Y-%m-%d %H:%M:%S %z")
           @commit.date = date

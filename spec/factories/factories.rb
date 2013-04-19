@@ -33,7 +33,7 @@ FactoryGirl.define do
     deletions 1
     files_changed 1
     insertions 1
-    sha1hash "hash"
+    sequence(:sha1hash){|n| "hash#{n}" }
     message "test message"
   end
 

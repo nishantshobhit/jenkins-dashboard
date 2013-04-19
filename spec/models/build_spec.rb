@@ -142,7 +142,7 @@ describe Build, "-" do
       build.developers = [FactoryGirl.build(:developer)]
       build.should_receive(:increment_developers_broken_build_count).exactly(1).times
 
-      build.save!
+      build.save!(:validate => false)
     end
 
     it "should not increment developer counts when build has no developers" do
@@ -153,7 +153,7 @@ describe Build, "-" do
 
       build.should_receive(:increment_developers_count).exactly(0).times
       test_build = FactoryGirl.build(:build)
-      test_build.save!
+      test_build.save!(:validate => false)
     end
 
     it "should not increment developer counts for succesful builds before save" do
@@ -164,7 +164,7 @@ describe Build, "-" do
 
       build.should_receive(:increment_developers_count).exactly(0).times
       test_build = FactoryGirl.build(:build)
-      test_build.save!
+      test_build.save!(:validate => false)
     end
 
     it "should increment developer counts for failed builds" do
@@ -192,7 +192,7 @@ describe Build, "-" do
       US2::Jenkins.any_instance.should_receive(:get_test_report)
       build = FactoryGirl.build(:build, success: true)
       build.stub(:update_developers)
-      build.save!
+      build.save!(:validate => false)
     end
 
     describe "When a test report is found" do
@@ -207,7 +207,7 @@ describe Build, "-" do
         report.should_not_receive(:save!)
 
         build.stub(:update_developers)
-        build.save!
+        build.save!(:validate => false)
       end
 
       it "should assign itself to the test report" do
@@ -218,7 +218,7 @@ describe Build, "-" do
 
         report.should_receive(:build_id=).with(build.id)
         build.stub(:update_developers)
-        build.save!
+        build.save!(:validate => false)
       end
 
       it "should save the report" do
@@ -229,7 +229,7 @@ describe Build, "-" do
 
         build = FactoryGirl.build(:build, success: true)
         build.stub(:update_developers)
-        build.save!
+        build.save!(:validate => false)
       end
 
     end
@@ -237,6 +237,11 @@ describe Build, "-" do
   end
 
   describe "When returning responses" do
+
+    before do
+      Build.any_instance.stub(:save!)
+      Build.any_instance.stub(:save)
+    end
 
     it "should return a health response" do
       build = FactoryGirl.build(:build, success: true)
