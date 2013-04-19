@@ -5,8 +5,8 @@
 
 // Variables.
 
-var w = 900; // Pie chart width.
-var h = 900; // Pie chart height.
+var w = 1900; // Pie chart width.
+var h = 1000; // Pie chart height.
 var r = 400; // Pie chart radius.
 var textOffset = 15; // Distance of the text from the pie chart.
 var tweenDuration = 800; // Duration of the animation.

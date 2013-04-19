@@ -7,7 +7,7 @@ $key-purple: #4B226C;
 .pie-chart {
   background-color: $key-orange;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 30px;
   font-family: "Montserrat", "Helvetica Neue", sans-serif;
   text-shadow: 1px 1px 0 rgba(0,0,0,.04);
   .units {
@@ -24,7 +24,7 @@ $key-purple: #4B226C;
     position: absolute;
     top: 50%;
     left: 50%;
-    margin: -550px 0 0 -550px;
+    margin: -600px 0 0 -1050px;
     padding: 100px;
 
   }
