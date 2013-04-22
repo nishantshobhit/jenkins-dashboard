@@ -5,6 +5,7 @@ describe US2::Jenkins, "-" do
   before do
     HTTParty.stub(:get){"response string"}
     Build.any_instance.stub(:save!)
+    US2::Jenkins.any_instance.stub(:puts)
   end
 
   def jenkins

@@ -22,6 +22,7 @@ describe Job, "-" do
     Job.any_instance.stub(:update_attributes){true}
     Job.any_instance.stub(:save){true}
     HTTParty.stub(:get){"response string"}
+    US2::Jenkins.any_instance.stub(:puts)
   end
 
   describe "When parsing jobs json" do

@@ -2,6 +2,10 @@ require "spec_helper"
 
 describe Developer, "-" do
 
+  before do
+    US2::Jenkins.any_instance.stub(:puts)
+  end
+
   def test_json
     # create json hash
     developer = {}

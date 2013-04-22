@@ -19,6 +19,7 @@ describe Commit, "-" do
     before do
       HTTParty.stub(:get){"response string"}
       Commit.any_instance.stub(:save)
+      US2::Jenkins.any_instance.stub(:puts)
     end
 
     it "should return return an existing commit if found" do

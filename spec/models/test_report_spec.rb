@@ -13,6 +13,7 @@ describe TestReport do
 
   before do
     HTTParty.stub(:get){"response string"}
+    US2::Jenkins.any_instance.stub(:puts)
   end
 
   describe "When parsing" do

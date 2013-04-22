@@ -4,6 +4,7 @@ describe US2::Request, "-" do
 
   def request
     US2::Request.instance
+    US2::Jenkins.any_instance.stub(:puts)
   end
 
   describe "When executing requests" do
