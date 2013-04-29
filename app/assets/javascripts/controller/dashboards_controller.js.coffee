@@ -52,7 +52,6 @@ class DashboardsController
     $(".widget").not(":first").hide()
     $(".widget").not(":first").children("h1").hide()
     @cycle_timer = setInterval ->
-      console.log("cycling widgets")
       widgets = $(".widget")
       if widgets.length > 1
         first = widgets.eq(0)
