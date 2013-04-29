@@ -6,6 +6,7 @@ class DashboardsController
       DashboardView.hide_toolbar()
       self.toolbar_listener()
       self.start_reload_timer()
+      self.cycle_widgets()
 
   # listen for toolbar hover to show/hide
   toolbar_listener: ->
@@ -44,5 +45,34 @@ class DashboardsController
   createDashboard: (name) ->
 
   deleteDashboard: (id) ->
+
+  # cycle inbetween all widgets in a dashboard
+  cycle_widgets: ->
+    self = @
+    $(".widget").not(":first").hide()
+    $(".widget").not(":first").children("h1").hide()
+    @cycle_timer = setInterval ->
+      console.log("cycling widgets")
+      widgets = $(".widget")
+      if widgets.length > 1
+        first = widgets.eq(0)
+        second = widgets.eq(1)
+        first.children("h1").fadeOut(1000)
+        if first.hasClass("project-development-stats")
+          hideSequentially(first.find("li"), 100, ->
+            first.find("li").removeClass("out")
+            first.fadeOut(1000)
+            second.fadeIn(1000)
+            second.children("h1").fadeIn(1000, ->
+              first.remove().appendTo(".widgets")
+            )
+          )
+        else
+          first.fadeOut(1000)
+          second.fadeIn(1000)
+          second.children("h1").fadeIn(1000, ->
+            first.remove().appendTo(".widgets")
+          )
+    , 30000
 
   window.DashboardsController = new DashboardsController()
