@@ -17,7 +17,7 @@ var lines, valueLabels, nameLabels;
 var pieData = [];
 var oldPieData = [];
 var filteredPieData = [];
-var widgetsController = window.WidgetsController
+var widgetsController = new window.PieWidgetController()
 
 // D3 helper function to populate pie slice parameters from array data.
 var donut = d3.layout.pie().value(function(d, i){
@@ -36,7 +36,7 @@ var slices;
 var streakerDataAdded;
 
 function fillArray() {
-  return widgetsController.global_test_data();
+  return widgetsController.pie_data();
 }
 
 function slices() {

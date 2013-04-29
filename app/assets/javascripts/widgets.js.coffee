@@ -8,14 +8,16 @@ $(document).ready ->
   $(".to").datepicker()
 
   $("#new-widget").click ->
-
     url = $("#new-widget").attr("href")
     name = $("#widget_name").val()
     dashboard_id = $("#dashboard_id").val()
     data_type = $("#data-type").val()
     layout = $("#layout").val()
     size = $("#size").val()
-    job_id = $("#job").val()
+    if name == "All"
+        job_id = 0
+    else
+        job_id = $("#job").val()
     from = $("#widget_from").val()
     to = $("#widget_to").val()
 
