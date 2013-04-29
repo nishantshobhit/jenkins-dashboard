@@ -14,9 +14,7 @@ $(document).ready ->
     data_type = $("#data-type").val()
     layout = $("#layout").val()
     size = $("#size").val()
-    if name == "All"
-        job_id = 0
-    else
+    if $("#job").text() != "All"
         job_id = $("#job").val()
     from = $("#widget_from").val()
     to = $("#widget_to").val()
