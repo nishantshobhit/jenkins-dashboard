@@ -1,23 +1,18 @@
 class WidgetModel extends BaseModel
-  constructor: (data) ->
-    @assignProperty("name", data)
-    @assignProperty("dashboard_id", data)
-    @assignProperty("job_id", data)
-    @assignProperty("data_type", data)
-    @assignProperty("layout", data)
-    @assignProperty("size", data)
-    @assignProperty("from", data)
-    @assignProperty("to", data)
+  constructor: (form) ->
+    @assignProperty("name", form.find("#widget_name").val())
+    @assignProperty("dashboard_id", form.find("#dashboard_id").val())
+    @assignProperty("job_id", form.find("#job_id").val())
+    @assignProperty("data_type", form.find("#data_type").val())
+    @assignProperty("layout", form.find("#layout").val())
+    @assignProperty("size", form.find("#size").val())
 
   toJSON: ->
-    widget:
-      name: @name
-      dashboard_id: @dashboard_id
-      job_id: @job_id
-      data_type: @data_type
-      layout: @layout
-      size: @size
-      to: @to
-      from: @from
+    name: @name
+    dashboard_id: @dashboard_id
+    job_id: @job_id
+    data_type: @data_type
+    layout: @layout
+    size: @size
 
-window.WidgetModel = ChalkboardModel
+window.WidgetModel = WidgetModel

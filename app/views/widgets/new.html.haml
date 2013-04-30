@@ -1,6 +1,3 @@
-= content_for :head do
-  = javascript_include_tag :widgets
-
 = form_for @widget, :html => {:class => 'form-horizontal'} do |f|
   = hidden_field_tag "dashboard_id", params[:dashboard_id]
   %div.control-group
@@ -10,11 +7,11 @@
   %div.control-group
     = f.label :job, :class => "control-label"
     %div.controls
-      = select_tag "job", options_from_collection_for_select(@jobs, "id", "name")
+      = select_tag "job_id", options_from_collection_for_select(@jobs, "id", "name")
   %div.control-group
     = f.label :data, :class => "control-label"
     %div.controls
-      = select_tag "data-type", options_from_collection_for_select(@widget.data_types, "to_s", "to_s")
+      = select_tag "data_type", options_from_collection_for_select(@widget.data_types, "to_s", "to_s")
   %div.control-group
     = f.label :layout, :class => "control-label"
     %div.controls

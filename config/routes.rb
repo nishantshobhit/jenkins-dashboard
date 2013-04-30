@@ -21,7 +21,6 @@ JenkinsDashboard::Application.routes.draw do
 	resources :dashboards do
 		resources :widgets
 	end
-	resources :widgets
 
 	match "api/current_path" => "api/base#current_path"
 

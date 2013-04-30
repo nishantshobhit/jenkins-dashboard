@@ -9,7 +9,9 @@ class WidgetsController < ApplicationController
   def create
     @widget = Widget.create(params[:widget])
     if @widget.save
-      redirect_to root_path
+      render :json => {}
+    else
+      render :json => {"error" => "failed to save"}, :status => 500
     end
   end
 
