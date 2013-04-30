@@ -17,7 +17,7 @@ class TextWidgetController extends WidgetController
 
   # load then new data into the widget
   parse_data:(data, widget) ->
-    widgetView = new WidgetView(widget)
+    widgetView = new TextWidgetView(widget)
     job = data.job
     widgetView.set_insertions(job.insertions)
     widgetView.set_deletions(job.deletions)
