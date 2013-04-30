@@ -158,5 +158,5 @@ $(document).ready(function(){
   // setTimeout(function(){
   //   hideSequentially('.project-development-stats li', 100);
   // }, 12000);
-
+  wigetController = new window.TextWidgetController()
 });
