@@ -3,11 +3,39 @@ class DashboardsController
   constructor: ->
     self = @
     $ ->
-      DashboardView.hide_toolbar()
-      self.toolbar_listener()
-      self.start_reload_timer()
-      self.cycle_widgets()
-      self.new_widget_listener()
+      if typeof DashboardView != "undefined"
+        DashboardView.hide_toolbar()
+        self.toolbar_listener()
+        self.start_reload_timer()
+        self.cycle_widgets()
+        self.new_widget_listener()
+      self.save_listener()
+      self.delete_listener()
+      self.add_listener()
+
+  save_listener: ->
+    $("#save-dashboard").click ->
+      name = $("#dashboard_name").val()
+      $.post this.href,
+        dashboard:
+          name: name
+        (data) ->
+          $("#modal").modal('hide')
+          location.reload() #TODO load the content in nicely
+      false
+
+  delete_listener: ->
+    $(".delete-dashboard").click ->
+      button = $(this)
+      $.ajax this.href,
+        type: "DELETE"
+        success: (data, textStatus, jqXHR) ->
+          button.parent().fadeOut()
+      false
+
+  add_listener: ->
+    $("#add-dashboard").click ->
+      $("#modal").modal('show')
 
   # listen for toolbar hover to show/hide
   toolbar_listener: ->
@@ -82,7 +110,6 @@ class DashboardsController
       $.post url,
         widget: widget.toJSON()
         (data) ->
-          console.log(data)
           $("#modal").modal('hide')
           location.reload() #TODO nice reload
       false
