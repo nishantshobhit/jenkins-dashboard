@@ -55,8 +55,6 @@ GEM
       sass (~> 3.1)
     compass-rails (1.0.3)
       compass (>= 0.12.2, < 0.14)
-    d3-rails (0.0.5)
-      railties (>= 3.1)
     daemon_controller (1.1.2)
     diff-lcs (1.2.3)
     em-websocket (0.5.0)
@@ -242,6 +240,7 @@ DEPENDENCIES
   rake (= 10.0.4)
   rb-fsevent (~> 0.9.1)
   rb-readline
+  rspec
   rspec-rails
   rvm-capistrano
   sass-rails (~> 3.2.3)

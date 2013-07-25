@@ -59,6 +59,7 @@ group :test do
   gem 'yarjuf'
   gem 'simplecov-rcov'
   gem 'simplecov'
+  gem "rspec"
   gem "rspec-rails"
   gem "spork"
   gem "guard-spork"
