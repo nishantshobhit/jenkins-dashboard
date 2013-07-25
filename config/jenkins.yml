@@ -1,0 +1,13 @@
+defaults: &defaults
+  client_key: your_client_key
+  client_id: your_client_id
+  client_url: your_client_url
+
+development:
+  <<: *defaults
+
+test:
+  <<: *defaults
+
+production:
+  <<: *defaults
