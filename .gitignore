@@ -28,3 +28,5 @@ ignored/
 
 test-reports/
 coverage/
+
+deploy.rb
