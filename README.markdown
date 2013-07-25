@@ -54,7 +54,11 @@ You will need to write to your system/servers crontab to start the cron job usin
 
 #### Populating the database
 
-There is a rake task available which will traverse through your Jenkins history 
+There is a rake task available which will traverse through your Jenkins history and populate the database with all jobs. 
+
+    rake populate
+
+See issue #1.
 
 ### Documentation
 
