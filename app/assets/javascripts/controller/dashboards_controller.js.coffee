@@ -8,7 +8,6 @@ class DashboardsController
         self.toolbar_listener()
         self.start_reload_timer()
         self.cycle_widgets()
-        self.new_widget_listener()
       self.save_listener()
       self.delete_listener()
       self.add_listener()
@@ -102,17 +101,5 @@ class DashboardsController
             first.remove().appendTo(".widgets")
           )
     , 30000
-
-  new_widget_listener: ->
-    $("#new-widget").click ->
-      widget = new window.WidgetModel($("form#new_widget"))
-      url = $("#new-widget").attr("href")
-      $.post url,
-        widget: widget.toJSON()
-        (data) ->
-          $("#modal").modal('hide')
-          location.reload() #TODO nice reload
-      false
-
 
   window.DashboardsController = new DashboardsController()
