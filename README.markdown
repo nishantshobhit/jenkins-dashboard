@@ -66,5 +66,5 @@ TBC
 
 ### Team
 
-* Developers: [Alex Fish](https://github.com/alexefish), Nuno Coelho Santos
-* Design:  Nuno Coelho Santos
+* Developers: [Alex Fish](https://github.com/alexefish), [Nuno Coelho Santos](https://github.com/nunosans)
+* Design:  [Nuno Coelho Santos](https://github.com/nunosans)
