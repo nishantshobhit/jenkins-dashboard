@@ -2,8 +2,8 @@
 
 A Ruby powered Jenkins dashboard, Jenkins dashboard summarises job and build data into an easy to digest dashboard optimized for large displays. 
 
-![Screenshot](https://github.com/ustwo/jenkins-dashboard/blob/master/doc/screenshot1.png)
-![Screenshot](https://github.com/ustwo/jenkins-dashboard/blob/master/doc/screenshot2.png)
+![Screenshot](https://github.com/ustwo/jenkins-dashboard/blob/master/doc/screenshot1.png?raw=true)
+![Screenshot](https://github.com/ustwo/jenkins-dashboard/blob/master/doc/screenshot2.png?raw=true)
 
 ### Dependencies 
 
