@@ -60,6 +60,10 @@ There is a rake task available which will traverse through your Jenkins history 
 
 See issue #1.
 
+#### Running tests
+
+To run tests locally simply execute the `guard` command. 
+
 ### Documentation
 
 TBC
