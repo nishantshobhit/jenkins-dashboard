@@ -3,7 +3,12 @@ rvm:
   - 1.9.3-p327
 before_script:
   - psql -c 'create database jenkinsdashboard_test;' -U postgres
-script: bundle exec rspec spec
+env:
+  - DB=postgresql
+script:
+  - RAILS_ENV=test bundle exec rake db:migrate --trace
+  - bundle exec rake db:test:prepare
+  - bundle exec rspec spec/
 notifications:
   email:
     - fish@ustwo.co.uk
