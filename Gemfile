@@ -36,9 +36,6 @@ gem 'whenever', :require => false
 # foreman
 gem "foreman"
 
-# big brother is watching you
-gem "spellchecker", "~> 0.1.5"
-
 # capistrano
 gem 'rvm-capistrano'
 
