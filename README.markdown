@@ -1,5 +1,7 @@
 # Jenkins Dashboard
 
+[![Build Status](https://travis-ci.org/ustwo/jenkins-dashboard.png?branch=master)](https://travis-ci.org/ustwo/jenkins-dashboard)
+
 A Ruby powered Jenkins dashboard, Jenkins dashboard summarises job and build data into an easy to digest dashboard optimized for large displays. 
 
 ![Screenshot](https://github.com/ustwo/jenkins-dashboard/blob/master/doc/screenshot1.png?raw=true)
