@@ -2,8 +2,7 @@ require "spec_helper"
 
 describe US2::Request, "-" do
 
-  def request
-    US2::Request.instance
+  before do request
     US2::Jenkins.any_instance.stub(:puts)
   end
 
