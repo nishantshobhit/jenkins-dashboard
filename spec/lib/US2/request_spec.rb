@@ -16,11 +16,6 @@ describe US2::Request, "-" do
       US2::Request.new
     end
 
-    it "should send a request to a url" do
-      HTTParty.should_receive(:get).with("http://google.com", anything())
-      request.async_request("http://google.com")
-    end
-
     it "should execute a callback on completion" do
       request.async_request("http://google.com") do |response|
         response.should match("response string")
