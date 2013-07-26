@@ -15,16 +15,16 @@ group :assets do
   gem 'compass-rails'
 end
 
+# markup
 gem "haml", "~> 3.1.7"
 gem 'sass-rails',   '~> 3.2.3'
-gem 'coffee-rails', '~> 3.2.1'
 gem 'uglifier', '>= 1.0.3'
-# General
 
 # js
 gem 'therubyracer'
 gem 'jquery-rails'
 gem 'json'
+gem 'coffee-rails', '~> 3.2.1'
 
 # requests
 gem 'httparty'
@@ -33,13 +33,16 @@ gem "bcrypt-ruby", :require => "bcrypt"
 # cron
 gem 'whenever', :require => false
 
+# coveralls
+gem 'coveralls', require: false
+
 # foreman
 gem "foreman"
 
 # capistrano
 gem 'rvm-capistrano'
 
-# passegner
+# passenger
 gem 'passenger'
 
 # environment specific
@@ -54,8 +57,6 @@ end
 
 group :test do
   gem 'yarjuf'
-  gem 'simplecov-rcov'
-  gem 'simplecov'
   gem "rspec"
   gem "rspec-rails"
   gem "spork"

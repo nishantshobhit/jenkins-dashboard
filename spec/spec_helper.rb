@@ -2,11 +2,11 @@ require 'rubygems'
 require 'spork'
 require 'factory_girl_rails'
 require 'yarjuf'
-require 'simplecov'
-require 'simplecov-rcov'
+require 'coveralls'
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
+Coveralls.wear!('rails')
 
 Spork.prefork do
   # Loading more in this block will cause your tests to run faster. However,
@@ -63,15 +63,3 @@ Spork.each_run do
   # This code will be run each time you run your specs.
   FactoryGirl.reload
 end
-
-# Get code coverage
-SimpleCov.formatter = SimpleCov::Formatter::RcovFormatter
-SimpleCov.start do
-  add_group 'Controllers', 'app/controllers'
-  add_group 'Models', 'app/models'
-  add_group 'Helpers', 'app/helpers'
-  add_group 'Mailers', 'app/mailers'
-  add_group 'Views', 'app/views'
-  add_group 'US2', 'US2'
-  add_filter '/spec/'
-end if ENV["COVERAGE"]
