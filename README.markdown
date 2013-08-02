@@ -13,7 +13,7 @@ A Ruby powered Jenkins dashboard, Jenkins dashboard summarises job and build dat
 * [Ruby](http://www.ruby-lang.org/en/)
 * [PostgreSQL](http://www.postgresql.org/)
 * [rbenv](https://github.com/sstephenson/rbenv) (recommended)
-* [git plugin fork](https://github.com/alexefish/git-plugin)
+* [git plugin fork](https://github.com/alexefish/git-plugin) (unstable)
 
 ### Gems
 
